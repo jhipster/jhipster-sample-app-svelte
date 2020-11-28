@@ -1,0 +1,91 @@
+<style>
+	input:-webkit-autofill,
+	input:-webkit-autofill:hover,
+	input:-webkit-autofill:focus,
+	input:-webkit-autofill:active {
+		-webkit-box-shadow: 0 0 0 30px white inset !important;
+	}
+	input {
+		filter: none;
+	}
+</style>
+
+<script>
+	import { createEventDispatcher } from 'svelte'
+	import Icon from 'fa-svelte'
+	import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons/faExclamationCircle'
+
+	import validate from '../utils/validator.js'
+
+	export let value = ''
+	export let type = 'text'
+	export let name
+	export let label
+	export let validations = []
+
+	let dirty = false
+	let valid = false
+	let message
+	let focused = false
+	const dispatch = createEventDispatcher()
+
+	$: focusedOrContainsValue = value !== '' || focused
+	$: pristine = !focused && !dirty
+	$: focusedAndValidOrPristine = focused && (!dirty || valid)
+	$: dirtyAndInvalid = dirty && !valid
+	$: isRequired =
+		validations.find(validation => validation.type === 'required') !==
+		undefined
+	function handleValidationResponse(event) {
+		dirty = true
+		valid = event.detail.valid
+		message = event.detail.message
+		dispatch('validate', { valid, message })
+	}
+</script>
+
+<div class="mt-4 relative h-12">
+	<label
+		class="absolute left-0 px-1 ml-2 transition-all duration-200
+			pointer-events-none"
+		class:-mt-2="{focusedOrContainsValue}"
+		class:z-20="{focusedOrContainsValue}"
+		class:bg-white="{focusedOrContainsValue}"
+		class:top-0="{focusedOrContainsValue}"
+		class:pt-3="{!focusedOrContainsValue}"
+		class:pt-0="{focusedOrContainsValue}"
+		class:text-xs="{focusedOrContainsValue}"
+		class:text-gray-600="{!focused}"
+		class:text-blue-700="{focusedAndValidOrPristine}"
+		class:text-red-600="{dirtyAndInvalid && focused}"
+		for="{name}"
+	>{label}<span class="ml-px">{isRequired ? '*' : ''}</span>
+	</label>
+	<input
+		class="px-3 py-3 w-full shadow-none bg-white outline-none rounded z-10"
+		class:border="{!focused}"
+		class:border-2="{focused}"
+		class:border-gray-400="{pristine}"
+		class:border-blue-600="{focusedAndValidOrPristine}"
+		class:border-red-600="{dirtyAndInvalid}"
+		type="{type}"
+		name="{name}"
+		value="{value}"
+		on:input
+		on:focus="{() => (focused = true)}"
+		on:blur="{() => (focused = false)}"
+		use:validate="{validations}"
+		on:validation="{handleValidationResponse}"
+		{...$$restProps}
+	/>
+</div>
+<div class="flex flex-col mt-1 px-3 text-xs text-red-600">
+	<slot message="{message}" dirty="{dirty}" valid="{valid}">
+		{#if dirty && !valid}
+			<div data-test="{name}-error" class="flex items-center">
+				<Icon class="fa-icon mr-2" icon="{faExclamationCircle}" />
+				{message}
+			</div>
+		{:else}&nbsp;{/if}
+	</slot>
+</div>

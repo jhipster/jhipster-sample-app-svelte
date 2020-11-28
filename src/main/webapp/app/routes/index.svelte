@@ -1,0 +1,114 @@
+<script>
+	import auth from '../components/auth/auth-store.js'
+	import AppAvatar from '../components/svg/AppAvatar.svelte'
+</script>
+
+<svelte:head>
+	<title>Welcome, Svelte Hipster!</title>
+</svelte:head>
+
+<section class="m-3 bg-white shadow-md rounded p-4">
+	<div
+		class="flex flex-col justify-center items-center sm:flex-row
+			sm:justify-between"
+	>
+		<div
+			class="w-1/2 sm:w-1/4 sm:h-auto sm:px-4 object-cover object-center"
+		>
+			<AppAvatar />
+		</div>
+
+		<div class="sm:flex-grow sm:px-4">
+			<h1 data-test="welcomeTitle" class="text-5xl">
+				Welcome, Svelte Hipster!
+			</h1>
+
+			<p class="text-xl mt-2">This is your homepage</p>
+
+			<div class="mt-4">
+				{#if $auth}
+					<div
+						data-test="greetMsg"
+						class="px-5 py-3 bg-green-200 text-green-900 rounded"
+					>
+						<span>You are logged in as user "{$auth.login}".</span>
+					</div>
+				{:else}
+					<div
+						data-test="loginInstructions"
+						class="px-5 py-3 bg-orange-200 text-orange-900 rounded"
+					>
+						<span>If you want to </span>
+						<a class="font-semibold" href="/login">sign in</a><span
+						>, you can try the default accounts:<br />-
+							Administrator (login="admin" and password="admin")
+							<br />- User (login="user" and password="user").</span>
+					</div>
+
+					<div
+						class="px-5 py-3 mt-4 bg-orange-200 text-orange-900
+							rounded"
+					>
+						<span>You don't have an account yet?</span>&nbsp;
+						<a
+							data-test="svlRegisterHomeLink"
+							class="font-semibold"
+							href="/account/register"
+						>Register a new account</a>
+					</div>
+				{/if}
+			</div>
+
+			<p class="mt-4">If you have any question on JHipster:</p>
+
+			<ul class="mt-4 pl-10 list-disc text-orange-900 font-semibold">
+				<li>
+					<a
+						href="https://www.jhipster.tech/"
+						target="_blank"
+						rel="noopener noreferrer"
+					>JHipster homepage</a>
+				</li>
+				<li>
+					<a
+						href="https://stackoverflow.com/tags/jhipster/info"
+						target="_blank"
+						rel="noopener noreferrer"
+					>JHipster on Stack Overflow</a>
+				</li>
+				<li>
+					<a
+						href="https://github.com/jhipster/generator-jhipster-svelte/issues?state=open"
+						target="_blank"
+						rel="noopener noreferrer"
+					>JHipster Svelte bug tracker</a>
+				</li>
+				<li>
+					<a
+						href="https://gitter.im/jhipster/generator-jhipster"
+						target="_blank"
+						rel="noopener noreferrer"
+					>JHipster public chat room</a>
+				</li>
+				<li>
+					<a
+						href="https://twitter.com/jhipster"
+						target="_blank"
+						rel="noopener noreferrer"
+					>follow @jhipster on Twitter</a>
+				</li>
+			</ul>
+
+			<p class="mt-4">
+				<span>If you like JHipster Svelte, don't forget to give us a
+					star on</span>
+				<a
+					class="font-semibold text-orange-900"
+					href="https://github.com/jhipster/generator-jhipster-svelte"
+					target="_blank"
+					rel="noopener noreferrer"
+				>GitHub</a>!
+			</p>
+		</div>
+	</div>
+</section>

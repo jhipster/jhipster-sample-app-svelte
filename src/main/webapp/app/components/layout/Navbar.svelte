@@ -1,0 +1,73 @@
+<script>
+	import Icon from 'fa-svelte'
+	import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
+	import { faSignInAlt } from '@fortawesome/free-solid-svg-icons/faSignInAlt'
+	import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus'
+
+	import NavItem from './NavItem.svelte'
+	import auth from '../auth/auth-store.js'
+	import AccountMenu from './AccountMenu.svelte'
+
+	let isToolbarOpen = false
+
+	function toggleToolbar() {
+		isToolbarOpen = !isToolbarOpen
+	}
+</script>
+
+<header
+	class="sticky top-0 w-full bg-gray-800 sm:flex sm:justify-between sm:px-4
+		sm:py-3"
+>
+	<div class="flex items-center justify-between px-4 py-3 sm:p-0">
+		<div class="flex items-baseline justify-between text-gray-100">
+			<a href="/" on:click="{() => (isToolbarOpen = false)}"><img
+					class="w-12 m-auto"
+					src="img/logo-jhipster.png"
+					alt="Application logo"
+				/></a>
+			<div data-test="svlAppName" class="ml-2 font-semibold text-xl">
+				svelteSampleApplication
+			</div>
+			<div data-test="svlAppVersion" class="ml-2 text-xs text-gray-500">
+				DEV
+			</div>
+		</div>
+		<div class="sm:hidden">
+			<button
+				data-test="svlNavBtn"
+				on:click="{toggleToolbar}"
+				type="button"
+				class="block px-2 py-1 outline-none hover:text-white
+					focus:outline-none focus:shadow-outline rounded
+					focus:text-white text-gray-500"
+			>
+				<Icon class="fa-icon" icon="{faBars}" />
+			</button>
+		</div>
+	</div>
+	<div class:hidden="{!isToolbarOpen}" class="sm:flex">
+		{#if $auth}
+			<div data-test="svlAcctMenu" class="sm:ml-4">
+				<AccountMenu />
+			</div>
+		{:else}
+			<div data-test="svlLoginLink" class="sm:ml-4">
+				<NavItem
+					on:click="{toggleToolbar}"
+					label="Sign in"
+					icon="{faSignInAlt}"
+					route="/login"
+				/>
+			</div>
+			<div data-test="svlRegisterLink" class="sm:ml-4 pb-3 sm:pb-0">
+				<NavItem
+					on:click="{toggleToolbar}"
+					label="Sign up"
+					icon="{faUserPlus}"
+					route="/account/register"
+				/>
+			</div>
+		{/if}
+	</div>
+</header>

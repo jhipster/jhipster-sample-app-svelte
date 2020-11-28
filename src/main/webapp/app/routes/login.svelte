@@ -1,0 +1,113 @@
+<script>
+	import { goto } from '@sapper/app'
+
+	import AppLogo from './../components/svg/AppLogo.svelte'
+	import Alert from './../components/Alert.svelte'
+	import InputControl from '../components/InputControl.svelte'
+
+	import auth from './../components/auth/auth-store.js'
+	import authService from './../components/auth/auth-service.js'
+
+	let username
+	let password
+	let rememberMe = false
+	let authError = false
+	let validUsername = false
+	let validPassword = false
+
+	$: validForm = validUsername && validPassword
+
+	function login() {
+		authError = false
+
+		authService
+			.login(username, password, rememberMe)
+			.then(() => auth.loadUser())
+			.then(() => goto('/'))
+			.catch(() => ((password = ''), (authError = true)))
+	}
+</script>
+
+<svelte:head>
+	<title>Sign in to SvelteHipster</title>
+</svelte:head>
+
+<section class="flex h-screen items-start justify-center">
+	<div class="p-4 w-full sm:w-112 mx-4 sm:m-0">
+		<div class="px-4 py-3 mt-4 sm:mx-0 flex justify-center">
+			<div class="w-3/4">
+				<AppLogo />
+			</div>
+		</div>
+		<div
+			data-test="signInTitle"
+			class="mt-4 px-4 w-full text-3xl text-center"
+		>
+			Sign in to SvelteHipster
+		</div>
+		<Alert data-test="errorMsg" type="danger" show="{!!authError}">
+			Incorrect username or password.
+		</Alert>
+		<form
+			data-test="loginForm"
+			class="mt-4 p-4 flex flex-col bg-white shadow-md rounded"
+		>
+			<InputControl
+				label="Username"
+				name="username"
+				value="{username}"
+				on:input="{event => (username = event.target.value)}"
+				required
+				validations="{[{ type: 'required', message: 'Username is mandatory' }]}"
+				on:validate="{event => (validUsername = event.detail.valid)}"
+			/>
+
+			<InputControl
+				type="password"
+				label="Password"
+				name="password"
+				value="{password}"
+				on:input="{event => (password = event.target.value)}"
+				required
+				validations="{[{ type: 'required', message: 'Password is mandatory' }]}"
+				on:validate="{event => (validPassword = event.detail.valid)}"
+			/>
+
+			<div class="mt-2">
+				<label class="flex items-center">
+					<input
+						class="mr-2"
+						type="checkbox"
+						name="rememberMe"
+						bind:checked="{rememberMe}"
+					/>
+					Remember me
+				</label>
+			</div>
+
+			<button
+				type="submit"
+				on:click|preventDefault="{login}"
+				class="my-4 w-32 m-auto btn btn-primary"
+				disabled="{!validForm}"
+			>Sign in</button>
+		</form>
+
+		<div class="mt-5 px-4 flex justify-between text-blue-600">
+			<div>
+				<a
+					data-test="forgotPwdLink"
+					href="/account/reset/init"
+					class="font-semibold"
+				>Forgot password?</a>
+			</div>
+			<div>
+				<a
+					data-test="registerLink"
+					href="/account/register"
+					class="font-semibold"
+				>Create an account</a>
+			</div>
+		</div>
+	</div>
+</section>

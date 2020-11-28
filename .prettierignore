@@ -1,0 +1,10 @@
+node_modules
+target
+build
+package-lock.json
+.git
+.mvn
+gradle
+.gradle
+/src/main/webapp/static/vendor.css
+/src/test/resources/templates/mail
