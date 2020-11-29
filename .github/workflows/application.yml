@@ -1,0 +1,32 @@
+name: Application CI
+on: [push, pull_request]
+jobs:
+    svelte-hipster:
+        name: Svelte Hipster
+        runs-on: ubuntu-latest
+        timeout-minutes: 40
+        env:
+            SPRING_OUTPUT_ANSI_ENABLED: DETECT
+            SPRING_JPA_SHOW_SQL: false
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: '12.x'
+            - uses: actions/setup-java@v1
+              with:
+                  java-version: '11.x'
+            - name: Stop MySQL server
+              run: sudo /etc/init.d/mysql stop
+            - name: Install node.js packages
+              run: npm ci
+            - name: Run backend test
+              run: |
+                  chmod +x mvnw
+                  ./mvnw -ntp clean verify -P-webpack
+            - name: Run frontend test
+              run: npm run test
+            - name: Package application
+              run: ./mvnw -ntp package -Pprod -DskipTests
+            - name: Sonar analysis
+              run: ./mvnw initialize sonar:sonar -Dsonar.organization=jhipster -Dsonar.projectKey=jhipster_jhipster-sample-app-svelte -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io
