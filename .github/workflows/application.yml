@@ -30,3 +30,4 @@ jobs:
               run: ./mvnw initialize sonar:sonar -Dsonar.organization=jhipster -Dsonar.projectKey=jhipster_jhipster-sample-app-svelte -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io
               env:
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
