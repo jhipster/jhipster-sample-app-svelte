@@ -3,7 +3,8 @@
 	viewBox="0 0 792 1135.9"
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
-><radialGradient
+><title>Application Avatar</title>
+	<radialGradient
 		id="a"
 		cx="99.0069"
 		cy="719.4542"

@@ -254,7 +254,6 @@ public class ExceptionTranslator
 							.orElse(null)
 					);
 			}
-
 			if (throwable instanceof DataAccessException) {
 				return Problem
 					.builder()
@@ -270,7 +269,6 @@ public class ExceptionTranslator
 							.orElse(null)
 					);
 			}
-
 			if (containsPackageName(throwable.getMessage())) {
 				return Problem
 					.builder()

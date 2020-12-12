@@ -5,6 +5,7 @@
 
 <svelte:head>
 	<title>Welcome, Svelte Hipster!</title>
+	<meta name="Description" content="svelteSampleApplication home page" />
 </svelte:head>
 
 <section class="m-3 bg-white shadow-md rounded p-4">
