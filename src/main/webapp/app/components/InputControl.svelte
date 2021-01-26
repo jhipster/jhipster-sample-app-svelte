@@ -1,21 +1,9 @@
-<style>
-	input:-webkit-autofill,
-	input:-webkit-autofill:hover,
-	input:-webkit-autofill:focus,
-	input:-webkit-autofill:active {
-		-webkit-box-shadow: 0 0 0 30px white inset !important;
-	}
-	input {
-		filter: none;
-	}
-</style>
-
 <script>
-	import { createEventDispatcher } from 'svelte'
+	import { createEventDispatcher, afterUpdate } from 'svelte'
 	import Icon from 'fa-svelte'
 	import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons/faExclamationCircle'
 
-	import validate from '../utils/validator.js'
+	import { validate, createValidator } from '../utils/validator.js'
 
 	export let value = ''
 	export let type = 'text'
@@ -32,18 +20,39 @@
 
 	$: focusedOrContainsValue = value !== '' || focused
 	$: pristine = !focused && !dirty
+	$: pristineOrValid = pristine || valid
 	$: focusedAndValidOrPristine = focused && (!dirty || valid)
 	$: dirtyAndInvalid = dirty && !valid
 	$: isRequired =
 		validations.find(validation => validation.type === 'required') !==
 		undefined
+
 	function handleValidationResponse(event) {
 		dirty = true
 		valid = event.detail.valid
 		message = event.detail.message
 		dispatch('validate', { valid, message })
 	}
+
+	afterUpdate(async () => {
+		const validationResponse = await createValidator(validations)(value)
+		valid = validationResponse.valid
+		message = validationResponse.message
+		dispatch('validate', { valid: valid, message: message })
+	})
 </script>
+
+<style>
+	input:-webkit-autofill,
+	input:-webkit-autofill:hover,
+	input:-webkit-autofill:focus,
+	input:-webkit-autofill:active {
+		-webkit-box-shadow: 0 0 0 30px white inset !important;
+	}
+	input {
+		filter: none;
+	}
+</style>
 
 <div class="mt-4 relative h-12">
 	<label
@@ -59,13 +68,13 @@
 		class:text-blue-700="{focusedAndValidOrPristine}"
 		class:text-red-600="{dirtyAndInvalid && focused}"
 		for="{name + randomSuffix}"
-	>{label}<span class="ml-px">{isRequired ? '*' : ''}</span>
+		>{label}<span class="ml-px">{isRequired ? '*' : ''}</span>
 	</label>
 	<input
-		class="px-3 py-3 w-full shadow-none bg-white outline-none rounded z-10 focus:bg-gray-100"
+		class="px-3 py-3 w-full shadow-none bg-white outline-none focus:ring-0 rounded z-10 focus:bg-gray-100"
 		class:border="{!focused}"
 		class:border-2="{focused}"
-		class:border-gray-400="{pristine}"
+		class:border-gray-400="{pristineOrValid}"
 		class:border-blue-600="{focusedAndValidOrPristine}"
 		class:border-red-600="{dirtyAndInvalid}"
 		type="{type}"

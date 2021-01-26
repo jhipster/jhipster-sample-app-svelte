@@ -1,13 +1,13 @@
 <script>
 	import { stores } from '@sapper/app'
-
 	import accountService from './../../../components/account/account-service'
+
 	import Alert from './../../../components/Alert.svelte'
-	import PasswordConfirm from './../../../components/account/PasswordConfirm.svelte'
+	import Page from '../../../components/page/Page.svelte'
+	import ResetPasswordForm from '../../../components/account/ResetPasswordForm.svelte'
 
 	let error
 	let password
-	let validPassword = false
 	let passwordReset = false
 
 	const { page } = stores()
@@ -29,20 +29,20 @@
 	<meta name="Description" content="Reset your password" />
 </svelte:head>
 
-<section class="m-3 relative bg-white shadow-md rounded p-4">
-	<div class="p-4 w-full sm:max-w-3xl sm:mx-auto">
-		<div class="px-4 w-full text-4xl text-center">Reset your password</div>
+<Page testId="forgotPwd">
+	<span slot="header">Reset your password</span>
+	<div slot="alerts">
 		<Alert show="{passwordReset}" closeable="{false}">
-			Your password has been reset. Please
-			<a class="font-semibold underline" href="/login">Sign in</a>.
+			Your password has been reset. Please <a
+				class="font-semibold underline"
+				href="/login">Sign in</a
+			>.
 		</Alert>
 		<Alert
 			type="warning"
 			show="{passwordResetKey && !passwordReset && !error}"
-			closeable="{false}"
+			closeable="{false}">Choose a new password</Alert
 		>
-			Choose a new password
-		</Alert>
 		<Alert
 			type="danger"
 			show="{!passwordResetKey || error}"
@@ -55,21 +55,8 @@
 				only valid for 24 hours.
 			{/if}
 		</Alert>
-		{#if passwordResetKey && !passwordReset}
-			<form class="mt-4 flex flex-col">
-				<PasswordConfirm
-					label="New Password"
-					value="{password}"
-					on:input="{event => (password = event.detail.value)}"
-					on:validate="{event => (validPassword = event.detail.valid)}"
-				/>
-				<button
-					type="submit"
-					on:click|preventDefault="{resetPassword}"
-					class="my-4 w-64 m-auto btn btn-primary"
-					disabled="{!validPassword}"
-				>Reset password</button>
-			</form>
-		{/if}
 	</div>
-</section>
+	{#if passwordResetKey && !passwordReset}
+		<ResetPasswordForm bind:password on:click="{resetPassword}" />
+	{/if}
+</Page>

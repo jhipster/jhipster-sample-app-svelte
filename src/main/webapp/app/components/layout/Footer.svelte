@@ -9,7 +9,7 @@
 >
 	<div class="text-sm">
 		<p data-test="copyrightMsg">
-			Copyright &copy; 2020 JHipster. All Rights Reserved
+			Copyright &copy; 2021 JHipster. All Rights Reserved
 		</p>
 	</div>
 	<div class="text-base mt-1">
@@ -20,8 +20,8 @@
 			<a
 				href="https://twitter.com/vishal423"
 				target="tab"
-				class="text-yellow-800"
-			>@vishal423</a>
+				class="text-yellow-800">@vishal423</a
+			>
 		</p>
 	</div>
 </footer>

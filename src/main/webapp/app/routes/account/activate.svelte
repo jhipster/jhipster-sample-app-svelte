@@ -4,6 +4,7 @@
 
 	import accountService from './../../components/account/account-service'
 	import Alert from './../../components/Alert.svelte'
+	import Page from './../../components/page/Page.svelte'
 
 	let error
 	let accountActivated = false
@@ -28,19 +29,18 @@
 	<meta name="Description" content="Activate user account" />
 </svelte:head>
 
-<section class="m-3 relative bg-white shadow-md rounded p-4">
-	<div class="p-4 w-full sm:max-w-3xl sm:mx-auto">
-		<div class="px-4 w-full text-4xl text-center">
-			Activate user account
-		</div>
+<Page testId="activate">
+	<span slot="header">Activate user account</span>
+	<div slot="alerts">
 		<Alert show="{accountActivated}" closeable="{false}">
 			<span>Your user account has been activated. Please </span>
 			<a class="font-semibold underline" href="/login">Sign in</a>.
 		</Alert>
 		<Alert type="danger" show="{!!error}" closeable="{false}">
 			Your user could not be activated. Please use the registration form
-			to
-			<a class="font-semibold underline" href="/account/register">Sign up</a>.
+			to <a class="font-semibold underline" href="/account/register"
+				>Sign up</a
+			>.
 		</Alert>
 	</div>
-</section>
+</Page>

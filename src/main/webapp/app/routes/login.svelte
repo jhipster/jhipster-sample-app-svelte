@@ -3,7 +3,9 @@
 
 	import AppLogo from './../components/svg/AppLogo.svelte'
 	import Alert from './../components/Alert.svelte'
+	import Button from '../components/Button.svelte'
 	import InputControl from '../components/InputControl.svelte'
+	import CheckboxControl from '../components/CheckboxControl.svelte'
 
 	import auth from './../components/auth/auth-store.js'
 	import authService from './../components/auth/auth-service.js'
@@ -59,7 +61,9 @@
 				value="{username}"
 				on:input="{event => (username = event.target.value)}"
 				required
-				validations="{[{ type: 'required', message: 'Username is mandatory' }]}"
+				validations="{[
+					{ type: 'required', message: 'Username is mandatory' },
+				]}"
 				on:validate="{event => (validUsername = event.detail.valid)}"
 			/>
 
@@ -70,28 +74,24 @@
 				value="{password}"
 				on:input="{event => (password = event.target.value)}"
 				required
-				validations="{[{ type: 'required', message: 'Password is mandatory' }]}"
+				validations="{[
+					{ type: 'required', message: 'Password is mandatory' },
+				]}"
 				on:validate="{event => (validPassword = event.detail.valid)}"
 			/>
 
-			<div class="mt-2">
-				<label class="flex items-center">
-					<input
-						class="mr-2"
-						type="checkbox"
-						name="rememberMe"
-						bind:checked="{rememberMe}"
-					/>
-					Remember me
-				</label>
+			<div class="mt-1 mb-2 ml-1">
+				<CheckboxControl
+					name="rememberMe"
+					checked="{rememberMe}"
+					on:change="{event => (rememberMe = event.target.checked)}"
+					>Remember me</CheckboxControl
+				>
 			</div>
 
-			<button
-				type="submit"
-				on:click|preventDefault="{login}"
-				class="my-4 w-32 m-auto btn btn-primary"
-				disabled="{!validForm}"
-			>Sign in</button>
+			<Button type="submit" on:click="{login}" disabled="{!validForm}">
+				Sign in
+			</Button>
 		</form>
 
 		<div class="mt-5 px-4 flex justify-between text-blue-700">
@@ -99,15 +99,15 @@
 				<a
 					data-test="forgotPwdLink"
 					href="/account/reset/init"
-					class="font-semibold"
-				>Forgot password?</a>
+					class="font-semibold">Forgot password?</a
+				>
 			</div>
 			<div>
 				<a
 					data-test="registerLink"
 					href="/account/register"
-					class="font-semibold"
-				>Create an account</a>
+					class="font-semibold">Create an account</a
+				>
 			</div>
 		</div>
 	</div>
