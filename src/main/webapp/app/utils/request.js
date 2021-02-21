@@ -24,7 +24,6 @@ export function prepareRequest(method = 'GET', body = undefined, headers = {}) {
 			}
 		}
 	}
-
 	return {
 		method,
 		body,
