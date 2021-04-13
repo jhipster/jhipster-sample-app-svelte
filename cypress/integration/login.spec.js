@@ -1,12 +1,13 @@
 describe('User login', () => {
 	beforeEach(() => {
+		cy.unregisterServiceWorkers()
 		cy.visit('/login')
 	})
 
 	it('should greets with Sign in', () => {
 		cy.getBySel('signInTitle')
 			.should('be.visible')
-			.should('contain', 'Sign in to svelteSampleApplication')
+			.should('contain', 'Sign in to SvelteDemoApplication')
 	})
 
 	it('should display link to register', () => {
@@ -62,11 +63,16 @@ describe('User login', () => {
 	})
 
 	it('should navigate to / on successful login', () => {
-		cy.getBySel('loginForm')
-			.getByName('username')
-			.type('admin')
-			.getByName('password')
-			.type('admin{enter}')
+		cy.getBySel('loginForm').within(() => {
+			cy.root()
+				.get("input[type='checkbox']")
+				.eq(0)
+				.check()
+				.getByName('username')
+				.type('admin')
+				.getByName('password')
+				.type('admin{enter}')
+		})
 		cy.location('pathname').should('eq', '/')
 	})
 })

@@ -1,6 +1,5 @@
 package tech.jhipster.sample.service;
 
-import io.github.jhipster.config.JHipsterProperties;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import javax.mail.MessagingException;
@@ -15,6 +14,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
+import tech.jhipster.config.JHipsterProperties;
 import tech.jhipster.sample.domain.User;
 
 /**
@@ -24,6 +24,7 @@ import tech.jhipster.sample.domain.User;
  */
 @Service
 public class MailService {
+
 	private final Logger log = LoggerFactory.getLogger(MailService.class);
 
 	private static final String USER = "user";

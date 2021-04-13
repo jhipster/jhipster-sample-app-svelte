@@ -26,7 +26,7 @@
 
 <Page testId="password">
 	<span slot="header">Change password</span>
-	<div slot="alerts">
+	<svelte:fragment slot="alerts">
 		<Alert
 			data-test="successMsg"
 			show="{passwordChanged}"
@@ -39,7 +39,7 @@
 			closeable="{false}"
 			>An error has occurred! The password could not be changed.</Alert
 		>
-	</div>
+	</svelte:fragment>
 	<ChangePasswordForm
 		bind:currentPassword
 		bind:newPassword

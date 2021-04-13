@@ -3,7 +3,6 @@ package tech.jhipster.sample.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-import io.github.jhipster.security.RandomUtil;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,28 +12,29 @@ import java.util.Optional;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.auditing.AuditingHandler;
 import org.springframework.data.auditing.DateTimeProvider;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
-import tech.jhipster.sample.SvelteSampleApplicationApp;
+import tech.jhipster.sample.IntegrationTest;
 import tech.jhipster.sample.config.Constants;
 import tech.jhipster.sample.domain.PersistentToken;
 import tech.jhipster.sample.domain.User;
 import tech.jhipster.sample.repository.PersistentTokenRepository;
 import tech.jhipster.sample.repository.UserRepository;
-import tech.jhipster.sample.service.dto.UserDTO;
+import tech.jhipster.sample.service.dto.AdminUserDTO;
+import tech.jhipster.security.RandomUtil;
 
 /**
  * Integration tests for {@link UserService}.
  */
-@SpringBootTest(classes = SvelteSampleApplicationApp.class)
+@IntegrationTest
 @Transactional
-public class UserServiceIT {
+class UserServiceIT {
+
 	private static final String DEFAULT_LOGIN = "johndoe";
 
 	private static final String DEFAULT_EMAIL = "johndoe@localhost";
@@ -59,7 +59,7 @@ public class UserServiceIT {
 	@Autowired
 	private AuditingHandler auditingHandler;
 
-	@Mock
+	@MockBean
 	private DateTimeProvider dateTimeProvider;
 
 	private User user;
@@ -84,7 +84,7 @@ public class UserServiceIT {
 
 	@Test
 	@Transactional
-	public void testRemoveOldPersistentTokens() {
+	void testRemoveOldPersistentTokens() {
 		userRepository.saveAndFlush(user);
 		int existingCount = persistentTokenRepository.findByUser(user).size();
 		LocalDate today = LocalDate.now();
@@ -99,7 +99,7 @@ public class UserServiceIT {
 
 	@Test
 	@Transactional
-	public void assertThatUserMustExistToResetPassword() {
+	void assertThatUserMustExistToResetPassword() {
 		userRepository.saveAndFlush(user);
 		Optional<User> maybeUser = userService.requestPasswordReset(
 			"invalid.login@localhost"
@@ -116,7 +116,7 @@ public class UserServiceIT {
 
 	@Test
 	@Transactional
-	public void assertThatOnlyActivatedUserCanRequestPasswordReset() {
+	void assertThatOnlyActivatedUserCanRequestPasswordReset() {
 		user.setActivated(false);
 		userRepository.saveAndFlush(user);
 
@@ -129,7 +129,7 @@ public class UserServiceIT {
 
 	@Test
 	@Transactional
-	public void assertThatResetKeyMustNotBeOlderThan24Hours() {
+	void assertThatResetKeyMustNotBeOlderThan24Hours() {
 		Instant daysAgo = Instant.now().minus(25, ChronoUnit.HOURS);
 		String resetKey = RandomUtil.generateResetKey();
 		user.setActivated(true);
@@ -147,7 +147,7 @@ public class UserServiceIT {
 
 	@Test
 	@Transactional
-	public void assertThatResetKeyMustBeValid() {
+	void assertThatResetKeyMustBeValid() {
 		Instant daysAgo = Instant.now().minus(25, ChronoUnit.HOURS);
 		user.setActivated(true);
 		user.setResetDate(daysAgo);
@@ -164,7 +164,7 @@ public class UserServiceIT {
 
 	@Test
 	@Transactional
-	public void assertThatUserCanResetPassword() {
+	void assertThatUserCanResetPassword() {
 		String oldPassword = user.getPassword();
 		Instant daysAgo = Instant.now().minus(2, ChronoUnit.HOURS);
 		String resetKey = RandomUtil.generateResetKey();
@@ -188,7 +188,7 @@ public class UserServiceIT {
 
 	@Test
 	@Transactional
-	public void assertThatNotActivatedUsersWithNotNullActivationKeyCreatedBefore3DaysAreDeleted() {
+	void assertThatNotActivatedUsersWithNotNullActivationKeyCreatedBefore3DaysAreDeleted() {
 		Instant now = Instant.now();
 		when(dateTimeProvider.getNow())
 			.thenReturn(Optional.of(now.minus(4, ChronoUnit.DAYS)));
@@ -212,7 +212,7 @@ public class UserServiceIT {
 
 	@Test
 	@Transactional
-	public void assertThatNotActivatedUsersWithNullActivationKeyCreatedBefore3DaysAreNotDeleted() {
+	void assertThatNotActivatedUsersWithNullActivationKeyCreatedBefore3DaysAreNotDeleted() {
 		Instant now = Instant.now();
 		when(dateTimeProvider.getNow())
 			.thenReturn(Optional.of(now.minus(4, ChronoUnit.DAYS)));
@@ -243,32 +243,5 @@ public class UserServiceIT {
 		token.setIpAddress("127.0.0.1");
 		token.setUserAgent("Test agent");
 		persistentTokenRepository.saveAndFlush(token);
-	}
-
-	@Test
-	@Transactional
-	public void assertThatAnonymousUserIsNotGet() {
-		user.setLogin(Constants.ANONYMOUS_USER);
-		if (
-			!userRepository.findOneByLogin(Constants.ANONYMOUS_USER).isPresent()
-		) {
-			userRepository.saveAndFlush(user);
-		}
-		final PageRequest pageable = PageRequest.of(
-			0,
-			(int) userRepository.count()
-		);
-		final Page<UserDTO> allManagedUsers = userService.getAllManagedUsers(
-			pageable
-		);
-		assertThat(
-			allManagedUsers
-				.getContent()
-				.stream()
-				.noneMatch(
-					user -> Constants.ANONYMOUS_USER.equals(user.getLogin())
-				)
-		)
-			.isTrue();
 	}
 }

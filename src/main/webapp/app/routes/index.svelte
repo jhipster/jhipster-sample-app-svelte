@@ -1,11 +1,11 @@
 <script>
 	import auth from '../components/auth/auth-store.js'
-	import AppAvatar from '../components/svg/AppAvatar.svelte'
+	import appAvatar from '../components/svg/appAvatar.svg'
 </script>
 
 <svelte:head>
 	<title>Welcome, Svelte Hipster!</title>
-	<meta name="Description" content="svelteSampleApplication home page" />
+	<meta name="Description" content="SvelteDemoApplication home page" />
 </svelte:head>
 
 <section
@@ -18,7 +18,7 @@
 		<div
 			class="w-1/2 sm:w-1/4 sm:h-auto sm:px-4 object-cover object-center"
 		>
-			<AppAvatar />
+			<img src="{appAvatar}" alt="Avatar" />
 		</div>
 
 		<div class="sm:flex-grow sm:px-4">

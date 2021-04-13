@@ -1,8 +1,5 @@
 package tech.jhipster.sample.security;
 
-import io.github.jhipster.config.JHipsterProperties;
-import io.github.jhipster.security.PersistentTokenCache;
-import io.github.jhipster.security.RandomUtil;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
@@ -16,9 +13,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.rememberme.*;
 import org.springframework.stereotype.Service;
+import tech.jhipster.config.JHipsterProperties;
 import tech.jhipster.sample.domain.PersistentToken;
 import tech.jhipster.sample.repository.PersistentTokenRepository;
 import tech.jhipster.sample.repository.UserRepository;
+import tech.jhipster.security.PersistentTokenCache;
+import tech.jhipster.security.RandomUtil;
 
 /**
  * Custom implementation of Spring Security's RememberMeServices.
@@ -50,6 +50,7 @@ import tech.jhipster.sample.repository.UserRepository;
 @Service
 public class PersistentTokenRememberMeServices
 	extends AbstractRememberMeServices {
+
 	private final Logger log = LoggerFactory.getLogger(
 		PersistentTokenRememberMeServices.class
 	);
@@ -281,6 +282,7 @@ public class PersistentTokenRememberMeServices
 	}
 
 	private static class UpgradedRememberMeToken implements Serializable {
+
 		private static final long serialVersionUID = 1L;
 
 		private final String[] upgradedToken;

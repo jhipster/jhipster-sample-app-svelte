@@ -18,10 +18,10 @@ spring:
         # Uncomment the following line to enable tests against production database type rather than H2, using Testcontainers
         #active: testcontainers
     application:
-        name: svelteSampleApplication
+        name: SvelteDemoApplication
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:h2:mem:svelteSampleApplication;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        url: jdbc:h2:mem:sveltedemoapplication;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
         name:
         username:
         password:
@@ -31,9 +31,8 @@ spring:
         serialization:
             write-durations-as-timestamps: false
     jpa:
-        database-platform: io.github.jhipster.domain.util.FixedH2Dialect
+        database-platform: tech.jhipster.domain.util.FixedH2Dialect
         open-in-view: false
-        show-sql: false
         hibernate:
             ddl-auto: none
             naming:
@@ -47,6 +46,7 @@ spring:
             hibernate.generate_statistics: false
             hibernate.hbm2ddl.auto: validate
             hibernate.jdbc.time_zone: UTC
+            hibernate.query.fail_on_pagination_over_collection_fetch: true
     liquibase:
         contexts: test
     mail:
@@ -57,13 +57,13 @@ spring:
         basename: i18n/messages
     task:
         execution:
-            thread-name-prefix: svelte-sample-application-task-
+            thread-name-prefix: svelte-demo-application-task-
             pool:
                 core-size: 1
                 max-size: 50
                 queue-capacity: 10000
         scheduling:
-            thread-name-prefix: svelte-sample-application-scheduling-
+            thread-name-prefix: svelte-demo-application-scheduling-
             pool:
                 size: 1
     thymeleaf:
@@ -81,7 +81,7 @@ server:
 
 jhipster:
     clientApp:
-        name: 'svelteSampleApplicationApp'
+        name: 'svelteDemoApplicationApp'
     logging:
         # To test json console appender
         use-json-format: false
@@ -97,11 +97,6 @@ jhipster:
         remember-me:
             # security key (this key should be unique for your application, and kept secret)
             key: 1c26089ec53592e09f84ec2fde34ee2350579b57c9c95851b4f620389c1470a1237b5677299961a1e06242406e8d192a698d
-    metrics:
-        logs: # Reports metrics in the logs
-            enabled: true
-            report-frequency: 60 # in seconds
-
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class

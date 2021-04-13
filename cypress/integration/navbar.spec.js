@@ -1,5 +1,6 @@
 describe('Navbar', () => {
 	beforeEach(() => {
+		cy.unregisterServiceWorkers()
 		cy.visit('/')
 	})
 
@@ -7,7 +8,7 @@ describe('Navbar', () => {
 		it('should display application name', () => {
 			cy.getBySel('svlAppName')
 				.should('be.visible')
-				.should('contain', 'svelteSampleApplication')
+				.should('contain', 'SvelteDemoApplication')
 		})
 
 		it('should display application version', () => {
@@ -38,6 +39,7 @@ describe('Navbar', () => {
 
 	describe('authenticated user', () => {
 		beforeEach(() => {
+			cy.unregisterServiceWorkers()
 			cy.loginByApi('admin', 'admin')
 			cy.visit('/')
 		})
@@ -113,6 +115,7 @@ describe('Navbar', () => {
 
 	describe(`authenticated 'ROLE_USER' ROLE user`, () => {
 		beforeEach(() => {
+			cy.unregisterServiceWorkers()
 			cy.loginByApi('user', 'user')
 			cy.visit('/')
 		})

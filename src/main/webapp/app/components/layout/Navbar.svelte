@@ -4,6 +4,7 @@
 	import { faSignInAlt } from '@fortawesome/free-solid-svg-icons/faSignInAlt'
 	import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus'
 
+	import applogo from 'images/logo-jhipster.png'
 	import NavItem from './NavItem.svelte'
 	import auth from '../auth/auth-store.js'
 	import AccountMenu from './AccountMenu.svelte'
@@ -28,12 +29,12 @@
 					width="48px"
 					height="20px"
 					class="w-12 m-auto"
-					src="img/logo-jhipster.png"
+					src="{applogo}"
 					alt="Application logo"
 				/></a
 			>
 			<div data-test="svlAppName" class="ml-2 font-semibold text-xl">
-				svelteSampleApplication
+				SvelteDemoApplication
 			</div>
 			<div data-test="svlAppVersion" class="ml-2 text-xs text-gray-400">
 				DEV

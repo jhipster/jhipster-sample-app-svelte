@@ -19,6 +19,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name = "jhi_persistent_token")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PersistentToken implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	private static final int MAX_USER_AGENT_LEN = 255;

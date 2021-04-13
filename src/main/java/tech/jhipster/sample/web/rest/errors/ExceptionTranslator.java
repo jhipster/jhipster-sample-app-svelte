@@ -1,7 +1,5 @@
 package tech.jhipster.sample.web.rest.errors;
 
-import io.github.jhipster.config.JHipsterConstants;
-import io.github.jhipster.web.util.HeaderUtil;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.Collection;
@@ -31,6 +29,8 @@ import org.zalando.problem.StatusType;
 import org.zalando.problem.spring.web.advice.ProblemHandling;
 import org.zalando.problem.spring.web.advice.security.SecurityAdviceTrait;
 import org.zalando.problem.violations.ConstraintViolationProblem;
+import tech.jhipster.config.JHipsterConstants;
+import tech.jhipster.web.util.HeaderUtil;
 
 /**
  * Controller advice to translate the server side exceptions to client-friendly json structures.
@@ -39,6 +39,7 @@ import org.zalando.problem.violations.ConstraintViolationProblem;
 @ControllerAdvice
 public class ExceptionTranslator
 	implements ProblemHandling, SecurityAdviceTrait {
+
 	private static final String FIELD_ERRORS_KEY = "fieldErrors";
 	private static final String MESSAGE_KEY = "message";
 	private static final String PATH_KEY = "path";
@@ -62,7 +63,7 @@ public class ExceptionTranslator
 		NativeWebRequest request
 	) {
 		if (entity == null) {
-			return entity;
+			return null;
 		}
 		Problem problem = entity.getBody();
 		if (
@@ -73,6 +74,13 @@ public class ExceptionTranslator
 		) {
 			return entity;
 		}
+
+		HttpServletRequest nativeRequest = request.getNativeRequest(
+			HttpServletRequest.class
+		);
+		String requestUri = nativeRequest != null
+			? nativeRequest.getRequestURI()
+			: StringUtils.EMPTY;
 		ProblemBuilder builder = Problem
 			.builder()
 			.withType(
@@ -82,12 +90,7 @@ public class ExceptionTranslator
 			)
 			.withStatus(problem.getStatus())
 			.withTitle(problem.getTitle())
-			.with(
-				PATH_KEY,
-				request
-					.getNativeRequest(HttpServletRequest.class)
-					.getRequestURI()
-			);
+			.with(PATH_KEY, requestUri);
 
 		if (problem instanceof ConstraintViolationProblem) {
 			builder
@@ -133,7 +136,9 @@ public class ExceptionTranslator
 					new FieldErrorVM(
 						f.getObjectName().replaceFirst("DTO$", ""),
 						f.getField(),
-						f.getCode()
+						StringUtils.isNotBlank(f.getDefaultMessage())
+							? f.getDefaultMessage()
+							: f.getCode()
 					)
 			)
 			.collect(Collectors.toList());

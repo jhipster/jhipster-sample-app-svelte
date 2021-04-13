@@ -1,4 +1,8 @@
 describe('Routes', () => {
+	beforeEach(() => {
+		cy.unregisterServiceWorkers()
+	})
+
 	describe('unauthenticated user', () => {
 		it('should not allow navigation to settings page', () => {
 			cy.visit('/account/settings')
@@ -6,7 +10,7 @@ describe('Routes', () => {
 			cy.location('pathname').should('eq', '/login')
 			cy.getBySel('signInTitle')
 				.should('be.visible')
-				.should('contain', 'Sign in to svelteSampleApplication')
+				.should('contain', 'Sign in to SvelteDemoApplication')
 		})
 
 		it('should not allow navigation to user management page', () => {
@@ -15,7 +19,7 @@ describe('Routes', () => {
 			cy.location('pathname').should('eq', '/login')
 			cy.getBySel('signInTitle')
 				.should('be.visible')
-				.should('contain', 'Sign in to svelteSampleApplication')
+				.should('contain', 'Sign in to SvelteDemoApplication')
 		})
 
 		it('should allow navigation to home page', () => {
@@ -30,6 +34,7 @@ describe('Routes', () => {
 
 	describe('authenticated user', () => {
 		beforeEach(() => {
+			cy.unregisterServiceWorkers()
 			cy.loginByApi('admin', 'admin')
 		})
 

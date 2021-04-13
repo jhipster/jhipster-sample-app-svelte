@@ -1,7 +1,7 @@
 <script>
 	import { goto } from '@sapper/app'
 
-	import AppLogo from './../components/svg/AppLogo.svelte'
+	import appLogo from './../components/svg/appLogo.svg'
 	import Alert from './../components/Alert.svelte'
 	import Button from '../components/Button.svelte'
 	import InputControl from '../components/InputControl.svelte'
@@ -31,22 +31,22 @@
 </script>
 
 <svelte:head>
-	<title>Sign in to svelteSampleApplication</title>
-	<meta name="Description" content="Sign in to svelteSampleApplication" />
+	<title>Sign in to SvelteDemoApplication</title>
+	<meta name="Description" content="Sign in to SvelteDemoApplication" />
 </svelte:head>
 
 <section class="flex h-screen items-start justify-center">
 	<div class="p-4 w-full sm:w-112 mx-4 sm:m-0">
 		<div class="px-4 py-3 mt-4 sm:mx-0 flex justify-center">
 			<div class="w-3/4 dark:text-blue-100">
-				<AppLogo />
+				<img src="{appLogo}" alt="Application Logo" />
 			</div>
 		</div>
 		<div
 			data-test="signInTitle"
 			class="mt-4 px-4 w-full text-3xl text-center"
 		>
-			Sign in to svelteSampleApplication
+			Sign in to SvelteDemoApplication
 		</div>
 		<Alert data-test="errorMsg" type="danger" show="{!!authError}">
 			Incorrect username or password.

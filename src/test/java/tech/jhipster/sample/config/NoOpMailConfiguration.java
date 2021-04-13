@@ -10,6 +10,7 @@ import tech.jhipster.sample.service.MailService;
 
 @Configuration
 public class NoOpMailConfiguration {
+
 	private final MailService mockMailService;
 
 	public NoOpMailConfiguration() {

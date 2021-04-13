@@ -7,4 +7,3 @@ package-lock.json
 gradle
 .gradle
 /src/main/webapp/static/vendor.css
-/src/test/resources/templates/mail

@@ -20,6 +20,7 @@ import tech.jhipster.sample.repository.UserRepository;
  */
 @Component("userDetailsService")
 public class DomainUserDetailsService implements UserDetailsService {
+
 	private final Logger log = LoggerFactory.getLogger(
 		DomainUserDetailsService.class
 	);
@@ -67,7 +68,7 @@ public class DomainUserDetailsService implements UserDetailsService {
 		String lowercaseLogin,
 		User user
 	) {
-		if (!user.getActivated()) {
+		if (!user.isActivated()) {
 			throw new UserNotActivatedException(
 				"User " + lowercaseLogin + " was not activated"
 			);

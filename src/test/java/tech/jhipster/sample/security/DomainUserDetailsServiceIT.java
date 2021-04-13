@@ -8,20 +8,20 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.transaction.annotation.Transactional;
-import tech.jhipster.sample.SvelteSampleApplicationApp;
+import tech.jhipster.sample.IntegrationTest;
 import tech.jhipster.sample.domain.User;
 import tech.jhipster.sample.repository.UserRepository;
 
 /**
  * Integrations tests for {@link DomainUserDetailsService}.
  */
-@SpringBootTest(classes = SvelteSampleApplicationApp.class)
 @Transactional
-public class DomainUserDetailsServiceIT {
+@IntegrationTest
+class DomainUserDetailsServiceIT {
+
 	private static final String USER_ONE_LOGIN = "test-user-one";
 	private static final String USER_ONE_EMAIL = "test-user-one@localhost";
 	private static final String USER_TWO_LOGIN = "test-user-two";
@@ -69,7 +69,7 @@ public class DomainUserDetailsServiceIT {
 	}
 
 	@Test
-	public void assertThatUserCanBeFoundByLogin() {
+	void assertThatUserCanBeFoundByLogin() {
 		UserDetails userDetails = domainUserDetailsService.loadUserByUsername(
 			USER_ONE_LOGIN
 		);
@@ -78,7 +78,7 @@ public class DomainUserDetailsServiceIT {
 	}
 
 	@Test
-	public void assertThatUserCanBeFoundByLoginIgnoreCase() {
+	void assertThatUserCanBeFoundByLoginIgnoreCase() {
 		UserDetails userDetails = domainUserDetailsService.loadUserByUsername(
 			USER_ONE_LOGIN.toUpperCase(Locale.ENGLISH)
 		);
@@ -87,7 +87,7 @@ public class DomainUserDetailsServiceIT {
 	}
 
 	@Test
-	public void assertThatUserCanBeFoundByEmail() {
+	void assertThatUserCanBeFoundByEmail() {
 		UserDetails userDetails = domainUserDetailsService.loadUserByUsername(
 			USER_TWO_EMAIL
 		);
@@ -96,7 +96,7 @@ public class DomainUserDetailsServiceIT {
 	}
 
 	@Test
-	public void assertThatUserCanBeFoundByEmailIgnoreCase() {
+	void assertThatUserCanBeFoundByEmailIgnoreCase() {
 		UserDetails userDetails = domainUserDetailsService.loadUserByUsername(
 			USER_TWO_EMAIL.toUpperCase(Locale.ENGLISH)
 		);
@@ -105,7 +105,7 @@ public class DomainUserDetailsServiceIT {
 	}
 
 	@Test
-	public void assertThatEmailIsPrioritizedOverLogin() {
+	void assertThatEmailIsPrioritizedOverLogin() {
 		UserDetails userDetails = domainUserDetailsService.loadUserByUsername(
 			USER_ONE_EMAIL
 		);
@@ -114,7 +114,7 @@ public class DomainUserDetailsServiceIT {
 	}
 
 	@Test
-	public void assertThatUserNotActivatedExceptionIsThrownForNotActivatedUsers() {
+	void assertThatUserNotActivatedExceptionIsThrownForNotActivatedUsers() {
 		assertThatExceptionOfType(UserNotActivatedException.class)
 			.isThrownBy(
 				() ->

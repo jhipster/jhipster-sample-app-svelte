@@ -1,6 +1,6 @@
-# svelteSampleApplication
+# SvelteDemoApplication
 
-This application was generated using JHipster 6.10.5, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v6.10.5](https://www.jhipster.tech/documentation-archive/v6.10.5).
+This application was generated using JHipster 7.0.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.0.1](https://www.jhipster.tech/documentation-archive/v7.0.1).
 
 ## Development
 
@@ -48,17 +48,27 @@ There are three simple rules for naming the files that define your routes:
 -   The file `app/routes/index.svelte` (or `app/routes/index.js`) corresponds to the root of your app. `app/routes/about/index.svelte` is treated the same as `app/routes/about.svelte`.
 -   Files and directories with a leading underscore do _not_ create routes. This allows you to colocate helper modules and components with the routes that depend on them — for example you could have a file called `app/routes/_helpers/datetime.js` and it would _not_ create a `/_helpers/datetime` route
 
-#### static
+##### app/node_modules/images
 
-The [static](static) directory contains any static assets that should be available. These are served using [sirv](https://github.com/lukeed/sirv).
+Images added to `app/node_modules/images` can be imported into your code using `import 'images/<filename>'`. They will be given a dynamically generated filename containing a hash, allowing for efficient caching and serving the images on a CDN.
 
-In your [service-worker.js](app/service-worker.js) file, you can import these as `files` from the generated manifest...
+##### app/node_modules/@sapper
+
+This directory is managed by Sapper and generated when building. It contains all the code you import from `@sapper` modules.
+
+##### static
+
+The [static](static) directory contains static assets that should be served publicly. Files in this directory will be available directly under the root URL, e.g. an `image.jpg` will be available as `/image.jpg`.
+
+The default [service-worker.js](app/service-worker.js) will preload and cache these files, by retrieving a list of `files` from the generated manifest:
 
 ```js
 import { files } from '@sapper/service-worker'
 ```
 
-...so that you can cache them (though you can choose not to, for example if you don't want to cache very large files).
+If you have static files you do not want to cache, you should exclude them from this list after importing it (and before passing it to `cache.addAll`).
+
+Static files are served using [sirv](https://github.com/lukeed/sirv).
 
 ### Using external components
 
@@ -76,7 +86,7 @@ For further instructions on how to develop with JHipster and Sapper, have a look
 
 ### Packaging as jar
 
-To build the final jar and optimize the svelteSampleApplication application for production, run:
+To build the final jar and optimize the SvelteDemoApplication application for production, run:
 
     ./mvnw -Pprod clean verify
 
@@ -147,13 +157,13 @@ For more information refer to [Using Docker and Docker-Compose][], this page als
 To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
 
 [jhipster homepage and latest documentation]: https://www.jhipster.tech
-[jhipster 6.10.5 archive]: https://www.jhipster.tech/documentation-archive/v6.10.5
-[using jhipster in development]: https://www.jhipster.tech/documentation-archive/v6.10.5/development/
-[using docker and docker-compose]: https://www.jhipster.tech/documentation-archive/v6.10.5/docker-compose
-[using jhipster in production]: https://www.jhipster.tech/documentation-archive/v6.10.5/production/
-[running tests page]: https://www.jhipster.tech/documentation-archive/v6.10.5/running-tests/
-[code quality page]: https://www.jhipster.tech/documentation-archive/v6.10.5/code-quality/
-[setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v6.10.5/setting-up-ci/
+[jhipster 7.0.1 archive]: https://www.jhipster.tech/documentation-archive/v7.0.1
+[using jhipster in development]: https://www.jhipster.tech/documentation-archive/v7.0.1/development/
+[using docker and docker-compose]: https://www.jhipster.tech/documentation-archive/v7.0.1/docker-compose
+[using jhipster in production]: https://www.jhipster.tech/documentation-archive/v7.0.1/production/
+[running tests page]: https://www.jhipster.tech/documentation-archive/v7.0.1/running-tests/
+[code quality page]: https://www.jhipster.tech/documentation-archive/v7.0.1/code-quality/
+[setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v7.0.1/setting-up-ci/
 [node.js]: https://nodejs.org/
 [yarn]: https://yarnpkg.org/
 [rollup]: https://rollupjs.org/
