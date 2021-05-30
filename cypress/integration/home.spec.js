@@ -21,7 +21,6 @@ describe('Home page', () => {
 				)
 				.and('contain', 'User (login="user" and password="user").')
 		})
-
 		it('should have user registration link', () => {
 			cy.getBySel('svlRegisterHomeLink')
 				.should('be.visible')

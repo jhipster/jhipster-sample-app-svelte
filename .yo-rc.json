@@ -43,13 +43,13 @@
 		"blueprints": [
 			{
 				"name": "generator-jhipster-svelte",
-				"version": "0.3.0"
+				"version": "0.4.0"
 			}
 		],
 		"otherModules": [
 			{
 				"name": "generator-jhipster-svelte",
-				"version": "0.3.0"
+				"version": "0.4.0"
 			}
 		]
 	}

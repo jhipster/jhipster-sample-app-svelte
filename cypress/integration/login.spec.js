@@ -9,7 +9,6 @@ describe('User login', () => {
 			.should('be.visible')
 			.should('contain', 'Sign in to SvelteDemoApplication')
 	})
-
 	it('should display link to register', () => {
 		cy.getBySel('registerLink')
 			.should('have.text', 'Create an account')
@@ -21,7 +20,6 @@ describe('User login', () => {
 			.should('have.text', 'Forgot password?')
 			.should('have.attr', 'href', '/account/reset/init')
 	})
-
 	it('should require username and password', () => {
 		cy.getBySel('loginForm').contains('Sign in').should('be.disabled')
 	})

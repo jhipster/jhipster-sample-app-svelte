@@ -82,6 +82,10 @@ describe('Navbar', () => {
 				.should('not.be.disabled')
 				.click()
 
+			cy.getBySel('svlLoggerLink')
+				.should('be.visible')
+				.and('have.attr', 'href', '/admin/logger')
+				.and('contain', 'Loggers')
 			cy.getBySel('svlUserMgmtLink')
 				.should('be.visible')
 				.and('have.attr', 'href', '/admin/user-management')
@@ -112,7 +116,6 @@ describe('Navbar', () => {
 				.and('contain', 'Sign in')
 		})
 	})
-
 	describe(`authenticated 'ROLE_USER' ROLE user`, () => {
 		beforeEach(() => {
 			cy.unregisterServiceWorkers()

@@ -21,6 +21,14 @@ describe('Routes', () => {
 				.should('be.visible')
 				.should('contain', 'Sign in to SvelteDemoApplication')
 		})
+		it('should not allow navigation to Loggers page', () => {
+			cy.visit('/admin/logger')
+
+			cy.location('pathname').should('eq', '/login')
+			cy.getBySel('signInTitle')
+				.should('be.visible')
+				.should('contain', 'Sign in to SvelteDemoApplication')
+		})
 
 		it('should allow navigation to home page', () => {
 			cy.visit('/')
@@ -46,7 +54,6 @@ describe('Routes', () => {
 				.should('be.visible')
 				.and('contain', 'Welcome, Svelte Hipster!')
 		})
-
 		it('should not allow navigation to register page', () => {
 			cy.visit('/account/register')
 
@@ -55,7 +62,6 @@ describe('Routes', () => {
 				.should('be.visible')
 				.and('contain', 'Welcome, Svelte Hipster!')
 		})
-
 		it('should allow navigation to home page', () => {
 			cy.visit('/')
 
