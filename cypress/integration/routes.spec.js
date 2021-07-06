@@ -43,12 +43,14 @@ describe('Routes', () => {
 	describe('authenticated user', () => {
 		beforeEach(() => {
 			cy.unregisterServiceWorkers()
-			cy.loginByApi('admin', 'admin')
+			cy.loginByApi(
+				Cypress.env('adminUsername'),
+				Cypress.env('adminPassword')
+			)
 		})
 
 		it('should not allow navigation to login page', () => {
 			cy.visit('/login')
-
 			cy.location('pathname').should('eq', '/')
 			cy.getBySel('welcomeTitle')
 				.should('be.visible')

@@ -1,7 +1,10 @@
 describe('Change user password', () => {
 	beforeEach(() => {
 		cy.unregisterServiceWorkers()
-		cy.loginByApi('admin', 'admin')
+		cy.loginByApi(
+			Cypress.env('adminUsername'),
+			Cypress.env('adminPassword')
+		)
 		cy.visit('/account/password')
 	})
 
@@ -18,7 +21,7 @@ describe('Change user password', () => {
 	it('should require current password', () => {
 		cy.getBySel('passwordForm')
 			.getByName('currentPassword')
-			.type('admin')
+			.type('admin', { log: false })
 			.clear()
 			.blur()
 		cy.getBySel('passwordForm')
@@ -30,7 +33,7 @@ describe('Change user password', () => {
 	it('should require new password', () => {
 		cy.getBySel('passwordForm')
 			.getByName('newPassword')
-			.type('admin')
+			.type('admin', { log: false })
 			.clear()
 			.blur()
 		cy.getBySel('passwordForm')
@@ -42,7 +45,7 @@ describe('Change user password', () => {
 	it('should require to confirm new password', () => {
 		cy.getBySel('passwordForm')
 			.getByName('newPasswordConfirm')
-			.type('admin')
+			.type('admin', { log: false })
 			.clear()
 			.blur()
 		cy.getBySel('passwordForm')
@@ -52,10 +55,13 @@ describe('Change user password', () => {
 	})
 
 	it('should require new and confirm passwords to match', () => {
-		cy.getBySel('passwordForm').getByName('newPassword').type('abcd').blur()
+		cy.getBySel('passwordForm')
+			.getByName('newPassword')
+			.type('abcd', { log: false })
+			.blur()
 		cy.getBySel('passwordForm')
 			.getByName('newPasswordConfirm')
-			.type('defg')
+			.type('defg', { log: false })
 			.blur()
 		cy.getBySel('passwordForm')
 			.getBySel('newPasswordConfirm-error')
@@ -66,15 +72,15 @@ describe('Change user password', () => {
 	it('should update user password', () => {
 		cy.getBySel('passwordForm')
 			.getByName('currentPassword')
-			.type('admin')
+			.type('admin', { log: false })
 			.blur()
 		cy.getBySel('passwordForm')
 			.getByName('newPassword')
-			.type('admin')
+			.type('admin', { log: false })
 			.blur()
 		cy.getBySel('passwordForm')
 			.getByName('newPasswordConfirm')
-			.type('admin')
+			.type('admin', { log: false })
 			.blur()
 
 		cy.getBySel('passwordForm')

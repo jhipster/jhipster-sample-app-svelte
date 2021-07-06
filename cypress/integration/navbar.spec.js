@@ -40,7 +40,10 @@ describe('Navbar', () => {
 	describe('authenticated user', () => {
 		beforeEach(() => {
 			cy.unregisterServiceWorkers()
-			cy.loginByApi('admin', 'admin')
+			cy.loginByApi(
+				Cypress.env('adminUsername'),
+				Cypress.env('adminPassword')
+			)
 			cy.visit('/')
 		})
 
@@ -105,7 +108,6 @@ describe('Navbar', () => {
 
 			cy.location('pathname').should('eq', '/account/settings')
 		})
-
 		it('should logout user', () => {
 			cy.getBySel('svlAcctMenu').getBySel('svlAccountLink').click()
 			cy.getBySel('svlSignoutLink').should('be.visible').click()
@@ -119,7 +121,10 @@ describe('Navbar', () => {
 	describe(`authenticated 'ROLE_USER' ROLE user`, () => {
 		beforeEach(() => {
 			cy.unregisterServiceWorkers()
-			cy.loginByApi('user', 'user')
+			cy.loginByApi(
+				Cypress.env('userUsername'),
+				Cypress.env('userPassword')
+			)
 			cy.visit('/')
 		})
 

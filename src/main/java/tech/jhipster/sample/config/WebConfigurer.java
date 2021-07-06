@@ -117,7 +117,10 @@ public class WebConfigurer
 	public CorsFilter corsFilter() {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = jHipsterProperties.getCors();
-		if (!CollectionUtils.isEmpty(config.getAllowedOrigins())) {
+		if (
+			!CollectionUtils.isEmpty(config.getAllowedOrigins()) ||
+			!CollectionUtils.isEmpty(config.getAllowedOriginPatterns())
+		) {
 			log.debug("Registering CORS filter");
 			source.registerCorsConfiguration("/api/**", config);
 			source.registerCorsConfiguration("/management/**", config);

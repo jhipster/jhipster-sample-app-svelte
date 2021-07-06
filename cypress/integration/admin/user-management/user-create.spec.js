@@ -1,7 +1,10 @@
 describe('Create user page', () => {
 	beforeEach(() => {
 		cy.unregisterServiceWorkers()
-		cy.loginByApi('admin', 'admin')
+		cy.loginByApi(
+			Cypress.env('adminUsername'),
+			Cypress.env('adminPassword')
+		)
 		cy.visit(`/admin/user-management/new`)
 	})
 

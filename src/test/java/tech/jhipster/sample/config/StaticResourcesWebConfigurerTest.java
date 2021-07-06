@@ -38,7 +38,7 @@ class StaticResourcesWebConfigurerTest {
 	}
 
 	@Test
-	void shouldAppendResourceHandlerAndInitiliazeIt() {
+	void shouldAppendResourceHandlerAndInitializeIt() {
 		staticResourcesWebConfiguration.addResourceHandlers(
 			resourceHandlerRegistry
 		);
@@ -78,7 +78,7 @@ class StaticResourcesWebConfigurerTest {
 	}
 
 	@Test
-	void shoudCreateCacheControlBasedOnJhipsterDefaultProperties() {
+	void shouldCreateCacheControlBasedOnJhipsterDefaultProperties() {
 		CacheControl cacheExpected = CacheControl
 			.maxAge(JHipsterDefaults.Http.Cache.timeToLiveInDays, TimeUnit.DAYS)
 			.cachePublic();
@@ -88,7 +88,7 @@ class StaticResourcesWebConfigurerTest {
 	}
 
 	@Test
-	void shoudCreateCacheControlWithSpecificConfigurationInProperties() {
+	void shouldCreateCacheControlWithSpecificConfigurationInProperties() {
 		props.getHttp().getCache().setTimeToLiveInDays(MAX_AGE_TEST);
 		CacheControl cacheExpected = CacheControl
 			.maxAge(MAX_AGE_TEST, TimeUnit.DAYS)

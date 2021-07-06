@@ -1,7 +1,10 @@
 describe('User Management list page', () => {
 	beforeEach(() => {
 		cy.unregisterServiceWorkers()
-		cy.loginByApi('admin', 'admin')
+		cy.loginByApi(
+			Cypress.env('adminUsername'),
+			Cypress.env('adminPassword')
+		)
 		cy.visit('/admin/user-management')
 	})
 
@@ -144,7 +147,7 @@ describe('User Management list page', () => {
 					.get('th')
 					.eq(1)
 					.within($td => {
-						cy.root().get('span').eq(1).click()
+						cy.root().get('button').click()
 					})
 			})
 

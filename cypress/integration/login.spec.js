@@ -39,7 +39,7 @@ describe('User login', () => {
 	it('should require password', () => {
 		cy.getBySel('loginForm')
 			.getByName('password')
-			.type('admin')
+			.type('admin', { log: false })
 			.clear()
 			.blur()
 		cy.getBySel('loginForm')
@@ -53,7 +53,7 @@ describe('User login', () => {
 			.getByName('username')
 			.type('admin')
 			.getByName('password')
-			.type('invalid{enter}')
+			.type('invalid{enter}', { log: false })
 		cy.getBySel('errorMsg').should(
 			'contain',
 			'Incorrect username or password.'
@@ -69,7 +69,7 @@ describe('User login', () => {
 				.getByName('username')
 				.type('admin')
 				.getByName('password')
-				.type('admin{enter}')
+				.type('admin{enter}', { log: false })
 		})
 		cy.location('pathname').should('eq', '/')
 	})

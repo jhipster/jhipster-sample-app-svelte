@@ -1,7 +1,10 @@
 describe('Loggers page', () => {
 	beforeEach(() => {
 		cy.unregisterServiceWorkers()
-		cy.loginByApi('admin', 'admin')
+		cy.loginByApi(
+			Cypress.env('adminUsername'),
+			Cypress.env('adminPassword')
+		)
 		cy.visit('/admin/logger')
 	})
 
@@ -9,7 +12,7 @@ describe('Loggers page', () => {
 		cy.getBySel('loggersTitle')
 			.should('be.visible')
 			.should('contain', 'Loggers')
-		cy.getBySel('loggerFilterForm')
+		cy.getBySel('loggerSearchForm')
 			.getByName('logger')
 			.should('have.value', ``)
 	})
@@ -133,7 +136,7 @@ describe('Loggers page', () => {
 			.get('tr')
 			.then($tr => (countBeforeFilter = $tr.length))
 
-		cy.getBySel('loggerFilterForm').getByName('logger').type('ROOT')
+		cy.getBySel('loggerSearchForm').getByName('logger').type('ROOT')
 
 		cy.getBySel('loggersTable')
 			.get('tr')

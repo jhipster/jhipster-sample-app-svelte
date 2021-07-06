@@ -23,7 +23,7 @@ Cypress.Commands.add('getByName', selector => {
 	return cy.get(`[name=${selector}]`)
 })
 Cypress.Commands.add('loginByApi', (username, password) => {
-	cy.request({ method: 'GET', url: `api/authenticate` })
+	cy.request({ url: `api/authenticate` })
 		.then(res => {
 			expect(res.status).to.eq(200)
 			return cy.getCookie('XSRF-TOKEN').should('have.property', 'value')
@@ -81,6 +81,7 @@ Cypress.Commands.add('delete', (url, lenient = true) => {
 				headers: {
 					'X-XSRF-TOKEN': csrfCookie.value,
 				},
+				failOnStatusCode: lenient ? false : true,
 			})
 		})
 		.then(res => {

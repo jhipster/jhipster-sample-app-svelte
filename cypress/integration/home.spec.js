@@ -32,14 +32,22 @@ describe('Home page', () => {
 	describe('authenticated user', () => {
 		beforeEach(() => {
 			cy.unregisterServiceWorkers()
-			cy.loginByApi('admin', 'admin')
+			cy.loginByApi(
+				Cypress.env('adminUsername'),
+				Cypress.env('adminPassword')
+			)
 			cy.visit('/')
 		})
 
 		it('should greets logged in user', () => {
 			cy.getBySel('greetMsg')
 				.should('be.visible')
-				.and('contain', 'You are logged in as user "admin".')
+				.and(
+					'contain',
+					`You are logged in as user "${Cypress.env(
+						'adminUsername'
+					)}".`
+				)
 		})
 	})
 })

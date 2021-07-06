@@ -147,8 +147,7 @@ Desktop.ini
 ######################
 .eslintcache
 
-/src/**/node_modules/@sapper/
 /cypress/screenshots/
-src/**/__sapper__/
+/cypress/fixtures/example.json
 client_id
-/src/main/webapp/static/vendor.css
+/.svelte-kit
