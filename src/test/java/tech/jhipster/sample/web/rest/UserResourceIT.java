@@ -151,19 +151,16 @@ class UserResourceIT {
 			.andExpect(status().isCreated());
 
 		// Validate the User in the database
-		assertPersistedUsers(
-			users -> {
-				assertThat(users).hasSize(databaseSizeBeforeCreate + 1);
-				User testUser = users.get(users.size() - 1);
-				assertThat(testUser.getLogin()).isEqualTo(DEFAULT_LOGIN);
-				assertThat(testUser.getFirstName())
-					.isEqualTo(DEFAULT_FIRSTNAME);
-				assertThat(testUser.getLastName()).isEqualTo(DEFAULT_LASTNAME);
-				assertThat(testUser.getEmail()).isEqualTo(DEFAULT_EMAIL);
-				assertThat(testUser.getImageUrl()).isEqualTo(DEFAULT_IMAGEURL);
-				assertThat(testUser.getLangKey()).isEqualTo(DEFAULT_LANGKEY);
-			}
-		);
+		assertPersistedUsers(users -> {
+			assertThat(users).hasSize(databaseSizeBeforeCreate + 1);
+			User testUser = users.get(users.size() - 1);
+			assertThat(testUser.getLogin()).isEqualTo(DEFAULT_LOGIN);
+			assertThat(testUser.getFirstName()).isEqualTo(DEFAULT_FIRSTNAME);
+			assertThat(testUser.getLastName()).isEqualTo(DEFAULT_LASTNAME);
+			assertThat(testUser.getEmail()).isEqualTo(DEFAULT_EMAIL);
+			assertThat(testUser.getImageUrl()).isEqualTo(DEFAULT_IMAGEURL);
+			assertThat(testUser.getLangKey()).isEqualTo(DEFAULT_LANGKEY);
+		});
 	}
 
 	@Test
@@ -196,8 +193,8 @@ class UserResourceIT {
 			.andExpect(status().isBadRequest());
 
 		// Validate the User in the database
-		assertPersistedUsers(
-			users -> assertThat(users).hasSize(databaseSizeBeforeCreate)
+		assertPersistedUsers(users ->
+			assertThat(users).hasSize(databaseSizeBeforeCreate)
 		);
 	}
 
@@ -232,8 +229,8 @@ class UserResourceIT {
 			.andExpect(status().isBadRequest());
 
 		// Validate the User in the database
-		assertPersistedUsers(
-			users -> assertThat(users).hasSize(databaseSizeBeforeCreate)
+		assertPersistedUsers(users ->
+			assertThat(users).hasSize(databaseSizeBeforeCreate)
 		);
 	}
 
@@ -268,8 +265,8 @@ class UserResourceIT {
 			.andExpect(status().isBadRequest());
 
 		// Validate the User in the database
-		assertPersistedUsers(
-			users -> assertThat(users).hasSize(databaseSizeBeforeCreate)
+		assertPersistedUsers(users ->
+			assertThat(users).hasSize(databaseSizeBeforeCreate)
 		);
 	}
 
@@ -382,22 +379,19 @@ class UserResourceIT {
 			.andExpect(status().isOk());
 
 		// Validate the User in the database
-		assertPersistedUsers(
-			users -> {
-				assertThat(users).hasSize(databaseSizeBeforeUpdate);
-				User testUser = users
-					.stream()
-					.filter(usr -> usr.getId().equals(updatedUser.getId()))
-					.findFirst()
-					.get();
-				assertThat(testUser.getFirstName())
-					.isEqualTo(UPDATED_FIRSTNAME);
-				assertThat(testUser.getLastName()).isEqualTo(UPDATED_LASTNAME);
-				assertThat(testUser.getEmail()).isEqualTo(UPDATED_EMAIL);
-				assertThat(testUser.getImageUrl()).isEqualTo(UPDATED_IMAGEURL);
-				assertThat(testUser.getLangKey()).isEqualTo(UPDATED_LANGKEY);
-			}
-		);
+		assertPersistedUsers(users -> {
+			assertThat(users).hasSize(databaseSizeBeforeUpdate);
+			User testUser = users
+				.stream()
+				.filter(usr -> usr.getId().equals(updatedUser.getId()))
+				.findFirst()
+				.get();
+			assertThat(testUser.getFirstName()).isEqualTo(UPDATED_FIRSTNAME);
+			assertThat(testUser.getLastName()).isEqualTo(UPDATED_LASTNAME);
+			assertThat(testUser.getEmail()).isEqualTo(UPDATED_EMAIL);
+			assertThat(testUser.getImageUrl()).isEqualTo(UPDATED_IMAGEURL);
+			assertThat(testUser.getLangKey()).isEqualTo(UPDATED_LANGKEY);
+		});
 	}
 
 	@Test
@@ -438,23 +432,20 @@ class UserResourceIT {
 			.andExpect(status().isOk());
 
 		// Validate the User in the database
-		assertPersistedUsers(
-			users -> {
-				assertThat(users).hasSize(databaseSizeBeforeUpdate);
-				User testUser = users
-					.stream()
-					.filter(usr -> usr.getId().equals(updatedUser.getId()))
-					.findFirst()
-					.get();
-				assertThat(testUser.getLogin()).isEqualTo(UPDATED_LOGIN);
-				assertThat(testUser.getFirstName())
-					.isEqualTo(UPDATED_FIRSTNAME);
-				assertThat(testUser.getLastName()).isEqualTo(UPDATED_LASTNAME);
-				assertThat(testUser.getEmail()).isEqualTo(UPDATED_EMAIL);
-				assertThat(testUser.getImageUrl()).isEqualTo(UPDATED_IMAGEURL);
-				assertThat(testUser.getLangKey()).isEqualTo(UPDATED_LANGKEY);
-			}
-		);
+		assertPersistedUsers(users -> {
+			assertThat(users).hasSize(databaseSizeBeforeUpdate);
+			User testUser = users
+				.stream()
+				.filter(usr -> usr.getId().equals(updatedUser.getId()))
+				.findFirst()
+				.get();
+			assertThat(testUser.getLogin()).isEqualTo(UPDATED_LOGIN);
+			assertThat(testUser.getFirstName()).isEqualTo(UPDATED_FIRSTNAME);
+			assertThat(testUser.getLastName()).isEqualTo(UPDATED_LASTNAME);
+			assertThat(testUser.getEmail()).isEqualTo(UPDATED_EMAIL);
+			assertThat(testUser.getImageUrl()).isEqualTo(UPDATED_IMAGEURL);
+			assertThat(testUser.getLangKey()).isEqualTo(UPDATED_LANGKEY);
+		});
 	}
 
 	@Test
@@ -577,8 +568,8 @@ class UserResourceIT {
 			.isNull();
 
 		// Validate the database is empty
-		assertPersistedUsers(
-			users -> assertThat(users).hasSize(databaseSizeBeforeDelete - 1)
+		assertPersistedUsers(users ->
+			assertThat(users).hasSize(databaseSizeBeforeDelete - 1)
 		);
 	}
 

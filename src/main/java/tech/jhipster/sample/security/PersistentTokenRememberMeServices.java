@@ -39,8 +39,6 @@ import tech.jhipster.security.RandomUtil;
  * <p>
  * This is inspired by:
  * <ul>
- * <li><a href="http://jaspan.com/improved_persistent_login_cookie_best_practice">Improved Persistent Login Cookie
- * Best Practice</a></li>
  * <li><a href="https://github.com/blog/1661-modeling-your-app-s-user-session">GitHub's "Modeling your App's User Session"</a></li>
  * </ul>
  * <p>
@@ -150,25 +148,20 @@ public class PersistentTokenRememberMeServices
 		log.debug("Creating new persistent login for user {}", login);
 		PersistentToken token = userRepository
 			.findOneByLogin(login)
-			.map(
-				u -> {
-					PersistentToken t = new PersistentToken();
-					t.setSeries(RandomUtil.generateRandomAlphanumericString());
-					t.setUser(u);
-					t.setTokenValue(
-						RandomUtil.generateRandomAlphanumericString()
-					);
-					t.setTokenDate(LocalDate.now());
-					t.setIpAddress(request.getRemoteAddr());
-					t.setUserAgent(request.getHeader("User-Agent"));
-					return t;
-				}
-			)
-			.orElseThrow(
-				() ->
-					new UsernameNotFoundException(
-						"User " + login + " was not found in the database"
-					)
+			.map(u -> {
+				PersistentToken t = new PersistentToken();
+				t.setSeries(RandomUtil.generateRandomAlphanumericString());
+				t.setUser(u);
+				t.setTokenValue(RandomUtil.generateRandomAlphanumericString());
+				t.setTokenDate(LocalDate.now());
+				t.setIpAddress(request.getRemoteAddr());
+				t.setUserAgent(request.getHeader("User-Agent"));
+				return t;
+			})
+			.orElseThrow(() ->
+				new UsernameNotFoundException(
+					"User " + login + " was not found in the database"
+				)
 			);
 		try {
 			persistentTokenRepository.saveAndFlush(token);

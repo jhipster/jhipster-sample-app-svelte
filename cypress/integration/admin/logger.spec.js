@@ -30,6 +30,10 @@ describe('Loggers page', () => {
 	})
 
 	it('should display logger name and the default enabled logger level in the table', () => {
+		cy.getBySel('loggerSearchForm')
+			.getByName('logger')
+			.type('org.hibernate.Version')
+
 		cy.getBySel('loggersTable')
 			.contains('td', 'org.hibernate.Version')
 			.parent()
@@ -61,6 +65,10 @@ describe('Loggers page', () => {
 	})
 
 	it('should display actions available on the current selected logger', () => {
+		cy.getBySel('loggerSearchForm')
+			.getByName('logger')
+			.type('org.hibernate.Version')
+
 		cy.getBySel('loggersTable')
 			.contains('td', 'org.hibernate.Version')
 			.parent()
@@ -93,6 +101,10 @@ describe('Loggers page', () => {
 	})
 
 	it('should change logger level from WARN -> INFO, INFO -> WARN', () => {
+		cy.getBySel('loggerSearchForm')
+			.getByName('logger')
+			.type('org.hibernate.Version')
+
 		cy.intercept('**/management/loggers/*').as('changeLoggers')
 
 		cy.getBySel('loggersTable')
@@ -133,13 +145,35 @@ describe('Loggers page', () => {
 		let countBeforeFilter
 
 		cy.getBySel('loggersTable')
-			.get('tr')
+			.get('tbody > tr')
 			.then($tr => (countBeforeFilter = $tr.length))
 
 		cy.getBySel('loggerSearchForm').getByName('logger').type('ROOT')
 
 		cy.getBySel('loggersTable')
-			.get('tr')
+			.get('tbody > tr')
 			.then($tr => expect($tr.length).not.eq(countBeforeFilter))
+
+		cy.getBySel('loggerSearchForm').getByName('logger').clear()
+
+		cy.getBySel('loggersTable')
+			.get('tbody > tr')
+			.then($tr => expect($tr.length).eq(countBeforeFilter))
+	})
+
+	it('should validate the pagination controls', () => {
+		cy.getBySel('pageCtrl')
+			.eq(0)
+			.contains('div', /1-\d+ of \d+/)
+			.next()
+			.within($div => {
+				cy.root()
+					.getBySel('prevPageCtrl')
+					.should('be.disabled')
+					.get('div')
+					.should('have.text', '1')
+					.getBySel('nextPageCtrl')
+					.should('be.enabled')
+			})
 	})
 })

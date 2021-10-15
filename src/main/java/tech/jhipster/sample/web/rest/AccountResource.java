@@ -1,7 +1,7 @@
 package tech.jhipster.sample.web.rest;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -19,7 +19,6 @@ import tech.jhipster.sample.service.MailService;
 import tech.jhipster.sample.service.UserService;
 import tech.jhipster.sample.service.dto.AdminUserDTO;
 import tech.jhipster.sample.service.dto.PasswordChangeDTO;
-import tech.jhipster.sample.service.dto.UserDTO;
 import tech.jhipster.sample.web.rest.errors.*;
 import tech.jhipster.sample.web.rest.vm.KeyAndPasswordVM;
 import tech.jhipster.sample.web.rest.vm.ManagedUserVM;
@@ -122,8 +121,8 @@ public class AccountResource {
 		return userService
 			.getUserWithAuthorities()
 			.map(AdminUserDTO::new)
-			.orElseThrow(
-				() -> new AccountResourceException("User could not be found")
+			.orElseThrow(() ->
+				new AccountResourceException("User could not be found")
 			);
 	}
 
@@ -138,9 +137,8 @@ public class AccountResource {
 	public void saveAccount(@Valid @RequestBody AdminUserDTO userDTO) {
 		String userLogin = SecurityUtils
 			.getCurrentUserLogin()
-			.orElseThrow(
-				() ->
-					new AccountResourceException("Current user login not found")
+			.orElseThrow(() ->
+				new AccountResourceException("Current user login not found")
 			);
 		Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(
 			userDTO.getEmail()
@@ -196,16 +194,14 @@ public class AccountResource {
 				.findOneByLogin(
 					SecurityUtils
 						.getCurrentUserLogin()
-						.orElseThrow(
-							() ->
-								new AccountResourceException(
-									"Current user login not found"
-								)
+						.orElseThrow(() ->
+							new AccountResourceException(
+								"Current user login not found"
+							)
 						)
 				)
-				.orElseThrow(
-					() ->
-						new AccountResourceException("User could not be found")
+				.orElseThrow(() ->
+					new AccountResourceException("User could not be found")
 				)
 		);
 	}
@@ -224,34 +220,31 @@ public class AccountResource {
 	 *   cookie.
 	 *
 	 * @param series the series of an existing session.
-	 * @throws UnsupportedEncodingException if the series couldn't be URL decoded.
+	 * @throws IllegalArgumentException if the series couldn't be URL decoded.
 	 */
 	@DeleteMapping("/account/sessions/{series}")
-	public void invalidateSession(@PathVariable String series)
-		throws UnsupportedEncodingException {
-		String decodedSeries = URLDecoder.decode(series, "UTF-8");
+	public void invalidateSession(@PathVariable String series) {
+		String decodedSeries = URLDecoder.decode(
+			series,
+			StandardCharsets.UTF_8
+		);
 		SecurityUtils
 			.getCurrentUserLogin()
 			.flatMap(userRepository::findOneByLogin)
-			.ifPresent(
-				u ->
-					persistentTokenRepository
-						.findByUser(u)
-						.stream()
-						.filter(
-							persistentToken ->
-								StringUtils.equals(
-									persistentToken.getSeries(),
-									decodedSeries
-								)
+			.ifPresent(u ->
+				persistentTokenRepository
+					.findByUser(u)
+					.stream()
+					.filter(persistentToken ->
+						StringUtils.equals(
+							persistentToken.getSeries(),
+							decodedSeries
 						)
-						.findAny()
-						.ifPresent(
-							t ->
-								persistentTokenRepository.deleteById(
-									decodedSeries
-								)
-						)
+					)
+					.findAny()
+					.ifPresent(t ->
+						persistentTokenRepository.deleteById(decodedSeries)
+					)
 			);
 	}
 
