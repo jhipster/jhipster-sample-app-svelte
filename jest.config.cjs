@@ -1,12 +1,12 @@
 module.exports = {
 	testEnvironment: 'jsdom',
 	transform: {
-		'^.+\\.js$': 'esbuild-jest',
 		'^.+\\.svelte$': 'svelte-jester',
 	},
 	testMatch: ['<rootDir>/(src/main/webapp/**/*.spec.js)'],
 	transformIgnorePatterns: ['node_modules/(?!fa-svelte)'],
 	moduleFileExtensions: ['js', 'svelte'],
+	extensionsToTreatAsEsm: ['.svelte'],
 	moduleNameMapper: {
 		'^\\$lib(.*)$': '<rootDir>/src/main/webapp/app/lib$1',
 	},

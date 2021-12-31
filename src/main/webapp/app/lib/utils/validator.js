@@ -30,6 +30,12 @@ export function createValidator(validations) {
 			switch (type) {
 				case 'required':
 					return required(validationArgs)
+				case 'numeric':
+					return numeric(validationArgs)
+				case 'min':
+					return min(validationArgs)
+				case 'max':
+					return max(validationArgs)
 				case 'minlength':
 					return minlength(validationArgs)
 				case 'maxlength':
@@ -52,8 +58,54 @@ export function createValidator(validations) {
 function required(validationArgs) {
 	const { message } = validationArgs
 	return function (value) {
-		if (value === undefined || value === null || value.trim() === '') {
+		if (
+			value === undefined ||
+			value === null ||
+			(typeof value == 'number' ? value : value.trim()) === ''
+		) {
 			return message || 'This field is required'
+		}
+	}
+}
+
+function numeric(validationArgs) {
+	const { message } = validationArgs
+	return function (value) {
+		if (
+			value === undefined ||
+			value === null ||
+			value === '' ||
+			isNaN(value)
+		) {
+			return message || 'This field value should be numeric'
+		}
+	}
+}
+
+function min(validationArgs) {
+	const { message, min } = validationArgs
+	return function (value) {
+		if (
+			value !== undefined &&
+			value !== null &&
+			!isNaN(value) &&
+			Number(value) < min
+		) {
+			return message || `The field value should be at least ${min}`
+		}
+	}
+}
+
+function max(validationArgs) {
+	const { message, max } = validationArgs
+	return function (value) {
+		if (
+			value !== undefined &&
+			value !== null &&
+			!isNaN(value) &&
+			Number(value) > max
+		) {
+			return message || `The field value should be more than ${max}`
 		}
 	}
 }
