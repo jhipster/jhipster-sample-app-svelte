@@ -14,7 +14,8 @@
 		return (browser && auth.loadUserIfAuthenticated()) || Promise.resolve()
 	}
 
-	$: isLoginRouteActivated = $page && $page.path && $page.path === '/login'
+	$: isLoginRouteActivated =
+		$page && $page.url && $page.url.pathname === '/login'
 </script>
 
 {#await loadUserDetails() then response}

@@ -15,16 +15,16 @@
 	$: routeAccessAllowed =
 		($auth && $auth.login) ||
 		($page &&
-			$page.path &&
-			[...allowedUnAuthenticatedRoutes, '/'].includes($page.path))
+			$page.url &&
+			[...allowedUnAuthenticatedRoutes, '/'].includes($page.url.pathname))
 
 	function checkIfCurrentRouteAccessNotAllowed() {
 		if (
 			$auth &&
 			$auth.login &&
 			$page &&
-			$page.path &&
-			allowedUnAuthenticatedRoutes.includes($page.path)
+			$page.url &&
+			allowedUnAuthenticatedRoutes.includes($page.url.pathname)
 		) {
 			goto('/')
 		} else if (!routeAccessAllowed) {

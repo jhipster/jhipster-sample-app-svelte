@@ -4,15 +4,24 @@ basedir=`dirname "$0"`
 
 if [ -f "$basedir/mvnw" ]; then
   builddir="target/node"
-  installCommand="$basedir/mvnw -ntp frontend:install-node-and-npm@install-node-and-npm"
+  installCommand="$basedir/mvnw -Pwebapp frontend:install-node-and-npm@install-node-and-npm"
+  NPM_EXE="$basedir/$builddir/npm"
+  NODE_EXE=""
+else
+  builddir="build/node"
+  installCommand="$basedir/gradlew npmSetup"
+  NPM_EXE="$basedir/$builddir/lib/node_modules/npm/bin/npm-cli.js"
+  NODE_EXE="$basedir/$builddir/bin/node"
 fi
 
-NPM_EXE="$basedir/$builddir/npm"
+if ! [ -x "$NPM_EXE" ]; then
+  $installCommand || true
+fi
 
 if ! [ -x "$NPM_EXE" ]; then
   echo "Using npm installed globally"
   npm "$@"
 else
-  echo "Using npm installed locally $($NPM_EXE --version)"
-  $NPM_EXE "$@"
+  echo "Using npm installed locally $($NODE_EXE $NPM_EXE --version)"
+  $NODE_EXE $NPM_EXE "$@"
 fi
