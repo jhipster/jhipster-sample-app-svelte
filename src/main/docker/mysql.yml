@@ -2,7 +2,8 @@
 version: '3.8'
 services:
     sveltedemoapplication-mysql:
-        image: mysql:8.0.27
+        image: mysql:8.0.28
+        platform: linux/x86_64
         # volumes:
         #   - ~/volumes/jhipster/SvelteDemoApplication/mysql/:/var/lib/mysql/
         environment:

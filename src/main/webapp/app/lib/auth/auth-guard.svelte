@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
 	import { onMount } from 'svelte'
-	import auth from '$lib/auth/auth-store.js'
+	import auth from '$lib/auth/auth-store'
 
 	const allowedUnAuthenticatedRoutes = [
 		'/login',

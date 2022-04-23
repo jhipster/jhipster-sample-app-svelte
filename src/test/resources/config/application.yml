@@ -19,6 +19,7 @@ spring:
         #active: testcontainers
     application:
         name: SvelteDemoApplication
+
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:h2:mem:sveltedemoapplication;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
@@ -53,6 +54,9 @@ spring:
         host: localhost
     main:
         allow-bean-definition-overriding: true
+    mvc:
+        pathmatch:
+            matching-strategy: ant_path_matcher
     messages:
         basename: i18n/messages
     task:
@@ -65,7 +69,7 @@ spring:
         scheduling:
             thread-name-prefix: svelte-demo-application-scheduling-
             pool:
-                size: 1
+                size: 20
     thymeleaf:
         mode: HTML
 
@@ -78,7 +82,6 @@ server:
 #
 # Full reference is available at: https://www.jhipster.tech/common-application-properties/
 # ===================================================================
-
 jhipster:
     clientApp:
         name: 'svelteDemoApplicationApp'

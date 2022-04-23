@@ -118,7 +118,7 @@ class PublicUserResourceIT {
 			.andExpect(status().isBadRequest());
 		restUserMockMvc
 			.perform(
-				get("/api/users?sort=resetKey,id,desc")
+				get("/api/users?sort=resetKey,desc&sort=id,desc")
 					.accept(MediaType.APPLICATION_JSON)
 			)
 			.andExpect(status().isBadRequest());

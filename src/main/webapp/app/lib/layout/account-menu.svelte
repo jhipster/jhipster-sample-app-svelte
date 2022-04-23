@@ -1,15 +1,15 @@
 <script>
 	import { goto } from '$app/navigation'
-	import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt.js'
-	import { faLock } from '@fortawesome/free-solid-svg-icons/faLock.js'
-	import { faWrench } from '@fortawesome/free-solid-svg-icons/faWrench.js'
-	import { faCaretDown } from '@fortawesome/free-solid-svg-icons/faCaretDown.js'
-	import { faUser } from '@fortawesome/free-solid-svg-icons/faUser.js'
+	import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt'
+	import { faLock } from '@fortawesome/free-solid-svg-icons/faLock'
+	import { faWrench } from '@fortawesome/free-solid-svg-icons/faWrench'
+	import { faCaretDown } from '@fortawesome/free-solid-svg-icons/faCaretDown'
+	import { faUser } from '@fortawesome/free-solid-svg-icons/faUser'
+	import MenuItem from 'jhipster-svelte-library/layout/menu-item.svelte'
+	import Icon from 'jhipster-svelte-library/icon.svelte'
 
-	import MenuItem from '$lib/layout/menu-item.svelte'
-	import Icon from '$lib/icon.svelte'
-	import auth from '$lib/auth/auth-store.js'
-	import authService from '$lib/auth/auth-service.js'
+	import auth from '$lib/auth/auth-store'
+	import authService from '$lib/auth/auth-service'
 
 	let isOpen = false
 

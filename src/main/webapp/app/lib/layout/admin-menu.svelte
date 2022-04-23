@@ -1,11 +1,12 @@
 <script>
-	import { faUsersCog } from '@fortawesome/free-solid-svg-icons/faUsersCog.js'
-	import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers.js'
-	import { faTasks } from '@fortawesome/free-solid-svg-icons/faTasks.js'
-	import { faCaretDown } from '@fortawesome/free-solid-svg-icons/faCaretDown.js'
+	import { faUsersCog } from '@fortawesome/free-solid-svg-icons/faUsersCog'
+	import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers'
+	import { faTasks } from '@fortawesome/free-solid-svg-icons/faTasks'
+	import { faCaretDown } from '@fortawesome/free-solid-svg-icons/faCaretDown'
+	import { faBook } from '@fortawesome/free-solid-svg-icons/faBook'
+	import MenuItem from 'jhipster-svelte-library/layout/menu-item.svelte'
 
-	import MenuItem from '$lib/layout/menu-item.svelte'
-	import Icon from '$lib/icon.svelte'
+	import Icon from 'jhipster-svelte-library/icon.svelte'
 
 	let isOpen = false
 </script>

@@ -1,4 +1,5 @@
 import adapter from '@sveltejs/adapter-static'
+import { splitVendorChunkPlugin } from 'vite'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -8,7 +9,6 @@ const config = {
 			assets: 'target/classes/static/',
 			fallback: 'index.html',
 		}),
-		target: '#svelte',
 		appDir: '_app',
 		files: {
 			assets: 'src/main/webapp/static',
@@ -30,6 +30,10 @@ const config = {
 						changeOrigin: true,
 					},
 				},
+			},
+			plugins: [splitVendorChunkPlugin()],
+			ssr: {
+				noExternal: ['jhipster-svelte-library'],
 			},
 		}),
 	},

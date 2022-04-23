@@ -183,9 +183,9 @@ class MailServiceIT {
 	@Test
 	void testSendEmailFromTemplate() throws Exception {
 		User user = new User();
+		user.setLangKey(Constants.DEFAULT_LANGUAGE);
 		user.setLogin("john");
 		user.setEmail("john.doe@example.com");
-		user.setLangKey("en");
 		mailService.sendEmailFromTemplate(
 			user,
 			"mail/testEmail",
