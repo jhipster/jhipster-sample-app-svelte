@@ -5,6 +5,12 @@ const userStore = writable(undefined)
 
 export default {
 	subscribe: userStore.subscribe,
+	saveRoute: route => sessionStorage.setItem('savedRoute', route),
+	getSavedRoute: () => {
+		const savedRoute = sessionStorage.getItem('savedRoute')
+		sessionStorage.removeItem('savedRoute')
+		return savedRoute
+	},
 	loadUser: () => {
 		return authService
 			.fetchAuthenticatedUserDetails()
@@ -37,5 +43,6 @@ export default {
 	},
 	logout: () => {
 		userStore.set(undefined)
+		sessionStorage.removeItem('savedRoute')
 	},
 }

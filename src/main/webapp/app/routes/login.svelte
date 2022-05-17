@@ -24,7 +24,12 @@
 		authService
 			.login(username, password, rememberMe)
 			.then(() => auth.loadUser())
-			.then(() => goto('/'))
+			.then(() => {
+				const savedRoute = auth.getSavedRoute()
+				if (savedRoute) {
+					goto(savedRoute)
+				} else goto('/')
+			})
 			.catch(() => ((password = ''), (authError = true)))
 	}
 </script>

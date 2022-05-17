@@ -2,8 +2,8 @@ describe('User Management list page', () => {
 	beforeEach(() => {
 		cy.unregisterServiceWorkers()
 		cy.loginByApi(
-			Cypress.env('adminUsername'),
-			Cypress.env('adminPassword')
+			Cypress.env('ADMIN_USERNAME'),
+			Cypress.env('ADMIN_PASSWORD')
 		)
 		cy.visit('/admin/user-management')
 	})
@@ -60,14 +60,8 @@ describe('User Management list page', () => {
 					.eq(3)
 					.should('contain', 'ROLE_USER')
 					.get('td')
-					.eq(4)
-					.should('contain', '-')
-					.get('td')
 					.eq(5)
 					.should('contain', 'system')
-					.get('td')
-					.eq(6)
-					.should('contain', '-')
 			})
 	})
 

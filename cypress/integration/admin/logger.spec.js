@@ -2,8 +2,8 @@ describe('Loggers page', () => {
 	beforeEach(() => {
 		cy.unregisterServiceWorkers()
 		cy.loginByApi(
-			Cypress.env('adminUsername'),
-			Cypress.env('adminPassword')
+			Cypress.env('ADMIN_USERNAME'),
+			Cypress.env('ADMIN_PASSWORD')
 		)
 		cy.visit('/admin/logger')
 	})
@@ -32,10 +32,15 @@ describe('Loggers page', () => {
 	it('should display logger name and the default enabled logger level in the table', () => {
 		cy.getBySel('loggerSearchForm')
 			.getByName('logger')
-			.type('org.hibernate.Version')
+			.type(
+				'org.hibernate.validator.internal.engine.groups.ValidationOrderGenerator'
+			)
 
 		cy.getBySel('loggersTable')
-			.contains('td', 'org.hibernate.Version')
+			.contains(
+				'td',
+				'org.hibernate.validator.internal.engine.groups.ValidationOrderGenerator'
+			)
 			.parent()
 			.within($tr => {
 				cy.root()
@@ -67,10 +72,15 @@ describe('Loggers page', () => {
 	it('should display actions available on the current selected logger', () => {
 		cy.getBySel('loggerSearchForm')
 			.getByName('logger')
-			.type('org.hibernate.Version')
+			.type(
+				'org.hibernate.validator.internal.engine.groups.ValidationOrderGenerator'
+			)
 
 		cy.getBySel('loggersTable')
-			.contains('td', 'org.hibernate.Version')
+			.contains(
+				'td',
+				'org.hibernate.validator.internal.engine.groups.ValidationOrderGenerator'
+			)
 			.parent()
 			.trigger('mouseenter')
 			.within($tr => {
@@ -103,12 +113,17 @@ describe('Loggers page', () => {
 	it('should change logger level from WARN -> INFO, INFO -> WARN', () => {
 		cy.getBySel('loggerSearchForm')
 			.getByName('logger')
-			.type('org.hibernate.Version')
+			.type(
+				'org.hibernate.validator.internal.engine.groups.ValidationOrderGenerator'
+			)
 
 		cy.intercept('**/management/loggers/*').as('changeLoggers')
 
 		cy.getBySel('loggersTable')
-			.contains('td', 'org.hibernate.Version')
+			.contains(
+				'td',
+				'org.hibernate.validator.internal.engine.groups.ValidationOrderGenerator'
+			)
 			.parent()
 			.trigger('mouseenter')
 			.within($tr => {
@@ -124,7 +139,10 @@ describe('Loggers page', () => {
 		cy.wait('@changeLoggers')
 
 		cy.getBySel('loggersTable')
-			.contains('td', 'org.hibernate.Version')
+			.contains(
+				'td',
+				'org.hibernate.validator.internal.engine.groups.ValidationOrderGenerator'
+			)
 			.parent()
 			.trigger('mouseenter')
 			.within($tr => {

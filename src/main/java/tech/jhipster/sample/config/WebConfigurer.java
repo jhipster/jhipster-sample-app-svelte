@@ -27,105 +27,85 @@ import tech.jhipster.config.h2.H2ConfigurationHelper;
  * Configuration of web application with Servlet 3.0 APIs.
  */
 @Configuration
-public class WebConfigurer
-	implements
-		ServletContextInitializer,
-		WebServerFactoryCustomizer<WebServerFactory> {
+public class WebConfigurer implements ServletContextInitializer, WebServerFactoryCustomizer<WebServerFactory> {
 
-	private final Logger log = LoggerFactory.getLogger(WebConfigurer.class);
+    private final Logger log = LoggerFactory.getLogger(WebConfigurer.class);
 
-	private final Environment env;
+    private final Environment env;
 
-	private final JHipsterProperties jHipsterProperties;
+    private final JHipsterProperties jHipsterProperties;
 
-	public WebConfigurer(
-		Environment env,
-		JHipsterProperties jHipsterProperties
-	) {
-		this.env = env;
-		this.jHipsterProperties = jHipsterProperties;
-	}
+    public WebConfigurer(Environment env, JHipsterProperties jHipsterProperties) {
+        this.env = env;
+        this.jHipsterProperties = jHipsterProperties;
+    }
 
-	@Override
-	public void onStartup(ServletContext servletContext)
-		throws ServletException {
-		if (env.getActiveProfiles().length != 0) {
-			log.info(
-				"Web application configuration, using profiles: {}",
-				(Object[]) env.getActiveProfiles()
-			);
-		}
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        if (env.getActiveProfiles().length != 0) {
+            log.info("Web application configuration, using profiles: {}", (Object[]) env.getActiveProfiles());
+        }
 
-		if (
-			env.acceptsProfiles(
-				Profiles.of(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT)
-			)
-		) {
-			initH2Console(servletContext);
-		}
-		log.info("Web application fully configured");
-	}
+        if (env.acceptsProfiles(Profiles.of(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT))) {
+            initH2Console(servletContext);
+        }
+        log.info("Web application fully configured");
+    }
 
-	/**
-	 * Customize the Servlet engine: Mime types, the document root, the cache.
-	 */
-	@Override
-	public void customize(WebServerFactory server) {
-		// When running in an IDE or with ./mvnw spring-boot:run, set location of the static web assets.
-		setLocationForStaticAssets(server);
-	}
+    /**
+     * Customize the Servlet engine: Mime types, the document root, the cache.
+     */
+    @Override
+    public void customize(WebServerFactory server) {
+        // When running in an IDE or with ./mvnw spring-boot:run, set location of the static web assets.
+        setLocationForStaticAssets(server);
+    }
 
-	private void setLocationForStaticAssets(WebServerFactory server) {
-		if (server instanceof ConfigurableServletWebServerFactory) {
-			ConfigurableServletWebServerFactory servletWebServer = (ConfigurableServletWebServerFactory) server;
-			File root;
-			String prefixPath = resolvePathPrefix();
-			root = new File(prefixPath + "target/classes/static/");
-			if (root.exists() && root.isDirectory()) {
-				servletWebServer.setDocumentRoot(root);
-			}
-		}
-	}
+    private void setLocationForStaticAssets(WebServerFactory server) {
+        if (server instanceof ConfigurableServletWebServerFactory) {
+            ConfigurableServletWebServerFactory servletWebServer = (ConfigurableServletWebServerFactory) server;
+            File root;
+            String prefixPath = resolvePathPrefix();
+            root = new File(prefixPath + "target/classes/static/");
+            if (root.exists() && root.isDirectory()) {
+                servletWebServer.setDocumentRoot(root);
+            }
+        }
+    }
 
-	/**
-	 * Resolve path prefix to static resources.
-	 */
-	private String resolvePathPrefix() {
-		String fullExecutablePath = decode(
-			this.getClass().getResource("").getPath(),
-			StandardCharsets.UTF_8
-		);
-		String rootPath = Paths.get(".").toUri().normalize().getPath();
-		String extractedPath = fullExecutablePath.replace(rootPath, "");
-		int extractionEndIndex = extractedPath.indexOf("target/");
-		if (extractionEndIndex <= 0) {
-			return "";
-		}
-		return extractedPath.substring(0, extractionEndIndex);
-	}
+    /**
+     * Resolve path prefix to static resources.
+     */
+    private String resolvePathPrefix() {
+        String fullExecutablePath = decode(this.getClass().getResource("").getPath(), StandardCharsets.UTF_8);
+        String rootPath = Paths.get(".").toUri().normalize().getPath();
+        String extractedPath = fullExecutablePath.replace(rootPath, "");
+        int extractionEndIndex = extractedPath.indexOf("target/");
+        if (extractionEndIndex <= 0) {
+            return "";
+        }
+        return extractedPath.substring(0, extractionEndIndex);
+    }
 
-	@Bean
-	public CorsFilter corsFilter() {
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration config = jHipsterProperties.getCors();
-		if (
-			!CollectionUtils.isEmpty(config.getAllowedOrigins()) ||
-			!CollectionUtils.isEmpty(config.getAllowedOriginPatterns())
-		) {
-			log.debug("Registering CORS filter");
-			source.registerCorsConfiguration("/api/**", config);
-			source.registerCorsConfiguration("/management/**", config);
-			source.registerCorsConfiguration("/v3/api-docs", config);
-			source.registerCorsConfiguration("/swagger-ui/**", config);
-		}
-		return new CorsFilter(source);
-	}
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = jHipsterProperties.getCors();
+        if (!CollectionUtils.isEmpty(config.getAllowedOrigins()) || !CollectionUtils.isEmpty(config.getAllowedOriginPatterns())) {
+            log.debug("Registering CORS filter");
+            source.registerCorsConfiguration("/api/**", config);
+            source.registerCorsConfiguration("/management/**", config);
+            source.registerCorsConfiguration("/v3/api-docs", config);
+            source.registerCorsConfiguration("/swagger-ui/**", config);
+        }
+        return new CorsFilter(source);
+    }
 
-	/**
-	 * Initializes H2 console.
-	 */
-	private void initH2Console(ServletContext servletContext) {
-		log.debug("Initialize H2 console");
-		H2ConfigurationHelper.initH2Console(servletContext);
-	}
+    /**
+     * Initializes H2 console.
+     */
+    private void initH2Console(ServletContext servletContext) {
+        log.debug("Initialize H2 console");
+        H2ConfigurationHelper.initH2Console(servletContext);
+    }
 }

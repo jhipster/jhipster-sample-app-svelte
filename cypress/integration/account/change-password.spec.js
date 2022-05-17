@@ -2,8 +2,8 @@ describe('Change user password', () => {
 	beforeEach(() => {
 		cy.unregisterServiceWorkers()
 		cy.loginByApi(
-			Cypress.env('adminUsername'),
-			Cypress.env('adminPassword')
+			Cypress.env('ADMIN_USERNAME'),
+			Cypress.env('ADMIN_PASSWORD')
 		)
 		cy.visit('/account/password')
 	})

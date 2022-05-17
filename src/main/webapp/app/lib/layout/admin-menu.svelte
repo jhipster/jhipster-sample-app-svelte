@@ -3,7 +3,6 @@
 	import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers'
 	import { faTasks } from '@fortawesome/free-solid-svg-icons/faTasks'
 	import { faCaretDown } from '@fortawesome/free-solid-svg-icons/faCaretDown'
-	import { faBook } from '@fortawesome/free-solid-svg-icons/faBook'
 	import MenuItem from 'jhipster-svelte-library/layout/menu-item.svelte'
 
 	import Icon from 'jhipster-svelte-library/icon.svelte'

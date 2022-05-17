@@ -2,8 +2,8 @@ describe('User Settings', () => {
 	beforeEach(() => {
 		cy.unregisterServiceWorkers()
 		cy.loginByApi(
-			Cypress.env('adminUsername'),
-			Cypress.env('adminPassword')
+			Cypress.env('ADMIN_USERNAME'),
+			Cypress.env('ADMIN_PASSWORD')
 		)
 		cy.visit('/account/settings')
 	})
@@ -11,7 +11,7 @@ describe('User Settings', () => {
 	it('should greets with User Settings title', () => {
 		cy.getBySel('settingsTitle').should(
 			'have.text',
-			`User settings for [${Cypress.env('adminUsername')}]`
+			`User settings for [${Cypress.env('ADMIN_USERNAME')}]`
 		)
 	})
 

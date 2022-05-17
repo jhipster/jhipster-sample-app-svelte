@@ -15,6 +15,13 @@
 			"options": {
 				"printWidth": 140
 			}
+		},
+		{
+			"files": "*.java",
+			"options": {
+				"useTabs": false,
+				"printWidth": 140
+			}
 		}
 	]
 }

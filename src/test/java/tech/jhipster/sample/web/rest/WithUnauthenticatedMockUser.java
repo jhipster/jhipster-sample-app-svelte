@@ -13,14 +13,11 @@ import org.springframework.security.test.context.support.WithSecurityContextFact
 @Retention(RetentionPolicy.RUNTIME)
 @WithSecurityContext(factory = WithUnauthenticatedMockUser.Factory.class)
 public @interface WithUnauthenticatedMockUser {
-	class Factory
-		implements WithSecurityContextFactory<WithUnauthenticatedMockUser> {
+    class Factory implements WithSecurityContextFactory<WithUnauthenticatedMockUser> {
 
-		@Override
-		public SecurityContext createSecurityContext(
-			WithUnauthenticatedMockUser annotation
-		) {
-			return SecurityContextHolder.createEmptyContext();
-		}
-	}
+        @Override
+        public SecurityContext createSecurityContext(WithUnauthenticatedMockUser annotation) {
+            return SecurityContextHolder.createEmptyContext();
+        }
+    }
 }

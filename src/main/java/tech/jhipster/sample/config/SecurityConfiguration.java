@@ -26,62 +26,62 @@ import tech.jhipster.security.*;
 @Import(SecurityProblemSupport.class)
 public class SecurityConfiguration {
 
-	private final JHipsterProperties jHipsterProperties;
+    private final JHipsterProperties jHipsterProperties;
 
-	private final RememberMeServices rememberMeServices;
+    private final RememberMeServices rememberMeServices;
 
-	private final CorsFilter corsFilter;
-	private final SecurityProblemSupport problemSupport;
+    private final CorsFilter corsFilter;
+    private final SecurityProblemSupport problemSupport;
 
-	public SecurityConfiguration(
-		RememberMeServices rememberMeServices,
-		CorsFilter corsFilter,
-		JHipsterProperties jHipsterProperties,
-		SecurityProblemSupport problemSupport
-	) {
-		this.rememberMeServices = rememberMeServices;
-		this.corsFilter = corsFilter;
-		this.problemSupport = problemSupport;
-		this.jHipsterProperties = jHipsterProperties;
-	}
+    public SecurityConfiguration(
+        RememberMeServices rememberMeServices,
+        CorsFilter corsFilter,
+        JHipsterProperties jHipsterProperties,
+        SecurityProblemSupport problemSupport
+    ) {
+        this.rememberMeServices = rememberMeServices;
+        this.corsFilter = corsFilter;
+        this.problemSupport = problemSupport;
+        this.jHipsterProperties = jHipsterProperties;
+    }
 
-	@Bean
-	public AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler() {
-		return new AjaxAuthenticationSuccessHandler();
-	}
+    @Bean
+    public AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler() {
+        return new AjaxAuthenticationSuccessHandler();
+    }
 
-	@Bean
-	public AjaxAuthenticationFailureHandler ajaxAuthenticationFailureHandler() {
-		return new AjaxAuthenticationFailureHandler();
-	}
+    @Bean
+    public AjaxAuthenticationFailureHandler ajaxAuthenticationFailureHandler() {
+        return new AjaxAuthenticationFailureHandler();
+    }
 
-	@Bean
-	public AjaxLogoutSuccessHandler ajaxLogoutSuccessHandler() {
-		return new AjaxLogoutSuccessHandler();
-	}
+    @Bean
+    public AjaxLogoutSuccessHandler ajaxLogoutSuccessHandler() {
+        return new AjaxLogoutSuccessHandler();
+    }
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Bean
-	public WebSecurityCustomizer webSecurityCustomizer() {
-		return web ->
-			web
-				.ignoring()
-				.antMatchers(HttpMethod.OPTIONS, "/**")
-				.antMatchers("/app/**/*.{js,html}")
-				.antMatchers("/i18n/**")
-				.antMatchers("/content/**")
-				.antMatchers("/h2-console/**")
-				.antMatchers("/swagger-ui/**")
-				.antMatchers("/test/**");
-	}
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web ->
+            web
+                .ignoring()
+                .antMatchers(HttpMethod.OPTIONS, "/**")
+                .antMatchers("/app/**/*.{js,html}")
+                .antMatchers("/i18n/**")
+                .antMatchers("/content/**")
+                .antMatchers("/h2-console/**")
+                .antMatchers("/swagger-ui/**")
+                .antMatchers("/test/**");
+    }
 
-	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		// @formatter:off
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // @formatter:off
         http
             .csrf()
             .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
@@ -131,6 +131,6 @@ public class SecurityConfiguration {
             .antMatchers("/management/prometheus").permitAll()
             .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN);
         return http.build();
-		// @formatter:on
-	}
+        // @formatter:on
+    }
 }

@@ -28,7 +28,21 @@
 		) {
 			goto('/')
 		} else if (!routeAccessAllowed) {
+			auth.saveRoute($page.url.pathname)
 			goto('/login')
+		} else {
+			if (
+				$auth &&
+				$auth.login &&
+				$page &&
+				$page.url &&
+				$page.url.pathname === '/'
+			) {
+				const savedRoute = auth.getSavedRoute()
+				if (savedRoute) {
+					goto(savedRoute)
+				}
+			}
 		}
 	}
 	onMount(() => checkIfCurrentRouteAccessNotAllowed())

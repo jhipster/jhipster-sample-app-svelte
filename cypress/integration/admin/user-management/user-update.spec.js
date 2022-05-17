@@ -5,8 +5,8 @@ describe('Update user page', () => {
 		cy.unregisterServiceWorkers()
 		randomUser = 'test' + new Date().getTime()
 		cy.loginByApi(
-			Cypress.env('adminUsername'),
-			Cypress.env('adminPassword')
+			Cypress.env('ADMIN_USERNAME'),
+			Cypress.env('ADMIN_PASSWORD')
 		)
 
 		cy.save('api/admin/users', {

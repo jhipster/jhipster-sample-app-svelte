@@ -9,9 +9,8 @@ import tech.jhipster.sample.domain.User;
 /**
  * Spring Data JPA repository for the {@link PersistentToken} entity.
  */
-public interface PersistentTokenRepository
-	extends JpaRepository<PersistentToken, String> {
-	List<PersistentToken> findByUser(User user);
+public interface PersistentTokenRepository extends JpaRepository<PersistentToken, String> {
+    List<PersistentToken> findByUser(User user);
 
-	List<PersistentToken> findByTokenDateBefore(LocalDate localDate);
+    List<PersistentToken> findByTokenDateBefore(LocalDate localDate);
 }

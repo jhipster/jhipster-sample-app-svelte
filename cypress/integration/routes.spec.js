@@ -44,8 +44,8 @@ describe('Routes', () => {
 		beforeEach(() => {
 			cy.unregisterServiceWorkers()
 			cy.loginByApi(
-				Cypress.env('adminUsername'),
-				Cypress.env('adminPassword')
+				Cypress.env('ADMIN_USERNAME'),
+				Cypress.env('ADMIN_PASSWORD')
 			)
 		})
 
@@ -71,6 +71,32 @@ describe('Routes', () => {
 			cy.getBySel('welcomeTitle')
 				.should('be.visible')
 				.and('contain', 'Welcome, Svelte Hipster!')
+		})
+	})
+
+	describe('navigation context', () => {
+		beforeEach(() => {
+			cy.visit('/admin/logger')
+			cy.location('pathname').should('eq', '/login')
+		})
+
+		it('should navigate to saved context', () => {
+			cy.getBySel('loginForm').within(() => {
+				cy.root()
+					.get("input[type='checkbox']")
+					.eq(0)
+					.check()
+					.getByName('username')
+					.type(Cypress.env('ADMIN_USERNAME'))
+					.getByName('password')
+					.type(Cypress.env('ADMIN_PASSWORD') + '{enter}', {
+						log: false,
+					})
+			})
+			cy.location('pathname').should('eq', '/admin/logger')
+			cy.getBySel('loggersTitle')
+				.should('be.visible')
+				.should('contain', 'Loggers')
 		})
 	})
 })
