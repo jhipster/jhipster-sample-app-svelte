@@ -1,14 +1,17 @@
 <script>
-	import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
-	import { faSignInAlt } from '@fortawesome/free-solid-svg-icons/faSignInAlt'
-	import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus'
+	import {
+		faBars,
+		faSignInAlt,
+		faUserPlus,
+	} from '@fortawesome/free-solid-svg-icons'
+
 	import NavItem from 'jhipster-svelte-library/layout/nav-item.svelte'
 
 	import Icon from 'jhipster-svelte-library/icon.svelte'
 	import auth from '$lib/auth/auth-store'
-	import AccountMenu from '$lib/layout/account-menu.svelte'
-	import AdminMenu from '$lib/layout/admin-menu.svelte'
-	import EntityMenu from '$lib/layout/entity-menu.svelte'
+	import AccountMenu from '$lib/account/account-menu.svelte'
+	import AdminMenu from '$lib/admin/admin-menu.svelte'
+	import EntityMenu from '$lib/entities/entity-menu.svelte'
 	import RoleGuard from '$lib/auth/role-guard.svelte'
 	import ThemeModeToggle from 'jhipster-svelte-library/layout/theme-mode-toggle.svelte'
 
@@ -33,10 +36,10 @@
 					alt="Application logo"
 				/></a
 			>
-			<div data-test="svlAppName" class="ml-2 font-semibold text-xl">
+			<div data-testid="svlAppName" class="ml-2 font-semibold text-xl">
 				SvelteDemoApplication
 			</div>
-			<div data-test="svlAppVersion" class="ml-2 text-xs text-gray-400">
+			<div data-testid="svlAppVersion" class="ml-2 text-xs text-gray-400">
 				DEV
 			</div>
 		</div>
@@ -46,7 +49,7 @@
 			</div>
 			<div class="sm:hidden">
 				<button
-					data-test="svlNavBtn"
+					data-testid="svlNavBtn"
 					on:click="{toggleToolbar}"
 					type="button"
 					aria-label="Toggle Navigation"
@@ -64,19 +67,19 @@
 			<ThemeModeToggle />
 		</div>
 		{#if $auth}
-			<div data-test="svlEntityMenu" class="sm:ml-4">
+			<div data-testid="svlEntityMenu" class="sm:ml-4">
 				<EntityMenu />
 			</div>
 			<RoleGuard role="ADMIN">
-				<div data-test="svlAdminMenu" class="sm:ml-4">
+				<div data-testid="svlAdminMenu" class="sm:ml-4">
 					<AdminMenu />
 				</div>
 			</RoleGuard>
-			<div data-test="svlAcctMenu" class="sm:ml-4">
+			<div data-testid="svlAcctMenu" class="sm:ml-4">
 				<AccountMenu />
 			</div>
 		{:else}
-			<div data-test="svlLoginLink" class="sm:ml-4">
+			<div data-testid="svlLoginLink" class="sm:ml-4">
 				<NavItem
 					on:click="{toggleToolbar}"
 					label="Sign in"
@@ -84,7 +87,7 @@
 					route="/login"
 				/>
 			</div>
-			<div data-test="svlRegisterLink" class="sm:ml-4 pb-3 sm:pb-0">
+			<div data-testid="svlRegisterLink" class="sm:ml-4 pb-3 sm:pb-0">
 				<NavItem
 					on:click="{toggleToolbar}"
 					label="Sign up"

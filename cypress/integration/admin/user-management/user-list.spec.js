@@ -9,13 +9,13 @@ describe('User Management list page', () => {
 	})
 
 	it('should greets with users page title', () => {
-		cy.getBySel('userMgmtTitle')
+		cy.getByTestId('userMgmtTitle')
 			.should('be.visible')
 			.should('contain', 'Users')
 	})
 
 	it('should display users table', () => {
-		cy.getBySel('userMgmtTable')
+		cy.getByTestId('userMgmtTable')
 			.should('be.visible')
 			.get('tr')
 			.eq(0)
@@ -45,7 +45,7 @@ describe('User Management list page', () => {
 	})
 
 	it('should display "user" user record in the table', () => {
-		cy.getBySel('userMgmtTable')
+		cy.getByTestId('userMgmtTable')
 			.contains('td', 'user@localhost')
 			.parent()
 			.within($tr => {
@@ -66,7 +66,7 @@ describe('User Management list page', () => {
 	})
 
 	it('should not allow actions on the current logged in user', () => {
-		cy.getBySel('userMgmtTable')
+		cy.getByTestId('userMgmtTable')
 			.contains('td', 'admin@localhost')
 			.parent()
 			.trigger('mouseenter')
@@ -77,17 +77,17 @@ describe('User Management list page', () => {
 					.children()
 					.getByName('toggleUserAcctBtn')
 					.should('be.disabled')
-					.getByName('viewUserBtn')
+					.getByName('viewBtn')
 					.should('not.be.disabled')
-					.getByName('editUserBtn')
+					.getByName('editBtn')
 					.should('be.disabled')
-					.getByName('deleteUserBtn')
+					.getByName('deleteBtn')
 					.should('be.disabled')
 			})
 	})
 
 	it('should allow deactivation of "user" account record', () => {
-		cy.getBySel('userMgmtTable')
+		cy.getByTestId('userMgmtTable')
 			.contains('td', 'user@localhost')
 			.parent()
 			.trigger('mouseenter')
@@ -102,17 +102,17 @@ describe('User Management list page', () => {
 	})
 
 	it('should validate the pagination controls', () => {
-		cy.getBySel('pageCtrl')
+		cy.getByTestId('pageCtrl')
 			.eq(0)
 			.contains('div', /1-\d+ of \d+/)
 			.next()
 			.within($div => {
 				cy.root()
-					.getBySel('prevPageCtrl')
+					.getByTestId('prevPageCtrl')
 					.should('be.disabled')
 					.get('div')
 					.should('have.text', '1')
-					.getBySel('nextPageCtrl')
+					.getByTestId('nextPageCtrl')
 					.should('be.disabled')
 			})
 	})
@@ -120,7 +120,7 @@ describe('User Management list page', () => {
 	it('should sort the records by login field', () => {
 		let loginValueBefore
 
-		cy.getBySel('userMgmtTable')
+		cy.getByTestId('userMgmtTable')
 			.get('tbody>tr')
 			.eq(0)
 			.within($tr => {
@@ -133,7 +133,7 @@ describe('User Management list page', () => {
 
 		cy.intercept('**/admin/users?*').as('getUsers')
 
-		cy.getBySel('userMgmtTable')
+		cy.getByTestId('userMgmtTable')
 			.get('tr')
 			.eq(0)
 			.within($tr => {
@@ -150,7 +150,7 @@ describe('User Management list page', () => {
 		// eslint-disable-next-line
 		cy.wait(100)
 
-		cy.getBySel('userMgmtTable')
+		cy.getByTestId('userMgmtTable')
 			.get('tbody>tr')
 			.eq(0)
 			.within($tr => {

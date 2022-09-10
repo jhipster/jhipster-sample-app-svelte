@@ -8,7 +8,7 @@ describe('Routes', () => {
 			cy.visit('/account/settings')
 
 			cy.location('pathname').should('eq', '/login')
-			cy.getBySel('signInTitle')
+			cy.getByTestId('signInTitle')
 				.should('be.visible')
 				.should('contain', 'Sign in to SvelteDemoApplication')
 		})
@@ -17,7 +17,7 @@ describe('Routes', () => {
 			cy.visit('/admin/user-management')
 
 			cy.location('pathname').should('eq', '/login')
-			cy.getBySel('signInTitle')
+			cy.getByTestId('signInTitle')
 				.should('be.visible')
 				.should('contain', 'Sign in to SvelteDemoApplication')
 		})
@@ -25,7 +25,7 @@ describe('Routes', () => {
 			cy.visit('/admin/logger')
 
 			cy.location('pathname').should('eq', '/login')
-			cy.getBySel('signInTitle')
+			cy.getByTestId('signInTitle')
 				.should('be.visible')
 				.should('contain', 'Sign in to SvelteDemoApplication')
 		})
@@ -34,7 +34,7 @@ describe('Routes', () => {
 			cy.visit('/')
 
 			cy.location('pathname').should('eq', '/')
-			cy.getBySel('welcomeTitle')
+			cy.getByTestId('welcomeTitle')
 				.should('be.visible')
 				.and('contain', 'Welcome, Svelte Hipster!')
 		})
@@ -52,7 +52,7 @@ describe('Routes', () => {
 		it('should not allow navigation to login page', () => {
 			cy.visit('/login')
 			cy.location('pathname').should('eq', '/')
-			cy.getBySel('welcomeTitle')
+			cy.getByTestId('welcomeTitle')
 				.should('be.visible')
 				.and('contain', 'Welcome, Svelte Hipster!')
 		})
@@ -60,7 +60,7 @@ describe('Routes', () => {
 			cy.visit('/account/register')
 
 			cy.location('pathname').should('eq', '/')
-			cy.getBySel('welcomeTitle')
+			cy.getByTestId('welcomeTitle')
 				.should('be.visible')
 				.and('contain', 'Welcome, Svelte Hipster!')
 		})
@@ -68,7 +68,7 @@ describe('Routes', () => {
 			cy.visit('/')
 
 			cy.location('pathname').should('eq', '/')
-			cy.getBySel('welcomeTitle')
+			cy.getByTestId('welcomeTitle')
 				.should('be.visible')
 				.and('contain', 'Welcome, Svelte Hipster!')
 		})
@@ -81,7 +81,7 @@ describe('Routes', () => {
 		})
 
 		it('should navigate to saved context', () => {
-			cy.getBySel('loginForm').within(() => {
+			cy.getByTestId('loginForm').within(() => {
 				cy.root()
 					.get("input[type='checkbox']")
 					.eq(0)
@@ -94,7 +94,7 @@ describe('Routes', () => {
 					})
 			})
 			cy.location('pathname').should('eq', '/admin/logger')
-			cy.getBySel('loggersTitle')
+			cy.getByTestId('loggersTitle')
 				.should('be.visible')
 				.should('contain', 'Loggers')
 		})

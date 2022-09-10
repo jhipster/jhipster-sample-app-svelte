@@ -1,24 +1,32 @@
 ######################
 # Project Specific
 ######################
-/src/main/webapp/content/css/main.css
 /target/classes/static/**
-/src/test/javascript/coverage/
+
+######################
+# ESLint
+######################
+.eslintcache
+
+######################
+# Cypress
+######################
+/cypress/screenshots/
+/cypress/fixtures/example.json
+/cypress/downloads
+/cypress/videos
+
+######################
+# SvelteKit
+######################
+.svelte-kit
 
 ######################
 # Node
 ######################
 /node/
-node_tmp/
 /node_modules/
 npm-debug.log.*
-/.awcache/*
-/.cache-loader/*
-
-######################
-# SASS
-######################
-.sass-cache/
 
 ######################
 # Eclipse
@@ -146,13 +154,3 @@ Desktop.ini
 # Maven Wrapper
 ######################
 !.mvn/wrapper/maven-wrapper.jar
-
-######################
-# ESLint
-######################
-.eslintcache
-
-/cypress/screenshots/
-/cypress/fixtures/example.json
-client_id
-/.svelte-kit

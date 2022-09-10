@@ -1,5 +1,6 @@
 package tech.jhipster.sample.service.dto;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -11,7 +12,9 @@ import tech.jhipster.sample.domain.User;
 /**
  * A DTO representing a user, with his authorities.
  */
-public class AdminUserDTO {
+public class AdminUserDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Long id;
 

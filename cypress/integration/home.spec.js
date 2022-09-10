@@ -5,14 +5,14 @@ describe('Home page', () => {
 	})
 
 	it('should greets with welcome title', () => {
-		cy.getBySel('welcomeTitle')
+		cy.getByTestId('welcomeTitle')
 			.should('be.visible')
 			.and('contain', 'Welcome, Svelte Hipster!')
 	})
 
 	describe('unauthenticated user', () => {
 		it('should have login instructions', () => {
-			cy.getBySel('loginInstructions')
+			cy.getByTestId('loginInstructions')
 				.should('be.visible')
 				.and('contain', 'you can try the default accounts')
 				.and(
@@ -22,7 +22,7 @@ describe('Home page', () => {
 				.and('contain', 'User (login="user" and password="user").')
 		})
 		it('should have user registration link', () => {
-			cy.getBySel('svlRegisterHomeLink')
+			cy.getByTestId('svlRegisterHomeLink')
 				.should('be.visible')
 				.and('have.attr', 'href', '/account/register')
 				.and('contain', 'Register a new account')
@@ -40,7 +40,7 @@ describe('Home page', () => {
 		})
 
 		it('should greets logged in user', () => {
-			cy.getBySel('greetMsg')
+			cy.getByTestId('greetMsg')
 				.should('be.visible')
 				.and(
 					'contain',

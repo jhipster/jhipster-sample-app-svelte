@@ -1,6 +1,6 @@
 <script>
 	import { page } from '$app/stores'
-	import { browser } from '$app/env'
+	import { browser } from '$app/environment'
 
 	import AuthGuard from '$lib/auth/auth-guard.svelte'
 	import Footer from '$lib/layout/footer.svelte'

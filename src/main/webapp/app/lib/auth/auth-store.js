@@ -18,7 +18,7 @@ export default {
 				userStore.set(response)
 				return Promise.resolve()
 			})
-			.catch(err => {
+			.catch(_err => {
 				// ignore error
 				return Promise.resolve()
 			})
@@ -36,7 +36,7 @@ export default {
 				userStore.set(response)
 				return Promise.resolve()
 			})
-			.catch(err => {
+			.catch(_err => {
 				// ignore error
 				return Promise.resolve()
 			})

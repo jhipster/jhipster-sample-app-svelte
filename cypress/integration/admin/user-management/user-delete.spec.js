@@ -20,16 +20,12 @@ describe('User delete dialog page', () => {
 
 		cy.visit('/admin/user-management')
 
-		cy.getBySel('userMgmtTable')
+		cy.getByTestId('userMgmtTable')
 			.contains('td', randomUser)
 			.parent()
 			.trigger('mouseenter')
 			.within($tr => {
-				cy.root()
-					.get('td')
-					.children()
-					.getByName('deleteUserBtn')
-					.click()
+				cy.root().get('td').children().getByName('deleteBtn').click()
 			})
 	})
 
@@ -38,7 +34,7 @@ describe('User delete dialog page', () => {
 	})
 
 	it('should display delete user dialog', () => {
-		cy.getBySel('svlModal').within(() => {
+		cy.getByTestId('svlModal').within(() => {
 			cy.root()
 				.get('h1')
 				.should('be.visible')
@@ -46,7 +42,7 @@ describe('User delete dialog page', () => {
 				.get('p')
 				.should('be.visible')
 				.should('contain', 'Are you sure you want to delete the user?')
-				.getByName('deleteUserBtn')
+				.getByName('confirmDeleteBtn')
 				.should('not.be.disabled')
 				.getByName('cancelBtn')
 				.should('not.be.disabled')
@@ -54,22 +50,24 @@ describe('User delete dialog page', () => {
 	})
 
 	it('should close the dialog without deleting user', () => {
-		cy.getBySel('svlModal').within(() => cy.getByName('cancelBtn').click())
-		cy.getBySel('userMgmtTitle')
+		cy.getByTestId('svlModal').within(() =>
+			cy.getByName('cancelBtn').click()
+		)
+		cy.getByTestId('userMgmtTitle')
 			.should('be.visible')
 			.should('contain', 'Users')
 	})
 
 	it('should delete the user', () => {
-		cy.getBySel('svlModal').within(() =>
-			cy.getByName('deleteUserBtn').click()
+		cy.getByTestId('svlModal').within(() =>
+			cy.getByName('confirmDeleteBtn').click()
 		)
 
-		cy.getBySel('toast-success').contains(
+		cy.getByTestId('toast-success').contains(
 			'A user is deleted with identifier'
 		)
 
-		cy.getBySel('userMgmtTitle')
+		cy.getByTestId('userMgmtTitle')
 			.should('be.visible')
 			.should('contain', 'Users')
 	})

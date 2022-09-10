@@ -6,7 +6,7 @@
 		"blueprints": [
 			{
 				"name": "generator-jhipster-svelte",
-				"version": "0.9.0"
+				"version": "0.10.0"
 			}
 		],
 		"buildTool": "maven",
@@ -26,14 +26,14 @@
 		"enableTranslation": false,
 		"entitySuffix": "",
 		"jhiPrefix": "jhi",
-		"jhipsterVersion": "7.8.1",
+		"jhipsterVersion": "7.9.3",
 		"languages": ["en"],
 		"messageBroker": false,
 		"nativeLanguage": "en",
 		"otherModules": [
 			{
 				"name": "generator-jhipster-svelte",
-				"version": "0.9.0"
+				"version": "0.10.0"
 			}
 		],
 		"packageFolder": "tech/jhipster/sample",
@@ -54,5 +54,9 @@
 		"testFrameworks": [],
 		"websocket": false,
 		"withAdminUi": true
+	},
+	"generator-jhipster-svelte": {
+		"swaggerUi": false,
+		"version": "0.10.0"
 	}
 }

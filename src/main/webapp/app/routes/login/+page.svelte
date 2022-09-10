@@ -52,20 +52,20 @@
 			</div>
 		</div>
 		<div
-			data-test="signInTitle"
+			data-testid="signInTitle"
 			class="mt-4 px-4 w-full text-3xl text-center"
 		>
 			Sign in to SvelteDemoApplication
 		</div>
 		<Alert
-			data-test="errorMsg"
+			data-testid="errorMsg"
 			contextualColor="danger"
 			show="{!!authError}"
 		>
 			Incorrect username or password.
 		</Alert>
 		<form
-			data-test="loginForm"
+			data-testid="loginForm"
 			class="mt-4 p-4 flex flex-col bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md rounded"
 		>
 			<InputControl
@@ -113,14 +113,14 @@
 		>
 			<div>
 				<a
-					data-test="forgotPwdLink"
+					data-testid="forgotPwdLink"
 					href="/account/reset/init"
 					class="font-semibold">Forgot password?</a
 				>
 			</div>
 			<div>
 				<a
-					data-test="registerLink"
+					data-testid="registerLink"
 					href="/account/register"
 					class="font-semibold">Create an account</a
 				>
