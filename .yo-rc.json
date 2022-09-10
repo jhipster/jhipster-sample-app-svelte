@@ -39,7 +39,7 @@
 		"packageFolder": "tech/jhipster/sample",
 		"packageName": "tech.jhipster.sample",
 		"pages": [],
-		"prodDatabaseType": "mysql",
+		"prodDatabaseType": "postgresql",
 		"reactive": false,
 		"rememberMeKey": "1c26089ec53592e09f84ec2fde34ee2350579b57c9c95851b4f620389c1470a1237b5677299961a1e06242406e8d192a698d",
 		"searchEngine": false,
