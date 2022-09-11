@@ -46,7 +46,7 @@
 		"eslint-plugin-jest-dom": "4.0.2",
 		"eslint-plugin-svelte3": "4.0.0",
 		"eslint-plugin-testing-library": "5.6.2",
-		"generator-jhipster-svelte": "0.10.0",
+		"generator-jhipster-svelte": "0.10.1",
 		"husky": "8.0.1",
 		"jest": "29.0.2",
 		"jest-environment-jsdom": "29.0.2",

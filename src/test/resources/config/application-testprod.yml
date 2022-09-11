@@ -15,8 +15,12 @@ spring:
             poolName: Hikari
             auto-commit: false
             maximum-pool-size: 1
+            data-source-properties:
+                cachePrepStmts: true
+                prepStmtCacheSize: 250
+                prepStmtCacheSqlLimit: 2048
+                useServerPrepStmts: true
     jpa:
-        database-platform: tech.jhipster.domain.util.FixedPostgreSQL10Dialect
         open-in-view: false
         hibernate:
             ddl-auto: none
