@@ -7,24 +7,22 @@ services:
             - _JAVA_OPTIONS=-Xmx512m -Xms256m
             - SPRING_PROFILES_ACTIVE=prod,api-docs
             - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
-            - SPRING_DATASOURCE_URL=jdbc:mysql://sveltedemoapplication-mysql:3306/sveltedemoapplication?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
-            - SPRING_LIQUIBASE_URL=jdbc:mysql://sveltedemoapplication-mysql:3306/sveltedemoapplication?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://sveltedemoapplication-postgresql:5432/SvelteDemoApplication
+            - SPRING_LIQUIBASE_URL=jdbc:postgresql://sveltedemoapplication-postgresql:5432/SvelteDemoApplication
             - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
         # If you want to expose these ports outside your dev PC,
         # remove the "127.0.0.1:" prefix
         ports:
             - 127.0.0.1:8080:8080
-    sveltedemoapplication-mysql:
-        image: mysql:8.0.30
+    sveltedemoapplication-postgresql:
+        image: postgres:14.5
         # volumes:
-        #   - ~/volumes/jhipster/SvelteDemoApplication/mysql/:/var/lib/mysql/
-        volumes:
-            - ./config/mysql:/etc/mysql/conf.d
+        #   - ~/volumes/jhipster/SvelteDemoApplication/postgresql/:/var/lib/postgresql/data/
         environment:
-            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-            - MYSQL_DATABASE=sveltedemoapplication
+            - POSTGRES_USER=SvelteDemoApplication
+            - POSTGRES_PASSWORD=
+            - POSTGRES_HOST_AUTH_METHOD=trust
         # If you want to expose these ports outside your dev PC,
         # remove the "127.0.0.1:" prefix
         ports:
-            - 127.0.0.1:3306:3306
-        command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+            - 127.0.0.1:5432:5432

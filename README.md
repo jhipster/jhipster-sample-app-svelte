@@ -1,6 +1,6 @@
 # SvelteDemoApplication
 
-This application was generated using `Svelte Hipster` v`0.10.1` and `JHipster` v`7.9.3`, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.9.3](https://www.jhipster.tech/documentation-archive/v7.9.3).
+This application was generated using `Svelte Hipster` v`0.10.2` and `JHipster` v`7.9.3`, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.9.3](https://www.jhipster.tech/documentation-archive/v7.9.3).
 
 ## Development
 
@@ -115,10 +115,10 @@ For more information, refer to the [Code quality page][].
 
 You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
 
-For example, to start a mysql database in a docker container, run:
-docker-compose -f src/main/docker/mysql.yml up -d
+For example, to start a postgresql database in a docker container, run:
+docker-compose -f src/main/docker/postgresql.yml up -d
 To stop it and remove the container, run:
-docker-compose -f src/main/docker/mysql.yml down
+docker-compose -f src/main/docker/postgresql.yml down
 
 You can also fully dockerize your application and all the services that it depends on.
 To achieve this, first build a docker image of your app by running:

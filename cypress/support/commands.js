@@ -62,6 +62,7 @@ Cypress.Commands.add('loginByApi', (username, password) => {
 					.its('status')
 					.should('eq', 200)
 			},
+			cacheAcrossSpecs: true,
 		}
 	)
 })

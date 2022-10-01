@@ -11,7 +11,6 @@ const config = {
 		appDir: '_app',
 		files: {
 			assets: 'src/main/webapp/static',
-			hooks: 'src/main/webapp/hooks',
 			lib: 'src/main/webapp/app/lib',
 			routes: 'src/main/webapp/app/routes',
 			serviceWorker: 'src/main/webapp/app/service-worker',
