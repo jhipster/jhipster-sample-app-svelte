@@ -1,25 +1,23 @@
 <script>
-	import {
-		faBars,
-		faSignInAlt,
-		faUserPlus,
-	} from '@fortawesome/free-solid-svg-icons'
+	import { faBars, faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons'
+	import { page } from '$app/stores'
+	import { browser } from '$app/environment'
+	import { Icon } from 'jhipster-svelte-library'
+	import { NavItem, ThemeModeToggle } from 'jhipster-svelte-library/layout'
 
-	import NavItem from 'jhipster-svelte-library/layout/nav-item.svelte'
-
-	import Icon from 'jhipster-svelte-library/icon.svelte'
 	import auth from '$lib/auth/auth-store'
 	import AccountMenu from '$lib/account/account-menu.svelte'
 	import AdminMenu from '$lib/admin/admin-menu.svelte'
 	import EntityMenu from '$lib/entities/entity-menu.svelte'
 	import RoleGuard from '$lib/auth/role-guard.svelte'
-	import ThemeModeToggle from 'jhipster-svelte-library/layout/theme-mode-toggle.svelte'
 
 	let isToolbarOpen = false
 
 	function toggleToolbar() {
 		isToolbarOpen = !isToolbarOpen
 	}
+
+	$: pathname = $page && $page.url && $page.url.pathname
 </script>
 
 <header
@@ -39,13 +37,11 @@
 			<div data-testid="svlAppName" class="ml-2 font-semibold text-xl">
 				SvelteDemoApplication
 			</div>
-			<div data-testid="svlAppVersion" class="ml-2 text-xs text-gray-400">
-				DEV
-			</div>
+			<div data-testid="svlAppVersion" class="ml-2 text-xs text-gray-400">DEV</div>
 		</div>
 		<div class="flex flex-row justify-items-end items-center">
 			<div class="block sm:hidden mr-2">
-				<ThemeModeToggle />
+				<ThemeModeToggle browser="{browser}" />
 			</div>
 			<div class="sm:hidden">
 				<button
@@ -64,7 +60,7 @@
 	</div>
 	<div class:hidden="{!isToolbarOpen}" class="sm:flex sm:items-center">
 		<div class="hidden sm:block">
-			<ThemeModeToggle />
+			<ThemeModeToggle browser="{browser}" />
 		</div>
 		{#if $auth}
 			<div data-testid="svlEntityMenu" class="sm:ml-4">
@@ -85,6 +81,7 @@
 					label="Sign in"
 					icon="{faSignInAlt}"
 					route="/login"
+					pathname="{pathname}"
 				/>
 			</div>
 			<div data-testid="svlRegisterLink" class="sm:ml-4 pb-3 sm:pb-0">
@@ -93,6 +90,7 @@
 					label="Sign up"
 					icon="{faUserPlus}"
 					route="/account/register"
+					pathname="{pathname}"
 				/>
 			</div>
 		{/if}

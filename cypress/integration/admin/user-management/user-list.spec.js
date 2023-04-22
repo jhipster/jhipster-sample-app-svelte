@@ -1,17 +1,12 @@
 describe('User Management list page', () => {
 	beforeEach(() => {
 		cy.unregisterServiceWorkers()
-		cy.loginByApi(
-			Cypress.env('ADMIN_USERNAME'),
-			Cypress.env('ADMIN_PASSWORD')
-		)
+		cy.loginByApi(Cypress.env('ADMIN_USERNAME'), Cypress.env('ADMIN_PASSWORD'))
 		cy.visit('/admin/user-management')
 	})
 
 	it('should greets with users page title', () => {
-		cy.getByTestId('userMgmtTitle')
-			.should('be.visible')
-			.should('contain', 'Users')
+		cy.getByTestId('userMgmtTitle').should('be.visible').should('contain', 'Users')
 	})
 
 	it('should display users table', () => {
@@ -49,19 +44,10 @@ describe('User Management list page', () => {
 			.contains('td', 'user@localhost')
 			.parent()
 			.within($tr => {
-				cy.root()
-					.get('td')
-					.eq(1)
-					.should('contain', 'user')
-					.get('td')
-					.eq(2)
-					.should('contain', 'user@localhost')
-					.get('td')
-					.eq(3)
-					.should('contain', 'ROLE_USER')
-					.get('td')
-					.eq(5)
-					.should('contain', 'system')
+				cy.get('td').eq(1).should('contain', 'user')
+				cy.get('td').eq(2).should('contain', 'user@localhost')
+				cy.get('td').eq(3).should('contain', 'ROLE_USER')
+				cy.get('td').eq(5).should('contain', 'system')
 			})
 	})
 
@@ -69,10 +55,9 @@ describe('User Management list page', () => {
 		cy.getByTestId('userMgmtTable')
 			.contains('td', 'admin@localhost')
 			.parent()
-			.trigger('mouseenter')
 			.within($tr => {
-				cy.root()
-					.get('td')
+				cy.root().trigger('mouseenter')
+				cy.get('td')
 					.eq(6)
 					.children()
 					.getByName('toggleUserAcctBtn')
@@ -90,10 +75,9 @@ describe('User Management list page', () => {
 		cy.getByTestId('userMgmtTable')
 			.contains('td', 'user@localhost')
 			.parent()
-			.trigger('mouseenter')
 			.within($tr => {
-				cy.root()
-					.get('td')
+				cy.root().trigger('mouseenter')
+				cy.get('td')
 					.eq(6)
 					.children()
 					.getByName('toggleUserAcctBtn')

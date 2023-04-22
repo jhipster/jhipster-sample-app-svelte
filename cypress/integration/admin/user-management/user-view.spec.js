@@ -4,10 +4,7 @@ describe('User view details page', () => {
 	beforeEach(() => {
 		cy.unregisterServiceWorkers()
 		randomUser = 'test' + new Date().getTime()
-		cy.loginByApi(
-			Cypress.env('ADMIN_USERNAME'),
-			Cypress.env('ADMIN_PASSWORD')
-		)
+		cy.loginByApi(Cypress.env('ADMIN_USERNAME'), Cypress.env('ADMIN_PASSWORD'))
 
 		cy.save('api/admin/users', {
 			login: randomUser,
@@ -62,8 +59,6 @@ describe('User view details page', () => {
 
 	it('should navigate back to the user list page', () => {
 		cy.getByName('backBtn').click()
-		cy.getByTestId('userMgmtTitle')
-			.should('be.visible')
-			.should('contain', 'Users')
+		cy.getByTestId('userMgmtTitle').should('be.visible').should('contain', 'Users')
 	})
 })

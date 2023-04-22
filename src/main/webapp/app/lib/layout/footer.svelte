@@ -1,15 +1,13 @@
 <script>
 	import { faHeart } from '@fortawesome/free-solid-svg-icons'
-	import Icon from 'jhipster-svelte-library/icon.svelte'
+	import { Icon } from 'jhipster-svelte-library'
 </script>
 
 <footer
 	class="flex flex-col justify-between items-center sm:flex-row bg-gray-200 dark:bg-gray-800 p-3"
 >
 	<div class="text-sm">
-		<p data-testid="copyrightMsg">
-			Copyright &copy; 2022 JHipster. All Rights Reserved
-		</p>
+		<p data-testid="copyrightMsg">Copyright &copy; 2023 JHipster. All Rights Reserved</p>
 	</div>
 	<div class="text-base mt-1">
 		<p>

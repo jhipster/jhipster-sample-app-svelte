@@ -5,7 +5,8 @@
 	import AuthGuard from '$lib/auth/auth-guard.svelte'
 	import Footer from '$lib/layout/footer.svelte'
 	import Navbar from '$lib/layout/navbar.svelte'
-	import Notification from 'jhipster-svelte-library/notification/notification.svelte'
+	import { Notification } from 'jhipster-svelte-library/notification'
+
 	import auth from '$lib/auth/auth-store'
 	import '../global.css'
 	import '../tailwind.css'
@@ -14,8 +15,7 @@
 		return (browser && auth.loadUserIfAuthenticated()) || Promise.resolve()
 	}
 
-	$: isLoginRouteActivated =
-		$page && $page.url && $page.url.pathname === '/login'
+	$: isLoginRouteActivated = $page && $page.url && $page.url.pathname === '/login'
 </script>
 
 {#await loadUserDetails() then response}

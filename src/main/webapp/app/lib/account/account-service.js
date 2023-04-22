@@ -1,4 +1,4 @@
-import { request } from 'jhipster-svelte-library/utils/request'
+import { request } from 'jhipster-svelte-library/utils'
 
 import { serverUrl } from '$lib/utils/env'
 
@@ -34,16 +34,9 @@ export default {
 			false
 		)
 	},
-	activateAccount: activationKey =>
-		request(`${serverUrl}api/activate?key=${activationKey}`),
+	activateAccount: activationKey => request(`${serverUrl}api/activate?key=${activationKey}`),
 	initiateResetAccountPassword: email => {
-		return request(
-			`${serverUrl}api/account/reset-password/init`,
-			'POST',
-			email,
-			{},
-			false
-		)
+		return request(`${serverUrl}api/account/reset-password/init`, 'POST', email, {}, false)
 	},
 	resetAccountPassword: (key, password) => {
 		const body = JSON.stringify({ key, newPassword: password })

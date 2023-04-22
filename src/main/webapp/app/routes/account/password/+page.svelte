@@ -1,7 +1,8 @@
 <script>
 	import accountService from '$lib/account/account-service'
-	import Alert from 'jhipster-svelte-library/alert.svelte'
-	import Page from 'jhipster-svelte-library/page/page.svelte'
+	import { Alert } from 'jhipster-svelte-library'
+	import { Page } from 'jhipster-svelte-library/page'
+
 	import ChangePasswordForm from '$lib/account/change-password-form.svelte'
 
 	let error
@@ -27,22 +28,16 @@
 <Page testId="password">
 	<span slot="header">Change password</span>
 	<svelte:fragment slot="alerts">
-		<Alert
-			data-testid="successMsg"
-			show="{passwordChanged}"
-			closeable="{false}">Password changed!</Alert
+		<Alert data-testid="successMsg" show="{passwordChanged}" closeable="{false}"
+			>Password changed!</Alert
 		>
-		<Alert
-			data-testid="errorMsg"
-			contextualColor="danger"
-			show="{error}"
-			closeable="{false}"
+		<Alert data-testid="errorMsg" contextualColor="danger" show="{error}" closeable="{false}"
 			>An error has occurred! The password could not be changed.</Alert
 		>
 	</svelte:fragment>
 	<ChangePasswordForm
-		bind:currentPassword
-		bind:newPassword
+		bind:currentPassword="{currentPassword}"
+		bind:newPassword="{newPassword}"
 		on:click="{changePassword}"
 	/>
 </Page>

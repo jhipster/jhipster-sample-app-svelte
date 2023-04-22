@@ -1,17 +1,16 @@
 <script>
 	import { page } from '$app/stores'
-	import accountService from '$lib/account/account-service'
+	import { Alert } from 'jhipster-svelte-library'
+	import { Page } from 'jhipster-svelte-library/page'
 
-	import Alert from 'jhipster-svelte-library/alert.svelte'
-	import Page from 'jhipster-svelte-library/page/page.svelte'
+	import accountService from '$lib/account/account-service'
 	import ResetPasswordForm from '$lib/account/reset-password-form.svelte'
 
 	let error
 	let password
 	let passwordReset = false
 
-	$: passwordResetKey =
-		$page && $page.url && $page.url.searchParams.get('key')
+	$: passwordResetKey = $page && $page.url && $page.url.searchParams.get('key')
 
 	function resetPassword() {
 		error = undefined
@@ -32,9 +31,8 @@
 	<span slot="header">Reset your password</span>
 	<svelte:fragment slot="alerts">
 		<Alert show="{passwordReset}" closeable="{false}">
-			Your password has been reset. Please <a
-				class="font-semibold underline"
-				href="/login">Sign in</a
+			Your password has been reset. Please <a class="font-semibold underline" href="/login"
+				>Sign in</a
 			>.
 		</Alert>
 		<Alert
@@ -42,20 +40,16 @@
 			show="{passwordResetKey && !passwordReset && !error}"
 			closeable="{false}">Choose a new password</Alert
 		>
-		<Alert
-			contextualColor="danger"
-			show="{!passwordResetKey || error}"
-			closeable="{false}"
-		>
+		<Alert contextualColor="danger" show="{!passwordResetKey || error}" closeable="{false}">
 			{#if !passwordResetKey}
 				The password reset key is missing.
 			{:else}
-				Your password couldn't be reset. Remember a password request is
-				only valid for 24 hours.
+				Your password couldn't be reset. Remember a password request is only valid for 24
+				hours.
 			{/if}
 		</Alert>
 	</svelte:fragment>
 	{#if passwordResetKey && !passwordReset}
-		<ResetPasswordForm bind:password on:click="{resetPassword}" />
+		<ResetPasswordForm bind:password="{password}" on:click="{resetPassword}" />
 	{/if}
 </Page>

@@ -1,12 +1,7 @@
 <script>
-	import {
-		faUsersCog,
-		faUsers,
-		faTasks,
-		faCaretDown,
-	} from '@fortawesome/free-solid-svg-icons'
-	import MenuItem from 'jhipster-svelte-library/layout/menu-item.svelte'
-	import Icon from 'jhipster-svelte-library/icon.svelte'
+	import { faUsersCog, faUsers, faTasks, faCaretDown } from '@fortawesome/free-solid-svg-icons'
+	import { Icon } from 'jhipster-svelte-library'
+	import { MenuItem } from 'jhipster-svelte-library/layout'
 
 	let isOpen = false
 </script>
@@ -49,11 +44,7 @@
 			<Icon classes="sm:mr-1" icon="{faUsers}" />
 			User Management
 		</MenuItem>
-		<MenuItem
-			testId="svlLoggerLink"
-			link="/admin/logger"
-			on:click="{() => (isOpen = false)}"
-		>
+		<MenuItem testId="svlLoggerLink" link="/admin/logger" on:click="{() => (isOpen = false)}">
 			<Icon classes="sm:mr-1" icon="{faTasks}" />
 			Loggers
 		</MenuItem>

@@ -3,13 +3,11 @@
 	import { page } from '$app/stores'
 	import { goto } from '$app/navigation'
 	import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+	import { Button, Icon } from 'jhipster-svelte-library'
+	import { Page, Record } from 'jhipster-svelte-library/page'
+	import { formatDate } from 'jhipster-svelte-library/utils'
 
 	import userService from '$lib/admin/user-management/user-service'
-	import Page from 'jhipster-svelte-library/page/page.svelte'
-	import Record from 'jhipster-svelte-library/page/record.svelte'
-	import Button from 'jhipster-svelte-library/button.svelte'
-	import Icon from 'jhipster-svelte-library/icon.svelte'
-	import { formatDate } from 'jhipster-svelte-library/utils/date-util'
 
 	$: id = $page && $page.params && $page.params.id
 	onMount(() => fetchUserDetails())
@@ -70,17 +68,12 @@
 			</Record>
 			<Record>
 				<span slot="label">Roles</span>
-				<span class="uppercase"
-					>{user.authorities ? user.authorities.join(', ') : ''}</span
-				>
+				<span class="uppercase">{user.authorities ? user.authorities.join(', ') : ''}</span>
 			</Record>
 		</div>
 	{/if}
 	<div class="flex mt-4 flex-row justify-center items-center leading-none">
-		<Button
-			name="backBtn"
-			on:click="{() => goto(`/admin/user-management`)}"
-		>
+		<Button name="backBtn" on:click="{() => goto(`/admin/user-management`)}">
 			<Icon classes="mr-2" icon="{faArrowLeft}" />
 			Back
 		</Button>

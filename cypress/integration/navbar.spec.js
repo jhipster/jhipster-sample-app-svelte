@@ -12,9 +12,7 @@ describe('Navbar', () => {
 		})
 
 		it('should display application version', () => {
-			cy.getByTestId('svlAppVersion')
-				.should('be.visible')
-				.should('contain', 'DEV')
+			cy.getByTestId('svlAppVersion').should('be.visible').should('contain', 'DEV')
 		})
 
 		it('should not display navigation toggle button', () => {
@@ -26,24 +24,17 @@ describe('Navbar', () => {
 		})
 
 		it('should display sign in link', () => {
-			cy.getByTestId('svlLoginLink')
-				.should('be.visible')
-				.and('contain', 'Sign in')
+			cy.getByTestId('svlLoginLink').should('be.visible').and('contain', 'Sign in')
 		})
 		it('should display register link', () => {
-			cy.getByTestId('svlRegisterLink')
-				.should('be.visible')
-				.and('contain', 'Sign up')
+			cy.getByTestId('svlRegisterLink').should('be.visible').and('contain', 'Sign up')
 		})
 	})
 
 	describe('authenticated user', () => {
 		beforeEach(() => {
 			cy.unregisterServiceWorkers()
-			cy.loginByApi(
-				Cypress.env('ADMIN_USERNAME'),
-				Cypress.env('ADMIN_PASSWORD')
-			)
+			cy.loginByApi(Cypress.env('ADMIN_USERNAME'), Cypress.env('ADMIN_PASSWORD'))
 			cy.visit('/')
 		})
 
@@ -113,18 +104,13 @@ describe('Navbar', () => {
 			cy.getByTestId('svlSignoutLink').should('be.visible').click()
 
 			cy.location('pathname').should('eq', '/')
-			cy.getByTestId('svlLoginLink')
-				.should('be.visible')
-				.and('contain', 'Sign in')
+			cy.getByTestId('svlLoginLink').should('be.visible').and('contain', 'Sign in')
 		})
 	})
 	describe(`authenticated 'ROLE_USER' ROLE user`, () => {
 		beforeEach(() => {
 			cy.unregisterServiceWorkers()
-			cy.loginByApi(
-				Cypress.env('USER_USERNAME'),
-				Cypress.env('USER_PASSWORD')
-			)
+			cy.loginByApi(Cypress.env('USER_USERNAME'), Cypress.env('USER_PASSWORD'))
 			cy.visit('/')
 		})
 

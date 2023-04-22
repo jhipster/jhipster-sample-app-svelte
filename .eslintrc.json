@@ -1,11 +1,7 @@
 {
-	"extends": [
-		"eslint:recommended",
-		"plugin:cypress/recommended",
-		"plugin:jest-dom/recommended"
-	],
+	"extends": ["eslint:recommended", "plugin:cypress/recommended", "plugin:jest-dom/recommended"],
 	"parserOptions": {
-		"ecmaVersion": 2019,
+		"ecmaVersion": 2020,
 		"sourceType": "module"
 	},
 	"env": {

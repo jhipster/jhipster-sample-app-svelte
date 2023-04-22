@@ -1,6 +1,6 @@
+import { screen } from '@testing-library/dom'
 import '@testing-library/jest-dom/extend-expect'
 import { render } from '@testing-library/svelte'
-import { screen } from '@testing-library/dom'
 
 import UserTable from './user-table.svelte'
 
@@ -21,27 +21,13 @@ test('should render table with correct headers', () => {
 
 	expect(screen.getByRole('table')).toBeInTheDocument()
 	expect(screen.getAllByRole('columnheader')).toHaveLength(7)
-	expect(
-		screen.getByRole('columnheader', { name: /id/i })
-	).toBeInTheDocument()
-	expect(
-		screen.getByRole('columnheader', { name: /login/i })
-	).toBeInTheDocument()
-	expect(
-		screen.getByRole('columnheader', { name: /email/i })
-	).toBeInTheDocument()
-	expect(
-		screen.getByRole('columnheader', { name: /role/i })
-	).toBeInTheDocument()
-	expect(
-		screen.getByRole('columnheader', { name: /created at/i })
-	).toBeInTheDocument()
-	expect(
-		screen.getByRole('columnheader', { name: /modified at/i })
-	).toBeInTheDocument()
-	expect(
-		screen.getByRole('columnheader', { name: /modified at/i })
-	).toBeInTheDocument()
+	expect(screen.getByRole('columnheader', { name: /id/i })).toBeInTheDocument()
+	expect(screen.getByRole('columnheader', { name: /login/i })).toBeInTheDocument()
+	expect(screen.getByRole('columnheader', { name: /email/i })).toBeInTheDocument()
+	expect(screen.getByRole('columnheader', { name: /role/i })).toBeInTheDocument()
+	expect(screen.getByRole('columnheader', { name: /created at/i })).toBeInTheDocument()
+	expect(screen.getByRole('columnheader', { name: /modified at/i })).toBeInTheDocument()
+	expect(screen.getByRole('columnheader', { name: /modified at/i })).toBeInTheDocument()
 })
 
 test('should render table with default sort by field', () => {
@@ -119,19 +105,11 @@ test('should render table data for inactive user', () => {
 
 	expect(screen.getAllByRole('cell')).toHaveLength(7)
 	expect(screen.getByRole('cell', { name: /111/i })).toBeInTheDocument()
-	expect(screen.getByRole('cell', { name: /111/i })).toHaveClass(
-		'border-l-4 border-red-300'
-	)
+	expect(screen.getByRole('cell', { name: /111/i })).toHaveClass('border-l-4 border-red-300')
 	expect(screen.getByRole('cell', { name: /testA/i })).toBeInTheDocument()
-	expect(
-		screen.getByRole('cell', { name: /test@test.org/i })
-	).toBeInTheDocument()
-	expect(
-		screen.getByRole('cell', { name: /ROLE_ADMIN, ROLE_USER/i })
-	).toBeInTheDocument()
-	expect(
-		screen.getByRole('cell', { name: /\d+ years ago$/i })
-	).toBeInTheDocument()
+	expect(screen.getByRole('cell', { name: /test@test.org/i })).toBeInTheDocument()
+	expect(screen.getByRole('cell', { name: /ROLE_ADMIN, ROLE_USER/i })).toBeInTheDocument()
+	expect(screen.getByRole('cell', { name: /\d+ years ago$/i })).toBeInTheDocument()
 	expect(screen.getByRole('cell', { name: /^admin$/i })).toBeInTheDocument()
 	expect(screen.getByRole('cell', { name: /-/i })).toBeInTheDocument()
 })
@@ -155,9 +133,7 @@ test('should render table data for activated user', () => {
 	})
 
 	expect(screen.getByRole('cell', { name: /111/i })).toBeInTheDocument()
-	expect(screen.getByRole('cell', { name: /111/i })).not.toHaveClass(
-		'border-l-4 border-red-300'
-	)
+	expect(screen.getByRole('cell', { name: /111/i })).not.toHaveClass('border-l-4 border-red-300')
 })
 
 test('should assert the table reactivity to change in data', async () => {
@@ -178,9 +154,7 @@ test('should assert the table reactivity to change in data', async () => {
 		sortPredicate: 'email',
 	})
 
-	expect(screen.getByRole('cell', { name: /111/i })).toHaveClass(
-		'border-l-4 border-red-300'
-	)
+	expect(screen.getByRole('cell', { name: /111/i })).toHaveClass('border-l-4 border-red-300')
 	expect(
 		screen.getByRole('button', {
 			name: /email/i,
@@ -205,9 +179,7 @@ test('should assert the table reactivity to change in data', async () => {
 		sortPredicate: 'login',
 	})
 
-	expect(screen.getByRole('cell', { name: /111/i })).not.toHaveClass(
-		'border-l-4 border-red-300'
-	)
+	expect(screen.getByRole('cell', { name: /111/i })).not.toHaveClass('border-l-4 border-red-300')
 	expect(
 		screen.getByRole('button', {
 			name: /login/i,

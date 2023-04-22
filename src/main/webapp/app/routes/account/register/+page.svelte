@@ -1,9 +1,9 @@
 <script>
+	import { Alert } from 'jhipster-svelte-library'
+	import { Page } from 'jhipster-svelte-library/page'
+
 	import accountService from '$lib/account/account-service'
 	import { problemBaseUrl } from '$lib/utils/env'
-
-	import Alert from 'jhipster-svelte-library/alert.svelte'
-	import Page from 'jhipster-svelte-library/page/page.svelte'
 	import RegisterUserForm from '$lib/account/register-user-form.svelte'
 
 	let username
@@ -24,10 +24,7 @@
 				if (err && err.type) {
 					if (err.type === problemBaseUrl + '/email-already-used') {
 						error = 'duplicateEmail'
-					} else if (
-						err.type ===
-						problemBaseUrl + '/login-already-used'
-					) {
+					} else if (err.type === problemBaseUrl + '/login-already-used') {
 						error = 'duplicateLogin'
 					} else {
 						error = 'error'
@@ -47,13 +44,8 @@
 <Page testId="register">
 	<span slot="header">Create user account</span>
 	<svelte:fragment slot="alerts">
-		<Alert
-			data-testid="successMsg"
-			show="{accountCreated}"
-			closeable="{false}"
-		>
-			User account successfully created. Please check your email for
-			confirmation.
+		<Alert data-testid="successMsg" show="{accountCreated}" closeable="{false}">
+			User account successfully created. Please check your email for confirmation.
 		</Alert>
 		<Alert data-testid="errorMsg" contextualColor="danger" show="{!!error}">
 			{#if error === 'duplicateEmail'}
@@ -67,9 +59,9 @@
 	</svelte:fragment>
 	{#if !accountCreated}
 		<RegisterUserForm
-			bind:username
-			bind:email
-			bind:password
+			bind:username="{username}"
+			bind:email="{email}"
+			bind:password="{password}"
 			on:click="{createUserAccount}"
 		/>
 	{/if}

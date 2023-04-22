@@ -13,41 +13,33 @@ describe('Forgot password', () => {
 	it('should verify instructions to reset password', () => {
 		cy.getByTestId('warningMsg')
 			.should('be.visible')
-			.should(
-				'contain',
-				"Enter your user account's verified email address."
-			)
+			.should('contain', "Enter your user account's verified email address.")
 	})
 
 	it('should require mandatory fields', () => {
-		cy.getByTestId('forgotPwdForm')
-			.contains('Send password reset email')
-			.should('be.disabled')
+		cy.getByTestId('forgotPwdForm').contains('Send password reset email').should('be.disabled')
 	})
 
 	it('should require email', () => {
-		cy.getByTestId('forgotPwdForm')
-			.getByName('email')
-			.type('admin')
-			.clear()
-			.blur()
-		cy.getByTestId('forgotPwdForm')
-			.getByTestId('email-error')
-			.should('be.visible')
-			.and('contain', 'Email is mandatory')
+		cy.getByTestId('forgotPwdForm').within(() => {
+			cy.getByName('email').within(() => {
+				cy.root().type('admin')
+				cy.root().clear()
+				cy.root().blur()
+			})
+
+			cy.getByTestId('email-error').should('be.visible').and('contain', 'Email is mandatory')
+		})
 	})
 
 	it('should reset user password', () => {
-		cy.getByTestId('forgotPwdForm')
-			.getByName('email')
-			.type('admin@localhost.org{enter}')
+		cy.getByTestId('forgotPwdForm').within(() => {
+			cy.getByName('email').type('admin@localhost.org{enter}')
+		})
 
 		cy.getByTestId('successMsg')
 			.should('be.visible')
-			.should(
-				'contain',
-				'Check your email for details on how to reset your password.'
-			)
+			.should('contain', 'Check your email for details on how to reset your password.')
 		cy.getByTestId('forgotPwdForm').should('not.exist')
 	})
 })

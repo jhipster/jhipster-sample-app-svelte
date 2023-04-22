@@ -1,6 +1,6 @@
 # SvelteDemoApplication
 
-This application was generated using `Svelte Hipster` v`0.10.2` and `JHipster` v`7.9.3`, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.9.3](https://www.jhipster.tech/documentation-archive/v7.9.3).
+This application was generated using `JHipster Svelte` v`1.0.0` and `JHipster` v`7.9.3`, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.9.3](https://www.jhipster.tech/documentation-archive/v7.9.3).
 
 ## Development
 

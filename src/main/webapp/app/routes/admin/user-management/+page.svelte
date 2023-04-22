@@ -2,15 +2,12 @@
 	import { onMount } from 'svelte'
 	import { goto } from '$app/navigation'
 	import { faPlus } from '@fortawesome/free-solid-svg-icons'
+	import { Button, Icon } from 'jhipster-svelte-library'
+	import { DeleteModal, Page } from 'jhipster-svelte-library/page'
+	import { PaginatedTable } from 'jhipster-svelte-library/table'
 
 	import auth from '$lib/auth/auth-store'
 	import userService from '$lib/admin/user-management/user-service'
-	import DeleteModal from 'jhipster-svelte-library/page/delete-modal.svelte'
-	import Page from 'jhipster-svelte-library/page/page.svelte'
-	import Button from 'jhipster-svelte-library/button.svelte'
-	import Icon from 'jhipster-svelte-library/icon.svelte'
-	import PaginatedTable from 'jhipster-svelte-library/table/paginated-table.svelte'
-
 	import UserTable from '$lib/admin/user-management/user-table.svelte'
 
 	let error
@@ -85,16 +82,10 @@
 </svelte:head>
 
 <Page testId="userMgmt" width="full">
-	<div
-		class="text-left flex flex-row justify-between items-center"
-		slot="header"
-	>
+	<div class="text-left flex flex-row justify-between items-center" slot="header">
 		<span>Users</span>
 		<div class="flex flex-row justify-end text-base">
-			<Button
-				classes="sm:my-0"
-				on:click="{() => goto(`/admin/user-management/new`)}"
-			>
+			<Button classes="sm:my-0" on:click="{() => goto(`/admin/user-management/new`)}">
 				<Icon classes="mr-2" icon="{faPlus}" />
 				Create user
 			</Button>

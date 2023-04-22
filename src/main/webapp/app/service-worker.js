@@ -1,4 +1,4 @@
-import { version, files, build } from '$service-worker'
+import { build, files, version } from '$service-worker'
 
 const ASSETS = `cache-${version}`
 
@@ -42,8 +42,7 @@ async function fetchAndCache(request) {
 }
 
 self.addEventListener('fetch', event => {
-	if (event.request.method !== 'GET' || event.request.headers.has('range'))
-		return
+	if (event.request.method !== 'GET' || event.request.headers.has('range')) return
 
 	const url = new URL(event.request.url)
 
@@ -52,12 +51,9 @@ self.addEventListener('fetch', event => {
 	if (!isHttp) return
 
 	const isDevServerRequest =
-		url.hostname === self.location.hostname &&
-		url.port !== self.location.port
-	const isStaticAsset =
-		url.host === self.location.host && staticAssets.has(url.pathname)
-	const skipBecauseUncached =
-		event.request.cache === 'only-if-cached' && !isStaticAsset
+		url.hostname === self.location.hostname && url.port !== self.location.port
+	const isStaticAsset = url.host === self.location.host && staticAssets.has(url.pathname)
+	const skipBecauseUncached = event.request.cache === 'only-if-cached' && !isStaticAsset
 
 	if (isHttp && !isDevServerRequest && !skipBecauseUncached) {
 		event.respondWith(

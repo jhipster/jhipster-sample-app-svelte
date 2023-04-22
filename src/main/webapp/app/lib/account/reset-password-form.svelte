@@ -1,7 +1,6 @@
 <script>
-	import Button from 'jhipster-svelte-library/button.svelte'
-	import Form from 'jhipster-svelte-library/page/form.svelte'
-	import PasswordConfirm from 'jhipster-svelte-library/password-confirm.svelte'
+	import { Button, PasswordConfirm } from 'jhipster-svelte-library'
+	import { Form } from 'jhipster-svelte-library/page'
 
 	export let password = ''
 	let validPassword = false
@@ -14,7 +13,5 @@
 		on:input="{event => (password = event.detail.value)}"
 		on:validate="{event => (validPassword = event.detail.valid)}"
 	/>
-	<Button type="submit" on:click disabled="{!validPassword}">
-		Reset password
-	</Button>
+	<Button type="submit" on:click disabled="{!validPassword}">Reset password</Button>
 </Form>

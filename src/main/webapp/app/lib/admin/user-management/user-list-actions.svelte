@@ -1,9 +1,8 @@
 <script>
 	import { createEventDispatcher } from 'svelte'
 	import { faToggleOn, faToggleOff } from '@fortawesome/free-solid-svg-icons'
-	import Button from 'jhipster-svelte-library/button.svelte'
-	import Icon from 'jhipster-svelte-library/icon.svelte'
-	import TableRowActions from 'jhipster-svelte-library/table/table-row-actions.svelte'
+	import { Button, Icon } from 'jhipster-svelte-library'
+	import { TableRowActions } from 'jhipster-svelte-library/table'
 
 	export let user
 	export let currentUser
@@ -11,9 +10,7 @@
 	const dispatch = createEventDispatcher()
 
 	$: activationIcon = user.activated ? faToggleOn : faToggleOff
-	$: activationIconTitle = user.activated
-		? 'Deactivate user'
-		: 'Activate user'
+	$: activationIconTitle = user.activated ? 'Deactivate user' : 'Activate user'
 	$: isUserSameAsCurrentUser = user.login === currentUser
 </script>
 

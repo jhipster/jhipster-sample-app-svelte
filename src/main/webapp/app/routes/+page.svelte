@@ -4,7 +4,7 @@
 </script>
 
 <svelte:head>
-	<title>Welcome, Svelte Hipster!</title>
+	<title>Welcome, JHipster Svelte!</title>
 	<meta name="Description" content="SvelteDemoApplication home page" />
 </svelte:head>
 
@@ -15,16 +15,12 @@
 		class="flex flex-col justify-center items-center sm:flex-row
 			sm:justify-between"
 	>
-		<div
-			class="w-1/2 sm:w-1/4 sm:h-auto sm:px-4 object-cover object-center"
-		>
+		<div class="w-1/2 sm:w-1/4 sm:h-auto sm:px-4 object-cover object-center">
 			<img src="{appAvatar}" width="450" height="550" alt="Avatar" />
 		</div>
 
 		<div class="sm:flex-grow sm:px-4">
-			<h1 data-testid="welcomeTitle" class="text-5xl">
-				Welcome, Svelte Hipster!
-			</h1>
+			<h1 data-testid="welcomeTitle" class="text-5xl">Welcome, JHipster Svelte!</h1>
 
 			<p class="text-xl mt-2">This is your homepage</p>
 
@@ -43,8 +39,8 @@
 					>
 						<span>If you want to </span>
 						<a class="font-semibold" href="/login">sign in</a><span
-							>, you can try the default accounts:<br />-
-							Administrator (login="admin" and password="admin")
+							>, you can try the default accounts:
+							<br />- Administrator (login="admin" and password="admin")
 							<br />- User (login="user" and password="user").</span
 						>
 					</div>
@@ -63,14 +59,10 @@
 
 			<p class="mt-4">If you have any question on JHipster:</p>
 
-			<ul
-				class="mt-4 pl-10 list-disc text-yellow-900 dark:text-yellow-200 font-semibold"
-			>
+			<ul class="mt-4 pl-10 list-disc text-yellow-900 dark:text-yellow-200 font-semibold">
 				<li>
-					<a
-						href="https://www.jhipster.tech/"
-						target="_blank"
-						rel="noopener noreferrer">JHipster homepage</a
+					<a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer"
+						>JHipster homepage</a
 					>
 				</li>
 				<li>
@@ -95,19 +87,14 @@
 					>
 				</li>
 				<li>
-					<a
-						href="https://twitter.com/jhipster"
-						target="_blank"
-						rel="noopener noreferrer">follow @jhipster on Twitter</a
+					<a href="https://twitter.com/jhipster" target="_blank" rel="noopener noreferrer"
+						>follow @jhipster on Twitter</a
 					>
 				</li>
 			</ul>
 
 			<p class="mt-4">
-				<span
-					>If you like JHipster Svelte, don't forget to give us a star
-					on</span
-				>
+				<span>If you like JHipster Svelte, don't forget to give us a star on</span>
 				<a
 					class="font-semibold text-yellow-900 dark:text-yellow-200"
 					href="https://github.com/jhipster/generator-jhipster-svelte"

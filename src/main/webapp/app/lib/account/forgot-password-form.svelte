@@ -1,7 +1,6 @@
 <script>
-	import Button from 'jhipster-svelte-library/button.svelte'
-	import InputControl from 'jhipster-svelte-library/input-control.svelte'
-	import Form from 'jhipster-svelte-library/page/form.svelte'
+	import { Button, InputControl } from 'jhipster-svelte-library'
+	import { Form } from 'jhipster-svelte-library/page'
 
 	export let email = ''
 	let validEmail
@@ -36,7 +35,5 @@
 		]}"
 		on:validate="{event => (validEmail = event.detail.valid)}"
 	/>
-	<Button type="submit" on:click disabled="{!validEmail}">
-		Send password reset email
-	</Button>
+	<Button type="submit" on:click disabled="{!validEmail}">Send password reset email</Button>
 </Form>

@@ -1,9 +1,10 @@
 <script>
 	import { onMount } from 'svelte'
+	import { Alert } from 'jhipster-svelte-library'
+	import { Page } from 'jhipster-svelte-library/page'
+
 	import auth from '$lib/auth/auth-store'
 	import accountService from '$lib/account/account-service'
-	import Alert from 'jhipster-svelte-library/alert.svelte'
-	import Page from 'jhipster-svelte-library/page/page.svelte'
 	import UserSettingsForm from '$lib/account/user-settings-form.svelte'
 
 	let error
@@ -42,16 +43,10 @@
 <Page testId="settings">
 	<span slot="header">User settings for [{user ? user.login : ''}]</span>
 	<svelte:fragment slot="alerts">
-		<Alert
-			data-testid="successMsg"
-			show="{settingsUpdated}"
-			closeable="{false}">Settings changed!</Alert
+		<Alert data-testid="successMsg" show="{settingsUpdated}" closeable="{false}"
+			>Settings changed!</Alert
 		>
-		<Alert
-			data-testid="errorMsg"
-			contextualColor="danger"
-			show="{error}"
-			closeable="{false}"
+		<Alert data-testid="errorMsg" contextualColor="danger" show="{error}" closeable="{false}"
 			>An error has occurred! The user settings could not be saved.</Alert
 		>
 	</svelte:fragment>

@@ -1,12 +1,14 @@
 <script>
 	import { createEventDispatcher } from 'svelte'
 	import { faBan, faSave } from '@fortawesome/free-solid-svg-icons'
-	import Button from 'jhipster-svelte-library/button.svelte'
-	import Icon from 'jhipster-svelte-library/icon.svelte'
-	import InputControl from 'jhipster-svelte-library/input-control.svelte'
-	import SelectControl from 'jhipster-svelte-library/select-control.svelte'
-	import CheckboxControl from 'jhipster-svelte-library/checkbox-control.svelte'
-	import Form from 'jhipster-svelte-library/page/form.svelte'
+	import {
+		Button,
+		Icon,
+		InputControl,
+		SelectControl,
+		CheckboxControl,
+	} from 'jhipster-svelte-library'
+	import { Form } from 'jhipster-svelte-library/page'
 
 	export let user = {
 		id: null,
@@ -53,11 +55,7 @@
 	}
 
 	$: validForm =
-		validUsername &&
-		validFirstName &&
-		validLastName &&
-		validEmail &&
-		validAuthorities
+		validUsername && validFirstName && validLastName && validEmail && validAuthorities
 </script>
 
 <Form testId="addUser">
@@ -151,8 +149,7 @@
 		<CheckboxControl
 			name="activated"
 			checked="{user.activated}"
-			on:change="{event => updateActivationStatus(event)}"
-			>Activate</CheckboxControl
+			on:change="{event => updateActivationStatus(event)}">Activate</CheckboxControl
 		>
 	</div>
 
@@ -170,9 +167,7 @@
 		on:validate="{event => {
 			validAuthorities = event.detail.valid
 		}}"
-		validations="{[
-			{ type: 'required', message: 'Select at least one role' },
-		]}"
+		validations="{[{ type: 'required', message: 'Select at least one role' }]}"
 		on:select="{event => updateUserAuthorities(event)}"
 	/>
 

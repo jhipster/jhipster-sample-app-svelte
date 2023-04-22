@@ -9,9 +9,7 @@ Cypress.Commands.add('unregisterServiceWorkers', () => {
 	if ('serviceWorker' in navigator) {
 		navigator.serviceWorker
 			.getRegistrations()
-			.then(registrations =>
-				registrations.forEach(reg => reg.unregister())
-			)
+			.then(registrations => registrations.forEach(reg => reg.unregister()))
 	}
 })
 
@@ -29,9 +27,7 @@ Cypress.Commands.add('loginByApi', (username, password) => {
 			cy.request({ url: `api/authenticate` })
 				.then(res => {
 					expect(res.status).to.eq(200)
-					return cy
-						.getCookie('XSRF-TOKEN')
-						.should('have.property', 'value')
+					return cy.getCookie('XSRF-TOKEN').should('have.property', 'value')
 				})
 				.then(csrfCookie => {
 					return cy.request({

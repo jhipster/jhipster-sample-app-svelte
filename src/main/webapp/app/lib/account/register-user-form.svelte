@@ -1,8 +1,6 @@
 <script>
-	import Button from 'jhipster-svelte-library/button.svelte'
-	import InputControl from 'jhipster-svelte-library/input-control.svelte'
-	import Form from 'jhipster-svelte-library/page/form.svelte'
-	import PasswordConfirm from 'jhipster-svelte-library/password-confirm.svelte'
+	import { Button, InputControl, PasswordConfirm } from 'jhipster-svelte-library'
+	import { Form } from 'jhipster-svelte-library/page'
 
 	export let username = ''
 	export let email = ''
@@ -73,7 +71,5 @@
 		on:validate="{event => (validPassword = event.detail.valid)}"
 	/>
 
-	<Button type="submit" on:click disabled="{!validForm}">
-		Create account
-	</Button>
+	<Button type="submit" on:click disabled="{!validForm}">Create account</Button>
 </Form>

@@ -14,9 +14,7 @@
 
 	$: routeAccessAllowed =
 		($auth && $auth.login) ||
-		($page &&
-			$page.url &&
-			[...allowedUnAuthenticatedRoutes, '/'].includes($page.url.pathname))
+		($page && $page.url && [...allowedUnAuthenticatedRoutes, '/'].includes($page.url.pathname))
 
 	function checkIfCurrentRouteAccessNotAllowed() {
 		if (
@@ -31,13 +29,7 @@
 			auth.saveRoute($page.url.pathname)
 			goto('/login')
 		} else {
-			if (
-				$auth &&
-				$auth.login &&
-				$page &&
-				$page.url &&
-				$page.url.pathname === '/'
-			) {
+			if ($auth && $auth.login && $page && $page.url && $page.url.pathname === '/') {
 				const savedRoute = auth.getSavedRoute()
 				if (savedRoute) {
 					goto(savedRoute)

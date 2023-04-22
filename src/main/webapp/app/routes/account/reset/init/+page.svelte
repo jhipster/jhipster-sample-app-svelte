@@ -1,8 +1,8 @@
 <script>
-	import accountService from '$lib/account/account-service'
+	import { Alert } from 'jhipster-svelte-library'
+	import { Page } from 'jhipster-svelte-library/page'
 
-	import Alert from 'jhipster-svelte-library/alert.svelte'
-	import Page from 'jhipster-svelte-library/page/page.svelte'
+	import accountService from '$lib/account/account-service'
 	import ForgotPasswordForm from '$lib/account/forgot-password-form.svelte'
 
 	let error
@@ -27,21 +27,17 @@
 <Page testId="forgotPwd">
 	<span slot="header">Reset your password</span>
 	<svelte:fragment slot="alerts">
-		<Alert
-			data-testid="successMsg"
-			show="{passwordReset}"
-			closeable="{false}"
+		<Alert data-testid="successMsg" show="{passwordReset}" closeable="{false}"
 			>Check your email for details on how to reset your password.</Alert
 		>
 		<Alert
 			data-testid="warningMsg"
 			contextualColor="warning"
 			show="{!passwordReset}"
-			closeable="{false}"
-			>Enter your user account's verified email address.</Alert
+			closeable="{false}">Enter your user account's verified email address.</Alert
 		>
 	</svelte:fragment>
 	{#if !passwordReset}
-		<ForgotPasswordForm bind:email on:click="{resetPassword}" />
+		<ForgotPasswordForm bind:email="{email}" on:click="{resetPassword}" />
 	{/if}
 </Page>

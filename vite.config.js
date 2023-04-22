@@ -1,7 +1,7 @@
 import { sveltekit } from '@sveltejs/kit/vite'
+import { defineConfig } from 'vite'
 
-/** @type {import('vite').UserConfig} */
-const config = {
+export default defineConfig({
 	server: {
 		proxy: {
 			'/api': {
@@ -18,6 +18,4 @@ const config = {
 	ssr: {
 		noExternal: ['jhipster-svelte-library'],
 	},
-}
-
-export default config
+})

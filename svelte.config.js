@@ -16,6 +16,11 @@ const config = {
 			serviceWorker: 'src/main/webapp/app/service-worker',
 			appTemplate: 'src/main/webapp/app/app.html',
 		},
+		alias: {
+			$lib: 'src/main/webapp/app/lib',
+			'$lib/*': 'src/main/webapp/app/lib/*',
+		},
+		outDir: 'target/svelte-kit',
 	},
 }
 

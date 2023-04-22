@@ -1,8 +1,6 @@
 <script>
-	import Button from 'jhipster-svelte-library/button.svelte'
-	import Form from 'jhipster-svelte-library/page/form.svelte'
-	import Password from 'jhipster-svelte-library/password.svelte'
-	import PasswordConfirm from 'jhipster-svelte-library/password-confirm.svelte'
+	import { Button, Password, PasswordConfirm } from 'jhipster-svelte-library'
+	import { Form } from 'jhipster-svelte-library/page'
 
 	export let currentPassword = ''
 	export let newPassword = ''
@@ -28,7 +26,5 @@
 		on:input="{event => (newPassword = event.detail.value)}"
 		on:validate="{event => (validNewPassword = event.detail.valid)}"
 	/>
-	<Button type="submit" on:click disabled="{!validForm}">
-		Update password
-	</Button>
+	<Button type="submit" on:click disabled="{!validForm}">Update password</Button>
 </Form>

@@ -1,8 +1,7 @@
 <script>
 	import { onMount } from 'svelte'
-	import Page from 'jhipster-svelte-library/page/page.svelte'
-	import PaginatedTable from 'jhipster-svelte-library/table/paginated-table.svelte'
-	import SearchForm from 'jhipster-svelte-library/page/search-form.svelte'
+	import { Page, SearchForm } from 'jhipster-svelte-library/page'
+	import { PaginatedTable } from 'jhipster-svelte-library/table'
 
 	import loggerService from '$lib/admin/logger/logger-service'
 	import LoggerTable from '$lib/admin/logger/logger-table.svelte'
@@ -24,12 +23,12 @@
 			.fetchLoggers()
 			.then(res => {
 				let response = JSON.parse(res)
-				loggers = filteredLoggers = Object.entries(
-					response.loggers
-				).map(([key, logger]) => ({
-					name: key,
-					level: logger.effectiveLevel,
-				}))
+				loggers = filteredLoggers = Object.entries(response.loggers).map(
+					([key, logger]) => ({
+						name: key,
+						level: logger.effectiveLevel,
+					})
+				)
 				if (filterCriteria) {
 					filter(filterCriteria)
 				}
@@ -73,18 +72,10 @@
 	<meta name="Description" content="Loggers list" />
 </svelte:head>
 <Page testId="loggers" width="full">
-	<div
-		class="text-left flex flex-row justify-between items-center"
-		slot="header"
-	>
+	<div class="text-left flex flex-row justify-between items-center" slot="header">
 		<span>Loggers</span>
 		<div class="flex flex-row justify-end text-base">
-			<SearchForm
-				testId="logger"
-				name="logger"
-				isFilter="true"
-				on:filter="{filterLoggers}"
-			/>
+			<SearchForm testId="logger" name="logger" isFilter="true" on:filter="{filterLoggers}" />
 		</div>
 	</div>
 	{#if !loading && loggers.length}

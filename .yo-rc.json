@@ -6,7 +6,7 @@
 		"blueprints": [
 			{
 				"name": "generator-jhipster-svelte",
-				"version": "0.10.2"
+				"version": "1.0.0"
 			}
 		],
 		"buildTool": "maven",
@@ -33,7 +33,7 @@
 		"otherModules": [
 			{
 				"name": "generator-jhipster-svelte",
-				"version": "0.10.2"
+				"version": "1.0.0"
 			}
 		],
 		"packageFolder": "tech/jhipster/sample",
@@ -57,6 +57,6 @@
 	},
 	"generator-jhipster-svelte": {
 		"swaggerUi": false,
-		"version": "0.10.2"
+		"version": "1.0.0"
 	}
 }

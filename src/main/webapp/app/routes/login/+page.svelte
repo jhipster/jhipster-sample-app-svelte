@@ -1,10 +1,7 @@
 <script>
 	import { goto } from '$app/navigation'
 	import appLogo from '$lib/svg/app-logo.svg'
-	import Alert from 'jhipster-svelte-library/alert.svelte'
-	import Button from 'jhipster-svelte-library/button.svelte'
-	import InputControl from 'jhipster-svelte-library/input-control.svelte'
-	import CheckboxControl from 'jhipster-svelte-library/checkbox-control.svelte'
+	import { Alert, Button, InputControl, CheckboxControl } from 'jhipster-svelte-library'
 
 	import auth from '$lib/auth/auth-store'
 	import authService from '$lib/auth/auth-service'
@@ -43,25 +40,13 @@
 	<div class="p-4 w-full sm:w-[450px] mx-4 sm:m-0">
 		<div class="px-4 py-3 mt-4 sm:mx-0 flex justify-center">
 			<div class="w-3/4 dark:text-primary-100">
-				<img
-					src="{appLogo}"
-					width="420"
-					height="90"
-					alt="Application Logo"
-				/>
+				<img src="{appLogo}" width="420" height="90" alt="Application Logo" />
 			</div>
 		</div>
-		<div
-			data-testid="signInTitle"
-			class="mt-4 px-4 w-full text-3xl text-center"
-		>
+		<div data-testid="signInTitle" class="mt-4 px-4 w-full text-3xl text-center">
 			Sign in to SvelteDemoApplication
 		</div>
-		<Alert
-			data-testid="errorMsg"
-			contextualColor="danger"
-			show="{!!authError}"
-		>
+		<Alert data-testid="errorMsg" contextualColor="danger" show="{!!authError}">
 			Incorrect username or password.
 		</Alert>
 		<form
@@ -75,9 +60,7 @@
 				value="{username}"
 				on:input="{event => (username = event.target.value)}"
 				required
-				validations="{[
-					{ type: 'required', message: 'Username is mandatory' },
-				]}"
+				validations="{[{ type: 'required', message: 'Username is mandatory' }]}"
 				on:validate="{event => (validUsername = event.detail.valid)}"
 			/>
 
@@ -89,9 +72,7 @@
 				value="{password}"
 				on:input="{event => (password = event.target.value)}"
 				required
-				validations="{[
-					{ type: 'required', message: 'Password is mandatory' },
-				]}"
+				validations="{[{ type: 'required', message: 'Password is mandatory' }]}"
 				on:validate="{event => (validPassword = event.detail.valid)}"
 			/>
 
@@ -104,25 +85,17 @@
 				>
 			</div>
 
-			<Button type="submit" on:click="{login}" disabled="{!validForm}">
-				Sign in
-			</Button>
+			<Button type="submit" on:click="{login}" disabled="{!validForm}">Sign in</Button>
 		</form>
-		<div
-			class="mt-5 px-4 flex justify-between text-primary-700 dark:text-primary-500"
-		>
+		<div class="mt-5 px-4 flex justify-between text-primary-700 dark:text-primary-500">
 			<div>
-				<a
-					data-testid="forgotPwdLink"
-					href="/account/reset/init"
-					class="font-semibold">Forgot password?</a
+				<a data-testid="forgotPwdLink" href="/account/reset/init" class="font-semibold"
+					>Forgot password?</a
 				>
 			</div>
 			<div>
-				<a
-					data-testid="registerLink"
-					href="/account/register"
-					class="font-semibold">Create an account</a
+				<a data-testid="registerLink" href="/account/register" class="font-semibold"
+					>Create an account</a
 				>
 			</div>
 		</div>

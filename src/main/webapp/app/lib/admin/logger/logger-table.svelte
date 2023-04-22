@@ -1,10 +1,7 @@
 <script>
 	import { createEventDispatcher } from 'svelte'
-	import Table from 'jhipster-svelte-library/table/table.svelte'
-	import TableRow from 'jhipster-svelte-library/table/table-row.svelte'
-	import TableHeader from 'jhipster-svelte-library/table/table-header.svelte'
-	import TableData from 'jhipster-svelte-library/table/table-data.svelte'
-	import Button from 'jhipster-svelte-library/button.svelte'
+	import { Button } from 'jhipster-svelte-library'
+	import { Table, TableRow, TableHeader, TableData } from 'jhipster-svelte-library/table'
 
 	export let levels = []
 	export let loggers = []
@@ -30,9 +27,7 @@
 		{#each loggers as logger (logger.name)}
 			<TableRow let:showActions>
 				<TableData>
-					<div
-						class="flex flex-row flex-nowrap items-center justify-between my-2"
-					>
+					<div class="flex flex-row flex-nowrap items-center justify-between my-2">
 						<div class="break-words overflow-ellipsis">
 							{logger.name}
 						</div>
@@ -43,19 +38,13 @@
 						>
 							{#each levels as level (level)}
 								<Button
-									contextualColor="{logger.level === level
-										? 'primary'
-										: 'light'}"
+									contextualColor="{logger.level === level ? 'primary' : 'light'}"
 									outline="{logger.level !== level}"
 									disabled="{logger.level === level}"
-									on:click="{changeLogLevel(
-										logger.name,
-										level
-									)}"
+									on:click="{changeLogLevel(logger.name, level)}"
 									title="Click to change log level to {level}"
 									data-testid="{level.toLowerCase()}LogLevelBtn"
-									classes="mr-2 py-1 my-2 {!showActions &&
-									logger.level !== level
+									classes="mr-2 py-1 my-2 {!showActions && logger.level !== level
 										? 'hidden'
 										: ''}">{level}</Button
 								>
@@ -66,9 +55,7 @@
 			</TableRow>
 		{:else}
 			<TableRow let:showActions>
-				<TableData classes="text-center py-8"
-					>No loggers available</TableData
-				>
+				<TableData classes="text-center py-8">No loggers available</TableData>
 			</TableRow>
 		{/each}
 	</tbody>

@@ -11,7 +11,6 @@ module.exports = {
 		'^\\$lib(.*)$': '<rootDir>/src/main/webapp/app/lib$1',
 	},
 	setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
-	resolver: 'jest-svelte-resolver',
 	coverageDirectory: '<rootDir>/target/jest-coverage/',
 	cacheDirectory: '<rootDir>/target/jest-cache',
 	reporters: [

@@ -1,7 +1,7 @@
-import '@testing-library/jest-dom/extend-expect'
 import { jest } from '@jest/globals'
-import { render, fireEvent } from '@testing-library/svelte'
 import { screen } from '@testing-library/dom'
+import '@testing-library/jest-dom/extend-expect'
+import { fireEvent, render } from '@testing-library/svelte'
 
 import UserListActions from './user-list-actions.svelte'
 
@@ -13,9 +13,7 @@ test('should allow triggering state change when the logged-in user is different 
 	})
 
 	expect(screen.getAllByRole('button')).toHaveLength(4)
-	expect(
-		screen.getByRole('button', { name: /toggleactivation/i })
-	).toBeEnabled()
+	expect(screen.getByRole('button', { name: /toggleactivation/i })).toBeEnabled()
 	expect(screen.getByRole('button', { name: /view/i })).toBeEnabled()
 	expect(screen.getByRole('button', { name: /edit/i })).toBeEnabled()
 	expect(screen.getByRole('button', { name: /delete/i })).toBeEnabled()
@@ -28,9 +26,7 @@ test('should not allow triggering state change when the logged-in user is same a
 		showActions: true,
 	})
 
-	expect(
-		screen.getByRole('button', { name: /toggleactivation/i })
-	).toBeDisabled()
+	expect(screen.getByRole('button', { name: /toggleactivation/i })).toBeDisabled()
 	expect(screen.getByRole('button', { name: /view/i })).toBeEnabled()
 	expect(screen.getByRole('button', { name: /edit/i })).toBeDisabled()
 	expect(screen.getByRole('button', { name: /delete/i })).toBeDisabled()

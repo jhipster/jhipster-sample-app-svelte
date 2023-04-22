@@ -7,8 +7,8 @@
 		faCaretDown,
 		faUser,
 	} from '@fortawesome/free-solid-svg-icons'
-	import MenuItem from 'jhipster-svelte-library/layout/menu-item.svelte'
-	import Icon from 'jhipster-svelte-library/icon.svelte'
+	import { Icon } from 'jhipster-svelte-library'
+	import { MenuItem } from 'jhipster-svelte-library/layout'
 
 	import auth from '$lib/auth/auth-store'
 	import authService from '$lib/auth/auth-service'

@@ -1,10 +1,7 @@
 describe('Create user page', () => {
 	beforeEach(() => {
 		cy.unregisterServiceWorkers()
-		cy.loginByApi(
-			Cypress.env('ADMIN_USERNAME'),
-			Cypress.env('ADMIN_PASSWORD')
-		)
+		cy.loginByApi(Cypress.env('ADMIN_USERNAME'), Cypress.env('ADMIN_PASSWORD'))
 		cy.visit(`/admin/user-management/new`)
 	})
 
@@ -15,49 +12,49 @@ describe('Create user page', () => {
 	})
 
 	it('should require mandatory fields', () => {
-		cy.getByTestId('addUserForm')
-			.contains('Create user account')
-			.should('be.disabled')
+		cy.getByTestId('addUserForm').contains('Create user account').should('be.disabled')
 	})
 
 	it('should require username', () => {
-		cy.getByTestId('addUserForm')
-			.getByName('username')
-			.type('admin')
-			.clear()
-			.blur()
-		cy.getByTestId('addUserForm')
-			.getByTestId('username-error')
-			.should('be.visible')
-			.and('contain', 'Username is mandatory')
+		cy.getByTestId('addUserForm').within(() => {
+			cy.getByName('username').within(() => {
+				cy.root().type('admin')
+				cy.root().clear()
+				cy.root().blur()
+			})
+			cy.getByTestId('username-error')
+				.should('be.visible')
+				.and('contain', 'Username is mandatory')
+		})
 	})
 
 	it('should require email', () => {
-		cy.getByTestId('addUserForm')
-			.getByName('email')
-			.type('admin@localhost.org')
-			.clear()
-			.blur()
-		cy.getByTestId('addUserForm')
-			.getByTestId('email-error')
-			.should('be.visible')
-			.and('contain', 'Email is mandatory')
+		cy.getByTestId('addUserForm').within(() => {
+			cy.getByName('email').within(() => {
+				cy.root().type('admin@localhost.org')
+				cy.root().clear()
+				cy.root().blur()
+			})
+			cy.getByTestId('email-error').should('be.visible').and('contain', 'Email is mandatory')
+		})
 	})
 
 	it('should require roles', () => {
-		cy.getByTestId('addUserForm')
-			.getByName('roles')
-			.click()
-			.getByTestId('roles-options')
-			.within(() => {
-				cy.root().get("input[type='checkbox']").eq(0).check().uncheck()
+		cy.getByTestId('addUserForm').within(() => {
+			cy.getByName('roles').click()
+			cy.getByTestId('roles-options').within(() => {
+				cy.get("input[type='checkbox']")
+					.eq(0)
+					.within(() => {
+						cy.root().check()
+						cy.root().uncheck()
+					})
 			})
-			.getByTestId('roles-bg')
-			.click()
-		cy.getByTestId('addUserForm')
-			.getByTestId('roles-error')
-			.should('be.visible')
-			.and('contain', 'Select at least one role')
+			cy.getByTestId('roles-bg').click()
+			cy.getByTestId('roles-error')
+				.should('be.visible')
+				.and('contain', 'Select at least one role')
+		})
 	})
 
 	it('should navigate back to the user list page', () => {
@@ -83,32 +80,21 @@ describe('Create user page', () => {
 			cy.delete(`api/admin/users/${randomUser}`)
 		})
 		it('should create a new user account', () => {
-			cy.getByTestId('addUserForm')
-				.getByName('username')
-				.type(`${randomUser}`)
-				.getByName('firstName')
-				.type('john')
-				.getByName('lastName')
-				.type('doe')
-				.getByName('email')
-				.type(`${randomUser}@localhost.org`)
-				.getByName('roles')
-				.click()
-				.getByTestId('roles-options')
-				.within(() => {
-					cy.root().get("input[type='checkbox']").eq(0).check()
+			cy.getByTestId('addUserForm').within(() => {
+				cy.getByName('username').type(`${randomUser}`)
+				cy.getByName('firstName').type('john')
+				cy.getByName('lastName').type('doe')
+				cy.getByName('email').type(`${randomUser}@localhost.org`)
+				cy.getByName('roles').click()
+				cy.getByTestId('roles-options').within(() => {
+					cy.get("input[type='checkbox']").eq(0).check()
 				})
-				.getByTestId('roles-bg')
-				.click()
+				cy.getByTestId('roles-bg').click()
 
-			cy.getByTestId('addUserForm')
-				.contains('Create user account')
-				.should('not.be.disabled')
-				.click()
+				cy.root().contains('Create user account').should('not.be.disabled').click()
+			})
 
-			cy.getByTestId('toast-success').contains(
-				'A user is created with identifier'
-			)
+			cy.getByTestId('toast-success').contains('A user is created with identifier')
 
 			cy.location('pathname')
 				.should('eq', '/admin/user-management')

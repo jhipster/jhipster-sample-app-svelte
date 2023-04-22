@@ -4,10 +4,7 @@ describe('Update user page', () => {
 	beforeEach(() => {
 		cy.unregisterServiceWorkers()
 		randomUser = 'test' + new Date().getTime()
-		cy.loginByApi(
-			Cypress.env('ADMIN_USERNAME'),
-			Cypress.env('ADMIN_PASSWORD')
-		)
+		cy.loginByApi(Cypress.env('ADMIN_USERNAME'), Cypress.env('ADMIN_PASSWORD'))
 
 		cy.save('api/admin/users', {
 			login: randomUser,
@@ -45,42 +42,43 @@ describe('Update user page', () => {
 			.should('be.checked')
 			.getByName('roles')
 			.should('have.value', 'ROLE_USER')
-		cy.getByTestId('addUserForm')
-			.contains('Update user account')
-			.should('not.be.disabled')
+		cy.getByTestId('addUserForm').contains('Update user account').should('not.be.disabled')
 	})
 
 	it('should require username', () => {
-		cy.getByTestId('addUserForm').getByName('username').clear().blur()
-		cy.getByTestId('addUserForm')
-			.getByTestId('username-error')
-			.should('be.visible')
-			.and('contain', 'Username is mandatory')
+		cy.getByTestId('addUserForm').within($tr => {
+			cy.getByName('username').within($tr => {
+				cy.root().clear()
+				cy.root().blur()
+			})
+			cy.getByTestId('username-error')
+				.should('be.visible')
+				.and('contain', 'Username is mandatory')
+		})
 	})
 
 	it('should require email', () => {
-		cy.getByTestId('addUserForm').getByName('email').clear().blur()
-		cy.getByTestId('addUserForm')
-			.getByTestId('email-error')
-			.should('be.visible')
-			.and('contain', 'Email is mandatory')
+		cy.getByTestId('addUserForm').within($tr => {
+			cy.getByName('email').within($tr => {
+				cy.root().clear()
+				cy.root().blur()
+			})
+			cy.getByTestId('email-error').should('be.visible').and('contain', 'Email is mandatory')
+		})
 	})
 
 	it('should require roles', () => {
-		cy.getByTestId('addUserForm')
-			.getByName('roles')
-			.click()
-			.getByTestId('roles-options')
-			.within(() => {
-				cy.root().get("input[type='checkbox']").eq(0).uncheck()
-				cy.root().get("input[type='checkbox']").eq(1).uncheck()
+		cy.getByTestId('addUserForm').within($tr => {
+			cy.getByName('roles').click()
+			cy.getByTestId('roles-options').within(() => {
+				cy.get("input[type='checkbox']").eq(0).uncheck()
+				cy.get("input[type='checkbox']").eq(1).uncheck()
 			})
-			.getByTestId('roles-bg')
-			.click()
-		cy.getByTestId('addUserForm')
-			.getByTestId('roles-error')
-			.should('be.visible')
-			.and('contain', 'Select at least one role')
+			cy.getByTestId('roles-bg').click()
+			cy.getByTestId('roles-error')
+				.should('be.visible')
+				.and('contain', 'Select at least one role')
+		})
 	})
 
 	it('should navigate back to the user list page', () => {
@@ -94,32 +92,22 @@ describe('Update user page', () => {
 	})
 
 	it('should update user account details', () => {
-		cy.getByTestId('addUserForm')
-			.getByName('firstName')
-			.type('update')
-			.getByName('lastName')
-			.type('update')
-			.getByName('email')
-			.clear()
-			.type(`${randomUser}-update@localhost.org`)
-			.getByName('roles')
-			.click()
-			.getByTestId('roles-options')
-			.within(() => {
-				cy.root().get("input[type='checkbox']").eq(0).check()
-				cy.root().get("input[type='checkbox']").eq(1).check()
+		cy.getByTestId('addUserForm').within($tr => {
+			cy.getByName('firstName').type('update')
+			cy.getByName('lastName').type('update')
+			cy.getByName('email').clear()
+			cy.getByName('email').type(`${randomUser}-update@localhost.org`)
+			cy.getByName('roles').click()
+			cy.getByTestId('roles-options').within(() => {
+				cy.get("input[type='checkbox']").eq(0).check()
+				cy.get("input[type='checkbox']").eq(1).check()
 			})
-			.getByTestId('roles-bg')
-			.click()
+			cy.getByTestId('roles-bg').click()
 
-		cy.getByTestId('addUserForm')
-			.contains('Update user account')
-			.should('not.be.disabled')
-			.click()
+			cy.root().contains('Update user account').should('not.be.disabled').click()
+		})
 
-		cy.getByTestId('toast-success').contains(
-			'A user is updated with identifier'
-		)
+		cy.getByTestId('toast-success').contains('A user is updated with identifier')
 
 		cy.location('pathname')
 			.should('eq', '/admin/user-management')

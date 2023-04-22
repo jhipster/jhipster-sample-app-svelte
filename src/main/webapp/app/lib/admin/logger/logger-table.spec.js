@@ -1,7 +1,7 @@
-import '@testing-library/jest-dom/extend-expect'
 import { jest } from '@jest/globals'
-import { fireEvent, render } from '@testing-library/svelte'
 import { screen } from '@testing-library/dom'
+import '@testing-library/jest-dom/extend-expect'
+import { fireEvent, render } from '@testing-library/svelte'
 
 import LoggerTable from './logger-table.svelte'
 
@@ -21,9 +21,7 @@ test('should render table with correct headers', () => {
 
 	expect(screen.getByRole('table')).toBeInTheDocument()
 	expect(screen.getByRole('columnheader')).toBeInTheDocument()
-	expect(
-		screen.getByRole('columnheader', { name: /name/i })
-	).toBeInTheDocument()
+	expect(screen.getByRole('columnheader', { name: /name/i })).toBeInTheDocument()
 })
 
 test('should render table data for logger', () => {
@@ -37,13 +35,9 @@ test('should render table data for logger', () => {
 		levels: ['WARN', 'INFO', 'DEBUG'],
 	})
 
-	expect(
-		screen.getByRole('cell', { name: /org.springframework/i })
-	).toBeInTheDocument()
+	expect(screen.getByRole('cell', { name: /org.springframework/i })).toBeInTheDocument()
 	expect(screen.getByRole('cell', { name: /INFO/i })).toBeInTheDocument()
-	expect(screen.getByRole('button', { name: /INFO/i })).not.toHaveClass(
-		'hidden'
-	)
+	expect(screen.getByRole('button', { name: /INFO/i })).not.toHaveClass('hidden')
 	expect(screen.getByRole('button', { name: /WARN/i })).toHaveClass('hidden')
 	expect(screen.getByRole('button', { name: /DEBUG/i })).toHaveClass('hidden')
 })
@@ -59,9 +53,7 @@ test('should assert the table reactivity to changed inputs', async () => {
 		levels: ['WARN', 'INFO', 'DEBUG'],
 	})
 
-	expect(screen.getByRole('button', { name: /INFO/i })).not.toHaveClass(
-		'hidden'
-	)
+	expect(screen.getByRole('button', { name: /INFO/i })).not.toHaveClass('hidden')
 	expect(screen.getByRole('button', { name: /WARN/i })).toHaveClass('hidden')
 
 	await component.$set({
@@ -74,9 +66,7 @@ test('should assert the table reactivity to changed inputs', async () => {
 		levels: ['WARN', 'INFO', 'DEBUG'],
 	})
 
-	expect(screen.getByRole('button', { name: /WARN/i })).not.toHaveClass(
-		'hidden'
-	)
+	expect(screen.getByRole('button', { name: /WARN/i })).not.toHaveClass('hidden')
 	expect(screen.getByRole('button', { name: /INFO/i })).toHaveClass('hidden')
 })
 

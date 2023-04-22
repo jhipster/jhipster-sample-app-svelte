@@ -1,10 +1,10 @@
 <script>
 	import { onMount } from 'svelte'
 	import { page } from '$app/stores'
+	import { Alert } from 'jhipster-svelte-library'
+	import { Page } from 'jhipster-svelte-library/page'
 
 	import accountService from '$lib/account/account-service'
-	import Alert from 'jhipster-svelte-library/alert.svelte'
-	import Page from 'jhipster-svelte-library/page/page.svelte'
 
 	let error
 	let accountActivated = false
@@ -36,9 +36,9 @@
 			<a class="font-semibold underline" href="/login">Sign in</a>.
 		</Alert>
 		<Alert contextualColor="danger" show="{!!error}" closeable="{false}">
-			Your user could not be activated. Please use the registration form
-			to <a class="font-semibold underline" href="/account/register"
-				>Sign up</a
+			Your user could not be activated. Please use the registration form to <a
+				class="font-semibold underline"
+				href="/account/register">Sign up</a
 			>.
 		</Alert>
 	</svelte:fragment>
