@@ -1,6 +1,5 @@
 import { jest } from '@jest/globals'
 import { screen } from '@testing-library/dom'
-import '@testing-library/jest-dom/extend-expect'
 import { fireEvent, render } from '@testing-library/svelte'
 
 import UserListActions from './user-list-actions.svelte'
@@ -80,7 +79,7 @@ test('should dispatch the toggleuseraccount event', async () => {
 	const mockHandler = jest.fn()
 	component.$on('toggleuseraccount', mockHandler)
 
-	await fireEvent.click(button)
+	fireEvent.click(button)
 
 	expect(mockHandler).toHaveBeenCalled()
 	expect(mockHandler.mock.calls[0][0].detail).toStrictEqual({
@@ -102,7 +101,7 @@ test('should dispatch the view event', async () => {
 	const mockHandler = jest.fn()
 	component.$on('view', mockHandler)
 
-	await fireEvent.click(button)
+	fireEvent.click(button)
 
 	expect(mockHandler).toHaveBeenCalled()
 	expect(mockHandler.mock.calls[0][0].detail).toStrictEqual({

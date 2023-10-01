@@ -1,5 +1,4 @@
 import { screen } from '@testing-library/dom'
-import '@testing-library/jest-dom/extend-expect'
 import { render } from '@testing-library/svelte'
 
 import UserTable from './user-table.svelte'

@@ -1,6 +1,5 @@
 import { jest } from '@jest/globals'
 import { screen } from '@testing-library/dom'
-import '@testing-library/jest-dom/extend-expect'
 import { fireEvent, render } from '@testing-library/svelte'
 
 import LoggerTable from './logger-table.svelte'
@@ -100,7 +99,7 @@ test('should dispatch the changeloglevel event', async () => {
 	const mockHandler = jest.fn()
 	component.$on('changeloglevel', mockHandler)
 
-	await fireEvent.click(button)
+	fireEvent.click(button)
 
 	expect(mockHandler).toHaveBeenCalled()
 	expect(mockHandler.mock.calls[0][0].detail).toStrictEqual({

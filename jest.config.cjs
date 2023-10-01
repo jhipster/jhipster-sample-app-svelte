@@ -10,7 +10,7 @@ module.exports = {
 	moduleNameMapper: {
 		'^\\$lib(.*)$': '<rootDir>/src/main/webapp/app/lib$1',
 	},
-	setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
+	setupFilesAfterEnv: ['<rootDir>/jest-setup.js'],
 	coverageDirectory: '<rootDir>/target/jest-coverage/',
 	cacheDirectory: '<rootDir>/target/jest-cache',
 	reporters: [
